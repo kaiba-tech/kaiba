@@ -1,0 +1,19 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: name-tests-test
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.8
+    hooks:
+    -   id: flake8
+-   repo: local
+    hooks:
+    -   id: mypy
+        name: Check mypy static types
+        entry: poetry run mypy
+        pass_filenames: true
+        language: system
+        types: [python]

@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "mapmallow"
+version = "2.0.0"
+description = "Set of mapping functions that will map according to a configuration file and do validation with marshmallow"
+authors = ["Thomas Borgen <thomas.borgen@greenbird.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+marshmallow = "^3.5.0"
+typing_extensions = "3.7.4"
+pycountry = "19.8.18"
+returns = "^0.14.0"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.782"
+wemake-python-styleguide = "^0.14.0"
+pre-commit = "^1.18"
+simplejson = "^3.16"
+
+safety = "^1.8"
+
+pytest = "^5.2"
+pytest-cov = "^2.8"
+coverage-badge = "^1.0"
+sphinx = "^2.3"
+tomlkit = "^0.5.8"
+sphinx-autodoc-typehints = "^1.10"
+sphinxcontrib-mermaid = "^0.3.1"
+sphinx_rtd_theme = "^0.4.3"
+isort = "^4.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
