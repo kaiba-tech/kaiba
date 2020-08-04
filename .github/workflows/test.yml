@@ -33,7 +33,7 @@ jobs:
     - name: Run code quality checks
       run: |
         source "$HOME/.poetry/env"
-        poetry run poetry check
+        poetry check
         poetry run pip check
         poetry run flake8 .
         poetry run mypy .

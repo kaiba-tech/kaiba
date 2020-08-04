@@ -248,8 +248,11 @@ class CastToDate(object):
     ) -> str:
         return re.sub(pattern, arrangement, input_string)
 
-    @safe  # noqa: F811, WPS210, Hard to reduce variables
-    def _convert_ddmmyy_to_iso_date(self, date_string: str) -> str:
+    @safe
+    def _convert_ddmmyy_to_iso_date(  # noqa: WPS210, Hard to reduce variables
+        self,
+        date_string: str,
+    ) -> str:
 
         in_day = int(date_string[:2])
         in_month = int(date_string[2:4])
