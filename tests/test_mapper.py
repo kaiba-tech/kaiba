@@ -1,4 +1,4 @@
-from mapmallow.mapper import Map
+from mapmallow.mapper import map_data
 
 
 def test_creating_key_to_name():
@@ -7,7 +7,7 @@ def test_creating_key_to_name():
     config = {
         'name': 'root',
         'array': False,
-        'iterate': False,
+        'path_to_iterable': [],
         'objects': [],
         'branching_objects': [],
         'attributes': [
@@ -27,7 +27,7 @@ def test_creating_key_to_name():
         ],
     }
 
-    assert Map()(
+    assert map_data(
         input_data,
         config,
     ).unwrap() == {'name': 'test name'}
@@ -39,7 +39,7 @@ def test_array_true_but_no_loop_gives_array():
     config = {
         'name': 'root',
         'array': True,
-        'iterate': False,
+        'path_to_iterable': [],
         'objects': [],
         'branching_objects': [],
         'attributes': [
@@ -59,7 +59,7 @@ def test_array_true_but_no_loop_gives_array():
         ],
     }
 
-    assert Map()(
+    assert map_data(
         input_data,
         config,
     ).unwrap() == [{'name': 'test name'}]
@@ -70,7 +70,6 @@ def test_double_repeatable():
     config = {
         'name': 'root',
         'array': True,
-        'iterate': True,
         'path_to_iterable': ['journals'],
         'attributes': [
             {
@@ -91,7 +90,6 @@ def test_double_repeatable():
             {
                 'name': 'invoices',
                 'array': True,
-                'iterate': True,
                 'path_to_iterable': [
                     'journals', 'journal', 'invoices',
                 ],
@@ -149,7 +147,112 @@ def test_double_repeatable():
         },
     ]
 
-    assert Map()(
+    assert map_data(
+        input_data,
+        config,
+    ).unwrap() == expected_result
+
+
+def test_mapping_where_data_is_not_found():
+    """Test that when we map and don't find data its okay."""
+    config = {
+        'name': 'root',
+        'array': True,
+        'path_to_iterable': ['journals'],
+        'attributes': [
+            {
+                'name': 'journal_id',
+                'mappings': [
+                    {
+                        'path': ['journals', 'journal', 'id'],
+                        'if_statements': [],
+                    },
+                ],
+                'separator': '',
+                'if_statements': [],
+                'casting': [],
+                'default': None,
+            },
+        ],
+        'objects': [
+            {
+                'name': 'invoices',
+                'array': True,
+                'path_to_iterable': [
+                    'journals', 'journal', 'invoices',
+                ],
+                'objects': [],
+                'branching_objects': [],
+                'attributes': [
+                    {
+                        'name': 'amount',
+                        'mappings': [
+                            {
+                                'path': ['invoices', 'amount'],
+                                'if_statements': [],
+                            },
+                        ],
+                        'separator': '',
+                        'if_statements': [],
+                        'casting': [],
+                        'default': None,
+                    },
+                ],
+            },
+        ],
+        'branching_objects': [
+            {
+                'name': 'extrafield',
+                'array': True,
+                'path_to_iterable': [],
+                'branching_attributes': [
+                    [
+                        {
+                            'name': 'datavalue',
+                            'mappings': [
+                                {
+                                    'path': ['extra', 'extra1'],
+                                    'if_statements': [],
+                                },
+                            ],
+                            'separator': '',
+                            'if_statements': [],
+                            'casting': [],
+                            'default': None,
+                        },
+                    ],
+                ],
+            },
+        ],
+    }
+    input_data = {
+        'journals': [
+            {
+                'journal': {
+                    'id': 1,
+                    'invoices': [{}, {'amount': 1.2}],
+                },
+            },
+            {
+                'journal': {
+                    'id': 2,
+                },
+            },
+        ],
+    }
+    expected_result = [
+        {
+            'journal_id': 1,
+            'invoices': [
+                {'amount': 1.2},
+            ],
+        },
+        {
+            'journal_id': 2,
+        },
+    ]
+
+    assert map_data(
         input_data,
         config,
     ).unwrap() == expected_result
@@ -160,7 +263,7 @@ def test_most_features():
     config = {
         'name': 'schema',
         'array': False,
-        'iterate': False,
+        'path_to_iterable': [],
         'attributes': [
             {
                 'name': 'name',
@@ -203,7 +306,7 @@ def test_most_features():
             {
                 'name': 'address',
                 'array': False,
-                'iterate': False,
+                'path_to_iterable': [],
                 'objects': [],
                 'branching_objects': [],
                 'attributes': [
@@ -238,7 +341,6 @@ def test_most_features():
             {
                 'name': 'people',
                 'array': True,
-                'iterate': True,
                 'path_to_iterable': ['persons'],
                 'objects': [],
                 'branching_objects': [],
@@ -263,7 +365,7 @@ def test_most_features():
             {
                 'name': 'extrafield',
                 'array': True,
-                'iterate': False,
+                'path_to_iterable': [],
                 'branching_attributes': [
                     [
                         {
@@ -342,7 +444,7 @@ def test_most_features():
         ],
     }
 
-    assert Map()(
+    assert map_data(
         input_data,
         config,
     ).unwrap() == expected_result
