@@ -34,6 +34,14 @@ def test_cast_negative_decimal_string():
 def test_cast_decimal_string_rounds_up():
     """Cast a decimal string >= .5 should round up."""
     assert CastToInteger()(
+        '122.5',
+        'decimal',
+    ).unwrap() == target
+
+
+def test_once_more_cast_decimal_string_rounds_up():
+    """Cast a decimal string >= .5 should round up."""
+    assert CastToInteger()(
         '123.5',
         'decimal',
     ).unwrap() == 124
