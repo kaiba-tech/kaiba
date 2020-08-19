@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Test mapping operation functions."""
 import pytest
 from returns.primitives.exceptions import UnwrapFailedError
 

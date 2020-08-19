@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Mapping functions for GBGO."""
 from typing import Any, Dict, List, Optional
 
 from returns.pipeline import flow

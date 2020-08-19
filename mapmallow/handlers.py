@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Mapping functions for GBGO."""
 from typing import Any, Dict, List, Union
 
 from returns.curry import partial

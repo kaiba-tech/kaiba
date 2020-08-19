@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Helpers for mapmallow mapping functions."""
 from typing import Any, Dict, List, Union
 
 from returns.result import safe

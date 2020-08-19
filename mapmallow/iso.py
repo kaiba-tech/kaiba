@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Collection of helper functions for mapmellow fields."""
-
 from attr import dataclass
 from pycountry import countries, currencies, languages
 from returns.result import safe

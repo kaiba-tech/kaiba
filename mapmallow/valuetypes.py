@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Types for MapMallow."""
 from decimal import Decimal
 from typing import Any, Callable, Dict, List, Union
 

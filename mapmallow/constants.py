@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Constants for mapping."""
 from typing_extensions import Final
 
 # Objects

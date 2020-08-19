@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""Add casting functionality to mapmallow."""
-
 import datetime
 import decimal
 import re
