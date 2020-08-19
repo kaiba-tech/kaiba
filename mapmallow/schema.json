@@ -136,10 +136,6 @@
                 "array": {
                     "type": "boolean"
                 },
-                "iterate": {
-                    "type": "boolean",
-                    "default": false
-                },
                 "path_to_iterable": {
                     "type": "array",
                     "items": {
@@ -167,10 +163,6 @@
                 },
                 "array": {
                     "type": "boolean"
-                },
-                "iterate": {
-                    "type": "boolean",
-                    "default": false
                 },
                 "path_to_iterable": {
                     "type": "array",
@@ -200,17 +192,7 @@
                     "default": []
                 }
             },
-            "required": ["name", "array"],
-            "if": {
-                "properties": {
-                    "iterate": {
-                        "const": true
-                    }
-                }
-            },
-            "then": {
-                "required": ["path_to_iterable"]
-            }
+            "required": ["name", "array"]
         }
     }
 }
