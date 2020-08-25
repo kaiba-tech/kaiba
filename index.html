@@ -13,7 +13,7 @@
       
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.8">
     
     
       
@@ -21,14 +21,14 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.b8ac9624.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.01afc2df.min.css">
       
-        <link rel="stylesheet" href="assets/stylesheets/palette.28f3ef9a.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.83bccb1f.min.css">
       
       
         
         
-        <meta name="theme-color" content="#4caf50">
+        <meta name="theme-color" content="#4cae4f">
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mapmallow" class="md-skip">
+        <a href="#piri" class="md-skip">
           Skip to content
         </a>
       
@@ -445,23 +445,29 @@
                   
                 
                 
-                <h1 id="mapmallow">Mapmallow<a class="headerlink" href="#mapmallow" title="Permanent link">&para;</a></h1>
-<p>Data Mapping for mortals with json mapping configuration</p>
+                <h1 id="piri">Piri<a class="headerlink" href="#piri" title="Permanent link">&para;</a></h1>
+<p>Configurable Data Mapping for mortals</p>
 <hr />
 <p><img alt="test" src="https://github.com/greenbird/piri/workflows/test/badge.svg" />
 <a href="https://codecov.io/gh/greenbird/piri"><img alt="codecov" src="https://codecov.io/gh/greenbird/piri/branch/master/graph/badge.svg" /></a>
 <a href="https://github.com/wemake-services/wemake-python-styleguide"><img alt="wemake-python-styleguide" src="https://img.shields.io/badge/style-wemake-000000.svg" /></a></p>
 <hr />
 <h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
-<p>The goal of this library is to make configurable data transformation(mapping) easy and flexible. We achieve this by using simple but featurerich json configuration that also acts as a contract between dataprovider(customer) and you.</p>
+<p>The goal of this library is to make JSON to JSON transformation/mapping configurable. We achieve this by using a simple but feature-rich JSON configuration which then also acts as a contract.</p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
-<li>All mapping done with configuration json</li>
-<li>Transforms json</li>
-<li>Mapping by best effort principle</li>
-<li>Combine values from different places in input data</li>
-<li>Cast values to other types</li>
-<li>Apply if statements to values to change data</li>
+<li>Mapping with configuration File.</li>
+<li>Transforms JSON</li>
+<li>Combine multiple values to one.</li>
+<li>Default values</li>
+<li>If statements<ul>
+<li>is, contains, not</li>
+</ul>
+</li>
+<li>casting<ul>
+<li>integer, decimal, iso date</li>
+</ul>
+</li>
 </ul>
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>Please see <a href="../contributing">contribute</a></p>
@@ -470,14 +476,14 @@
 <p class="admonition-title">Info</p>
 <p>Package is on pypi. Use pip or poetry to install</p>
 </div>
-<p><div class="highlight"><pre><span></span><code>pip install mapmallow
+<p><div class="highlight"><pre><span></span><code>pip install piri
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>poetry add mapmallow
+<div class="highlight"><pre><span></span><code>poetry add piri
 </code></pre></div></p>
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">simplejson</span>
 
-<span class="kn">from</span> <span class="nn">mapmallow.mapper</span> <span class="kn">import</span> <span class="n">map_data</span>
+<span class="kn">from</span> <span class="nn">piri.mapper</span> <span class="kn">import</span> <span class="n">map_data</span>
 
 <span class="n">my_config</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;schema&#39;</span><span class="p">,</span>
@@ -581,8 +587,6 @@
 <li>if none is provided it simply returns the dictionary.</li>
 <li>to provide an output function simply add it while initiating Process. with the argument _output=function. The function must receive dictionary and can return anything</li>
 </ul>
-<h1 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h1>
-<p>Together with a <a href="#configuration-file">configuration file</a> this function will create some data structured like the configuration file. The different pieces of the configuration file will tell the mapper how to structure the output.</p>
                 
               
               
@@ -635,8 +639,8 @@
       
     </div>
     
-      <script src="assets/javascripts/vendor.d1f5a259.min.js"></script>
-      <script src="assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="assets/javascripts/vendor.df0def68.min.js"></script>
+      <script src="assets/javascripts/bundle.ba57d267.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
