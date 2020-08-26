@@ -450,6 +450,7 @@
 <hr />
 <p><img alt="test" src="https://github.com/greenbird/piri/workflows/test/badge.svg" />
 <a href="https://codecov.io/gh/greenbird/piri"><img alt="codecov" src="https://codecov.io/gh/greenbird/piri/branch/master/graph/badge.svg" /></a>
+<a href="https://pypi.org/project/piri/"><img alt="Python Version" src="https://img.shields.io/pypi/pyversions/piri.svg" /></a>
 <a href="https://github.com/wemake-services/wemake-python-styleguide"><img alt="wemake-python-styleguide" src="https://img.shields.io/badge/style-wemake-000000.svg" /></a></p>
 <hr />
 <p><strong><a href="https://greenbird.github.io/piri/">Documentation</a> |
@@ -475,10 +476,7 @@
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>Please see <a href="../contributing">contribute</a></p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
 <p>Package is on pypi. Use pip or poetry to install</p>
-</div>
 <p><div class="highlight"><pre><span></span><code>pip install piri
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>poetry add piri
@@ -486,7 +484,7 @@
 <h2 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">simplejson</span>
 
-<span class="kn">from</span> <span class="nn">piri.mapper</span> <span class="kn">import</span> <span class="n">map_data</span>
+<span class="kn">from</span> <span class="nn">piri.process</span> <span class="kn">import</span> <span class="n">process</span>
 
 <span class="n">my_config</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;schema&#39;</span><span class="p">,</span>
@@ -548,10 +546,10 @@
     <span class="p">},</span>
 <span class="p">}</span>
 
-<span class="n">mapped_data</span> <span class="o">=</span> <span class="n">map_data</span><span class="p">(</span><span class="n">example_data</span><span class="p">,</span> <span class="n">my_config</span><span class="p">)</span>
+<span class="n">mapped_data</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">example_data</span><span class="p">,</span> <span class="n">my_config</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultfile.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">:</span>
-    <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">simplejson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mapped_data</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()))</span>
+    <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">simplejson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mapped_data</span><span class="p">))</span>
 </code></pre></div>
 
 <p>contents of resultfile.json
@@ -572,24 +570,6 @@
     <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<h1 id="process">Process<a class="headerlink" href="#process" title="Permanent link">&para;</a></h1>
-<p>The Process function tries to make it easy to run all steps in order. Since its a callable object then dependencies(functions) can be changed before calling. This is the execution order:</p>
-<ul>
-<li>validate configuration data</li>
-<li>configuration must be valid and also we apply some output formatting to the configuration data.</li>
-<li>run pre processing</li>
-<li>a pre_process function can be supplied that must change raw data to python dictionary if it isn't already</li>
-<li>map data</li>
-<li>run mapping function with the validated configuration and pre_processed data.</li>
-<li>this outputs a dictionary</li>
-<li>validate and marshall</li>
-<li>this loads the mapping result into a marshmallow Schema that will validate the data for us. after that it will return the dump(marshall) of the schema that can apply any output formatting rules needed.</li>
-<li>this is the only function that is required to provide when process is initiated.</li>
-<li>create output</li>
-<li>run provided output function.</li>
-<li>if none is provided it simply returns the dictionary.</li>
-<li>to provide an output function simply add it while initiating Process. with the argument _output=function. The function must receive dictionary and can return anything</li>
-</ul>
                 
               
               
