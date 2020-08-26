@@ -313,15 +313,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mapping-object" class="md-nav__link">
-    Mapping Object
+  <a href="#mapping" class="md-nav__link">
+    Mapping
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#if-statement-object" class="md-nav__link">
-    If Statement object
+  <a href="#if-statement" class="md-nav__link">
+    If Statement
   </a>
   
 </li>
@@ -416,15 +416,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mapping-object" class="md-nav__link">
-    Mapping Object
+  <a href="#mapping" class="md-nav__link">
+    Mapping
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#if-statement-object" class="md-nav__link">
-    If Statement object
+  <a href="#if-statement" class="md-nav__link">
+    If Statement
   </a>
   
 </li>
@@ -510,7 +510,7 @@
 </tr>
 <tr>
 <td><em>branching_objects</em></td>
-<td>array[<a href="#branching_object">branching object</a>]</td>
+<td>array[<a href="#branching-object">branching object</a>]</td>
 <td>Array of a special kind of object</td>
 <td>rarely used</td>
 </tr>
@@ -558,7 +558,7 @@
 </tr>
 <tr>
 <td>if_statements</td>
-<td>array[<a href="#if_statement">if_statement</a>]</td>
+<td>array[<a href="#if-statement">if statement</a>]</td>
 <td>If statements that can change data based on conditions</td>
 <td><code>[]</code></td>
 </tr>
@@ -586,7 +586,7 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<h2 id="mapping-object">Mapping Object<a class="headerlink" href="#mapping-object" title="Permanent link">&para;</a></h2>
+<h2 id="mapping">Mapping<a class="headerlink" href="#mapping" title="Permanent link">&para;</a></h2>
 <p>This is the only place where actual interaction with the input data is done.</p>
 <table>
 <thead>
@@ -606,9 +606,9 @@
 </tr>
 <tr>
 <td>if_statements</td>
+<td>array[<a href="#if-statement">if statement</a>]</td>
 <td>If statements that can change data based on conditions</td>
 <td><code>[]</code></td>
-<td></td>
 </tr>
 <tr>
 <td><em>default</em></td>
@@ -630,7 +630,7 @@
 </code></pre></div>
 
 <ul>
-<li>if_statements: list of <a href="#if-statement-object">if statement objects</a> that can change the data depending on conditions</li>
+<li>if_statements: list of <a href="#if-statement">if statements</a> that can change the data depending on conditions</li>
 <li>default: a default value if none is found or value found is <code>None</code></li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -645,7 +645,7 @@
 <p>input({'path': { 'does_not_exist'}}) -&gt; 'default'</p>
 <p>input() -&gt; 'default'</p>
 </blockquote>
-<h2 id="if-statement-object">If Statement object<a class="headerlink" href="#if-statement-object" title="Permanent link">&para;</a></h2>
+<h2 id="if-statement">If Statement<a class="headerlink" href="#if-statement" title="Permanent link">&para;</a></h2>
 <p>This is where you can change found(or not found) data to something else based on a condition. They are chained in the sense that what the first one produces will be the input to the next one. Thus if you want the original value if the first one fails, then leave out <code>otherwise</code></p>
 <table>
 <thead>
@@ -709,23 +709,27 @@
 <tbody>
 <tr>
 <td><strong>to</strong></td>
-<td>"integer"|"decimal"</td>
-<td>\"date"</td>
+<td>one of ["integer", "decimal", "date"]</td>
 <td>What type to cast the value to</td>
+<td></td>
 </tr>
 <tr>
 <td>original_format</td>
-<td>"integer_containing_decimals"|decimal"|"date(see below)"</td>
+<td>"integer_containing_decimals" or spesific date format(see below)"</td>
 <td>For some values we need to specify extra information in order to correctly cast it.</td>
 <td><code>None</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>original format</strong></p>
+<p><strong>about original format</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code>to</code> is <code>date</code> then original_format is <code>required</code>.</p>
+</div>
 <table>
 <thead>
 <tr>
-<th>to</th>
+<th>when to is</th>
 <th>original format</th>
 <th>description</th>
 </tr>
@@ -734,12 +738,7 @@
 <tr>
 <td>decimal</td>
 <td>integer_containing_decimals</td>
-<td>is used when some integer value should be casted to decimal, and we need to divide it by 100</td>
-</tr>
-<tr>
-<td>integer</td>
-<td>decimal</td>
-<td>is used when we cast a decimal number to integer so we get rounding correct. (round up half <code>1.5 -&gt; 2</code>)</td>
+<td>is used when some integer value should be casted to decimal and we need to divide it by 100</td>
 </tr>
 <tr>
 <td>date</td>
