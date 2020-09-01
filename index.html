@@ -275,8 +275,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-piri" class="md-nav__link">
+    What is Piri
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-usecases" class="md-nav__link">
+    Typical usecases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#official-free-piri-solutions" class="md-nav__link">
+    Official Free Piri Solutions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enterprise-solutions" class="md-nav__link">
+    Enterprise solutions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#goal" class="md-nav__link">
     Goal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why" class="md-nav__link">
+    Why
   </a>
   
 </li>
@@ -395,8 +430,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-piri" class="md-nav__link">
+    What is Piri
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-usecases" class="md-nav__link">
+    Typical usecases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#official-free-piri-solutions" class="md-nav__link">
+    Official Free Piri Solutions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enterprise-solutions" class="md-nav__link">
+    Enterprise solutions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#goal" class="md-nav__link">
     Goal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why" class="md-nav__link">
+    Why
   </a>
   
 </li>
@@ -456,12 +526,34 @@
 <p><strong><a href="https://greenbird.github.io/piri/">Documentation</a> |
 <a href="https://github.com/greenbird/piri">Source Code</a> |
 <a href="https://github.com/greenbird/piri/issues">Task Tracker</a></strong></p>
+<h2 id="what-is-piri">What is Piri<a class="headerlink" href="#what-is-piri" title="Permanent link">&para;</a></h2>
+<p>Piri is a JSON to JSON mapper. That means that we read input JSON and create output JSON. How the output is created is based on instructions from a configuration file. The configuration file governs the the output structure and tells piri where in the input to find data and where to place it in the output. In addition to this Piri supports data transformation with <code>data casting</code>, <code>if conditions</code>, <code>combination of data from multiple places</code> and of course setting <code>default</code> values.</p>
+<p><strong>This enables you to change any input into the output you desire.</strong></p>
+<h2 id="typical-usecases">Typical usecases<a class="headerlink" href="#typical-usecases" title="Permanent link">&para;</a></h2>
+<ul>
+<li>You <code>GET</code> data form api, but need to transform it for your backend system</li>
+<li><code>POST</code>ing data to an api that needs data on a different format than what your system produces</li>
+<li>All your backends speak different language? pipe it through <strong>Piri</strong></li>
+<li>Customer delivers weirdly formatted data? Use <strong>Piri</strong> to make it sexy</li>
+<li>Have CSV but need nicely structured JSON? make CSV into a JSON list and transform it with <strong>Piri</strong></li>
+<li>Have XML but need to change it? make it into JSON, transform it with <strong>Piri</strong> and then dump it to XML again.</li>
+<li>Customers legacy system needs CSV. Use <strong>Piri</strong> to transform your nicely structured JSON data into a JSON List that can be easily dumped to CSV</li>
+</ul>
+<h2 id="official-free-piri-solutions">Official Free Piri Solutions<a class="headerlink" href="#official-free-piri-solutions" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/greenbird/piri-cli">piri-cli</a>, commandline interface for file to file mapping.</p>
+<p><a href="https://github.com/greenbird/piri-web">piri-web</a>, One Click deploy Web REST API for Piri JSON mapping.</p>
+<h2 id="enterprise-solutions">Enterprise solutions<a class="headerlink" href="#enterprise-solutions" title="Permanent link">&para;</a></h2>
+<p>Coming...</p>
 <h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
-<p>The goal of this library is to make JSON to JSON transformation/mapping configurable. We achieve this by using a simple but feature-rich JSON configuration which then also acts as a contract.</p>
+<p>The goal of this library is to make JSON to JSON transformation/mapping easy, configurable and documentable. We achieve this by using a simple but feature-rich JSON configuration which then also acts as documentation and as a contract between parties.</p>
+<h2 id="why">Why<a class="headerlink" href="#why" title="Permanent link">&para;</a></h2>
+<p>Piri was bourne because I really dislike mapping. Documenting whatever decisions made in your code so that some product owner understands it is also <em>no me gusto</em>. Transforming data from one format to another is something software engineers does allmost daily... It should be easy! And documenting it shouldn't be something you have to worry about.</p>
+<p>After the Worst POC in History I never wanted to do mapping by scripts and code again. This lead to the idea that it should be possible to create a file which governs how the structure should look and how the data should be transformed. This would then be the <code>single source of truth</code> and with Piri we have achieved this.</p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Mapping with configuration File.</li>
-<li>Transforms JSON</li>
+<li><a href="https://json-schema.org/">JSON Schema</a> validation of the config file.</li>
+<li>Structurally Transform JSON</li>
 <li>Combine multiple values to one.</li>
 <li>Default values</li>
 <li>If statements<ul>

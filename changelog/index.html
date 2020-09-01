@@ -296,9 +296,69 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Changelog
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
     <a href="./" title="Changelog" class="md-nav__link md-nav__link--active">
       Changelog
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#patch-102-bugfix" class="md-nav__link">
+    Patch 1.0.2 - Bugfix
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-101" class="md-nav__link">
+    Patch 1.0.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-100-release-piri-reis" class="md-nav__link">
+    Version 1.0.0 Release: Piri Reis
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 1.0.0 Release: Piri Reis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -325,6 +385,50 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#patch-102-bugfix" class="md-nav__link">
+    Patch 1.0.2 - Bugfix
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patch-101" class="md-nav__link">
+    Patch 1.0.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-100-release-piri-reis" class="md-nav__link">
+    Version 1.0.0 Release: Piri Reis
+  </a>
+  
+    <nav class="md-nav" aria-label="Version 1.0.0 Release: Piri Reis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -340,19 +444,38 @@
                 
                 
                 <h1 id="version-history">Version history<a class="headerlink" href="#version-history" title="Permanent link">&para;</a></h1>
-<p>We follow semantic Versions with first version released as <code>1.0.0</code>. We do this to prevent <a href="https://0ver.org/">0Ver</a> and never getting to v1.</p>
-<p>All Breaking releases are <code>major</code>
-All Feature releases are <code>minor</code>
-Everything else: <code>patch</code></p>
-<h1 id="version-101">Version 1.0.1<a class="headerlink" href="#version-101" title="Permanent link">&para;</a></h1>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Bumps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Breaking</td>
+<td>major</td>
+</tr>
+<tr>
+<td>New Feature</td>
+<td>minor</td>
+</tr>
+<tr>
+<td>otherwise</td>
+<td>patch</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patch-102-bugfix">Patch 1.0.2 - Bugfix<a class="headerlink" href="#patch-102-bugfix" title="Permanent link">&para;</a></h2>
+<p>Loading schema.json used relatve path that did not work when package was imported by other package. Now we use <code>'{0}/schema.json'.format(os.path.dirname(__file__))</code> to get absolute path to our schema.json.</p>
+<h2 id="patch-101">Patch 1.0.1<a class="headerlink" href="#patch-101" title="Permanent link">&para;</a></h2>
 <ul>
 <li>adds python versions badge</li>
 <li>removes bad part of documentation</li>
 </ul>
-<h1 id="version-100-release-piri-reis">Version 1.0.0 Release: Piri Reis<a class="headerlink" href="#version-100-release-piri-reis" title="Permanent link">&para;</a></h1>
-<p>The first release focuses on key mapping functionality. We believe that is finding values from different places and combining them to one. Setting default values, Casting values, and applying if statements. This should suffice for a lot of usecases where one need to transform json into structurally different json.</p>
-<h2 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h2>
+<h2 id="version-100-release-piri-reis">Version 1.0.0 Release: Piri Reis<a class="headerlink" href="#version-100-release-piri-reis" title="Permanent link">&para;</a></h2>
+<p>The first release focuses on key mapping functionality. Finding values from multiple places and combining them to one. Setting default values, Casting values, and applying if statements. This should suffice for a lot of usecases where one need to transform json into structurally different json.</p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Mapping with configuration File.</li>
 <li>Combine multiple values to one.</li>
