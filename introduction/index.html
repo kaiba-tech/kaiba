@@ -59,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#the-setup" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -145,7 +150,9 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -154,7 +161,7 @@
   
     <li class="md-tabs__item">
       
-        <a href=".." class="md-tabs__link">
+        <a href=".." class="md-tabs__link md-tabs__link--active">
           Home
         </a>
       
@@ -217,10 +224,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
     
     <label class="md-nav__link" for="nav-1">
       Home
@@ -259,6 +268,199 @@
     <a href="../usage/" title="Usage" class="md-nav__link">
       Usage
     </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Introduction
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-setup" class="md-nav__link">
+    The setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-json" class="md-nav__link">
+    About JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-root" class="md-nav__link">
+    The Root
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-attributes-to-root" class="md-nav__link">
+    Adding Attributes to root
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-with-objects" class="md-nav__link">
+    Structuring with objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-to-map-some-values" class="md-nav__link">
+    Time to Map some values!
+  </a>
+  
+    <nav class="md-nav" aria-label="Time to Map some values!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-flat-structure" class="md-nav__link">
+    Mapping.path with flat structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-nested-structure" class="md-nav__link">
+    Mapping.path with nested structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-data-in-lists" class="md-nav__link">
+    Mapping.path with data in lists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-values" class="md-nav__link">
+    Combining values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-statements" class="md-nav__link">
+    If statements
+  </a>
+  
+    <nav class="md-nav" aria-label="If statements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-if-statement" class="md-nav__link">
+    Simple if statement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-if-statements" class="md-nav__link">
+    Chain If Statements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casting-values" class="md-nav__link">
+    Casting values
+  </a>
+  
+    <nav class="md-nav" aria-label="Casting values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#casting-to-decimal" class="md-nav__link">
+    Casting to decimal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#casting-to-iso-date" class="md-nav__link">
+    Casting to ISO Date
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-lists" class="md-nav__link">
+    Working with lists
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-path-to-iterable" class="md-nav__link">
+    Introducing Path to Iterable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -352,6 +554,179 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-setup" class="md-nav__link">
+    The setup
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-json" class="md-nav__link">
+    About JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-root" class="md-nav__link">
+    The Root
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-attributes-to-root" class="md-nav__link">
+    Adding Attributes to root
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-with-objects" class="md-nav__link">
+    Structuring with objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-to-map-some-values" class="md-nav__link">
+    Time to Map some values!
+  </a>
+  
+    <nav class="md-nav" aria-label="Time to Map some values!">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-flat-structure" class="md-nav__link">
+    Mapping.path with flat structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-nested-structure" class="md-nav__link">
+    Mapping.path with nested structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mappingpath-with-data-in-lists" class="md-nav__link">
+    Mapping.path with data in lists
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-values" class="md-nav__link">
+    Combining values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-statements" class="md-nav__link">
+    If statements
+  </a>
+  
+    <nav class="md-nav" aria-label="If statements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-if-statement" class="md-nav__link">
+    Simple if statement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chain-if-statements" class="md-nav__link">
+    Chain If Statements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casting-values" class="md-nav__link">
+    Casting values
+  </a>
+  
+    <nav class="md-nav" aria-label="Casting values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#casting-to-decimal" class="md-nav__link">
+    Casting to decimal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#casting-to-iso-date" class="md-nav__link">
+    Casting to ISO Date
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-lists" class="md-nav__link">
+    Working with lists
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-path-to-iterable" class="md-nav__link">
+    Introducing Path to Iterable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -363,13 +738,668 @@
                 
                   <h1>Introduction</h1>
                 
-                <p>This is what Piri <em>does</em>, learn the basics here</p>
-<ul>
-<li><a href="">From flat structure to objects</a></li>
-<li><a href="">Working with lists</a></li>
-<li><a href="">If statements and when to use them</a></li>
-<li><a href="">Casting values</a></li>
-</ul>
+                <p>Piri uses a configuration file to govern output structure and contents. This section is the introductionary course to Piri.</p>
+<h2 id="the-setup">The setup<a class="headerlink" href="#the-setup" title="Permanent link">&para;</a></h2>
+<p>For this introduction course we will use <a href="https://github.com/greenbird/piri-cli">piri-cli</a> since it provides you with a simple command line tool to run piri. And no need to create any python files.</p>
+<p>Install with pip:
+<div class="highlight"><pre><span></span><code>pip install piri-cli
+</code></pre></div></p>
+<p>All examples will have a config, input and output json tab like this:</p>
+<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Copy the contents of config.json and input.json down to your working dir.</p>
+<p>Run all examples with the following unless otherwise stated.
+<div class="highlight"><pre><span></span><code>piri config.json input.json
+</code></pre></div></p>
+<h2 id="about-json">About JSON<a class="headerlink" href="#about-json" title="Permanent link">&para;</a></h2>
+<p>Json is a human readable data format that stores data in objects consisting of attribute-value pairs and arrays. We will use the terms <code>object</code> and <code>attribute</code> quite often in this guide. To put it simply an <strong>object</strong> contains <strong>attributes</strong> that hold <strong>values</strong>. These values can sometimes be another object or even an array of objects.</p>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;person&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mf">180.5</span><span class="p">,</span>
+        <span class="nt">&quot;friends&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mf">170.5</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<code>person</code> is an <strong>object</strong>, <code>name</code> and <code>height</code> are <strong>attribtes</strong>, <code>"Bob"</code> and <code>180.5</code> are <strong>values</strong> to those attributes. <code>friends</code> is a list(array) of objects.</p>
+<h2 id="the-root">The Root<a class="headerlink" href="#the-root" title="Permanent link">&para;</a></h2>
+<p>The root of all ev... piri configs looks like this</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>So this will fail since we consider empty result a failure, but this config generates the enclosing {} brackets you can see in the example in the About JSON section.
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div></p>
+<h2 id="adding-attributes-to-root">Adding Attributes to root<a class="headerlink" href="#adding-attributes-to-root" title="Permanent link">&para;</a></h2>
+<p>To actually map some data we can add <code>attributes</code>.</p>
+<div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;firstname&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;Thomas&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Thomas&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Congratulations, you've just mapped a default value to an attribute!</p>
+<h2 id="structuring-with-objects">Structuring with objects<a class="headerlink" href="#structuring-with-objects" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;firstname&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;Thomas&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="hll">    <span class="nt">&quot;person&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span>        <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Thomas&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>What we just did is the core principle of creating the output structure. We added an object with the name <code>person</code>, then we moved our <code>firstname</code> attribute to the <code>person</code> object.</p>
+<h2 id="time-to-map-some-values">Time to Map some values!<a class="headerlink" href="#time-to-map-some-values" title="Permanent link">&para;</a></h2>
+<p>We will now introduce the <code>mappings</code> key, it's and array of <code>mapping</code> objects.</p>
+<p>The <code>mapping</code> object is the only place where you actually fetch data from the input. And you do that by specifying a <code>path</code>. The <code>path</code> describes the steps to take to get to the value we are interested in.</p>
+<h3 id="mappingpath-with-flat-structure">Mapping.path with flat structure<a class="headerlink" href="#mappingpath-with-flat-structure" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;firstname&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+<span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+</span>                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Neo&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;person&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">        <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Neo&quot;</span>
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<h3 id="mappingpath-with-nested-structure">Mapping.path with nested structure<a class="headerlink" href="#mappingpath-with-nested-structure" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+<span class="hll">            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;actor&quot;</span><span class="p">,</span>
+</span>            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+<span class="hll">                        <span class="p">{</span>
+</span><span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;the_matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;neo&quot;</span><span class="p">,</span> <span class="s2">&quot;actor&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">]</span>
+</span><span class="hll">                        <span class="p">}</span>
+</span>                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;the_matrix&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;neo&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;actor&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Keanu Reeves&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><label for="__tabbed_5_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;actor&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Keanu Reeves&quot;</span>
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<h3 id="mappingpath-with-data-in-lists">Mapping.path with data in lists<a class="headerlink" href="#mappingpath-with-data-in-lists" title="Permanent link">&para;</a></h3>
+<p>Consider the following json:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Keanu&quot;</span><span class="p">,</span> <span class="s2">&quot;Reeves&quot;</span><span class="p">,</span> <span class="s2">&quot;The Matrix&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>In our <code>mapping</code> object we supply <code>path</code> which is a list of how we get to our data. So how do we get the <code>lastname</code> in that data?</p>
+<p>Easy, we reference the <code>index</code> of the list. The first data in the list starts at <code>0</code>, second element <code>1</code>, third <code>2</code> and so on. This number is the <code>index</code> and to get the last name we must use the index: <code>1</code></p>
+<div class="tabbed-set" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;firstname&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+<span class="hll">                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span>                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;lastname&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+<span class="hll">                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span>                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Keanu&quot;</span><span class="p">,</span> <span class="s2">&quot;Reeves&quot;</span><span class="p">,</span> <span class="s2">&quot;The Matrix&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><label for="__tabbed_6_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Keanu&quot;</span><span class="p">,</span>
+<span class="hll">    <span class="nt">&quot;lastname&quot;</span><span class="p">:</span> <span class="s2">&quot;Reeves&quot;</span>
+</span><span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We still have to reference the <code>"data"</code> key first, so our <code>path</code> goes first to <code>data</code> then it finds the value at index <code>1</code></p>
+</div>
+<h2 id="combining-values">Combining values<a class="headerlink" href="#combining-values" title="Permanent link">&para;</a></h2>
+<p>Now lets learn how to combine values from multiple places in the input.</p>
+<p>It's fairly normal to only need <code>name</code> but getting <code>firstname</code> <em>and</em> <code>lastname</code> in input data. Lets combine them!</p>
+<div class="tabbed-set" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;actor&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;the_matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;neo&quot;</span><span class="p">,</span> <span class="s2">&quot;actor&quot;</span><span class="p">,</span> <span class="s2">&quot;firstname&quot;</span><span class="p">]</span>
+                        <span class="p">},</span>
+<span class="hll">                        <span class="p">{</span>
+</span><span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;the_matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;neo&quot;</span><span class="p">,</span> <span class="s2">&quot;actor&quot;</span><span class="p">,</span> <span class="s2">&quot;lastname&quot;</span><span class="p">]</span>
+</span><span class="hll">                        <span class="p">}</span>
+</span>                    <span class="p">],</span>
+<span class="hll">                    <span class="nt">&quot;separator&quot;</span><span class="p">:</span> <span class="s2">&quot; &quot;</span><span class="p">,</span>
+</span>                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;the_matrix&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;neo&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;actor&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">                <span class="nt">&quot;firstname&quot;</span><span class="p">:</span> <span class="s2">&quot;Keanu&quot;</span><span class="p">,</span>
+</span><span class="hll">                <span class="nt">&quot;lastname&quot;</span><span class="p">:</span> <span class="s2">&quot;Reeves&quot;</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><label for="__tabbed_7_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;actor&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="hll">        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Keanu Reeves&quot;</span>
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>To find more values and combine them, simply add another <code>mapping</code> object to <code>mappings</code> array.</p>
+<p>Use <code>separator</code> to control with what char values should be separated.</p>
+<h2 id="if-statements">If statements<a class="headerlink" href="#if-statements" title="Permanent link">&para;</a></h2>
+<p>Are useful for when you for example get some numbers in your data that are supposed to represent different types.</p>
+<h3 id="simple-if-statement">Simple if statement<a class="headerlink" href="#simple-if-statement" title="Permanent link">&para;</a></h3>
+<p>Let's check if the value equals <code>1</code> and output <code>type_one</code>.</p>
+<div class="tabbed-set" data-tabs="8:3"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><label for="__tabbed_8_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;readable_type&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span>
+<span class="hll">                    <span class="nt">&quot;if_statements&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class="hll">                        <span class="p">{</span>
+</span><span class="hll">                            <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span>
+</span><span class="hll">                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+</span><span class="hll">                            <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;type_one&quot;</span>
+</span><span class="hll">                        <span class="p">}</span>
+</span><span class="hll">                    <span class="p">]</span>
+</span>                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><label for="__tabbed_8_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_8_3" name="__tabbed_8" type="radio" /><label for="__tabbed_8_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;readable_type&quot;</span><span class="p">:</span> <span class="s2">&quot;type_one&quot;</span>
+<span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+
+</div>
+</div>
+<p>If statements are really useful for changing the values depending on some condition. Check the <a href="../configuration/#if-statement">list</a> of supported conditions.</p>
+<p><code>otherwise</code> can also be used to specify should happen if the condition is <code>false</code>. If <code>otherwise</code> is not provided then output will be the original value.</p>
+<h3 id="chain-if-statements">Chain If Statements<a class="headerlink" href="#chain-if-statements" title="Permanent link">&para;</a></h3>
+<p><code>if_statements</code> is a list of <code>if statement</code> objects. We designed it like this so that we can chain them. The output of the first one will be the input of the next one.</p>
+<p>the <code>mapping</code> object is not the only one that can have if statements, the <code>attribute</code> can also have them. This allows for some interesting combinations.</p>
+<div class="tabbed-set" data-tabs="9:5"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><label for="__tabbed_9_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;readable_type&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span>
+                    <span class="nt">&quot;if_statements&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="hll">                            <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;boring-type&quot;</span>
+</span>                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;boring-type-two&quot;</span><span class="p">,</span>
+<span class="hll">                            <span class="nt">&quot;otherwise&quot;</span><span class="p">:</span> <span class="s2">&quot;fun-type&quot;</span>
+</span>                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;contains&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;fun&quot;</span><span class="p">,</span>
+<span class="hll">                            <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;funky_type&quot;</span>
+</span>                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;if_statements&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+<span class="hll">                    <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;not&quot;</span><span class="p">,</span>
+</span>                    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;funky_type&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;junk&quot;</span><span class="p">,</span>
+<span class="hll">                    <span class="nt">&quot;otherwise&quot;</span><span class="p">:</span> <span class="s2">&quot;funk&quot;</span>
+</span>                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><label for="__tabbed_9_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_9_3" name="__tabbed_9" type="radio" /><label for="__tabbed_9_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;readable_type&quot;</span><span class="p">:</span> <span class="s2">&quot;funk&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_9_4" name="__tabbed_9" type="radio" /><label for="__tabbed_9_4">input2.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_9_5" name="__tabbed_9" type="radio" /><label for="__tabbed_9_5">output2.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;readable_type&quot;</span><span class="p">:</span> <span class="s2">&quot;junk&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Using input.json the places that are highlighted is everywhere the value changes.</p>
+<p>For input2.json the first if statement is false and no value change. The second if statement is true so value is changed to <code>boring-type-two</code>. The third if statement is false so no value change. The last if statement checks if the value is <code>not</code> <code>funky_type</code> which is true, so the value is changed to <code>junk</code>.</p>
+<p>You can even add if statements for every <code>mapping</code> object you add into <code>mappings</code> so this can handle some quite complicated condition with multiple values.</p>
+<h2 id="casting-values">Casting values<a class="headerlink" href="#casting-values" title="Permanent link">&para;</a></h2>
+<p>You've learned how to structure your output with objects, find values and asigning them to attributes, combining values and applying if statements. Its now time to learn how to cast values.</p>
+<p>Casting values is very useful for when we get string(text) data that should be numbers. Or when you get badly(non-iso) formatted date values that you want to change to ISO dates</p>
+<p>Casting is straightforward. You map your value like you would and then add the casting object.</p>
+<h3 id="casting-to-decimal">Casting to decimal<a class="headerlink" href="#casting-to-decimal" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set" data-tabs="10:3"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><label for="__tabbed_10_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;my_number&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;string_number&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+<span class="hll">            <span class="nt">&quot;casting&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class="hll">                <span class="nt">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;decimal&quot;</span>
+</span><span class="hll">            <span class="p">}</span>
+</span>        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><label for="__tabbed_10_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;string_number&quot;</span><span class="p">:</span> <span class="s2">&quot;123.12&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_10_3" name="__tabbed_10" type="radio" /><label for="__tabbed_10_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;my_number&quot;</span><span class="p">:</span> <span class="mf">123.12</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<h3 id="casting-to-iso-date">Casting to ISO Date<a class="headerlink" href="#casting-to-iso-date" title="Permanent link">&para;</a></h3>
+<p>When casting to a <code>date</code> we always have to supply the <code>original_format</code> which is the format that the input data is on. without knowing this there would be know way to know fore sure in every case if it was dd.mm.yy or yy.mm.dd</p>
+<div class="tabbed-set" data-tabs="11:3"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><label for="__tabbed_11_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;my_iso_date&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;yymmdd_date&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+<span class="hll">            <span class="nt">&quot;casting&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span class="hll">                <span class="nt">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
+</span><span class="hll">                <span class="nt">&quot;original_format&quot;</span><span class="p">:</span> <span class="s2">&quot;yymmdd&quot;</span>
+</span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><label for="__tabbed_11_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;yymmdd_date&quot;</span><span class="p">:</span> <span class="s2">&quot;101020&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_11_3" name="__tabbed_11" type="radio" /><label for="__tabbed_11_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;my_iso_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2010-10-20&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Check our the <a href="../configuration#casting-object">configuration docs on casting</a> for more info</p>
+<h2 id="working-with-lists">Working with lists<a class="headerlink" href="#working-with-lists" title="Permanent link">&para;</a></h2>
+<p>Finally! Last topic and the most interesting one!</p>
+<p>Usually the data that you are processing is not one thing, but a list of things(data). We want to iterate the list and for each and every piece of data in that list we want to transform it. This is the section that lets you do that.</p>
+<p>Lets say we are creating a website for an RPG game that dumps its data in a flat format. Every line is a player with a <code>name</code>, <code>class</code>, <code>money</code>, and <code>x</code>, <code>y</code> coordinates for where he is in the world.</p>
+<div class="tabbed-set" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><label for="__tabbed_12_1">data.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;something_uninteresting&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="nt">&quot;character_data&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;SuperAwesomeNick&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;OtherAwesomeDude&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;PoorDude&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Now to make the frontend dudes happy we would liketo structure this nicely... something like:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;players&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;nickname&quot;</span><span class="p">:</span> <span class="s2">&quot;SuperAwesomeNick&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;warrior&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gold&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;nickname&quot;</span><span class="p">:</span> <span class="s2">&quot;OtherAwesomeDude&quot;</span><span class="p">,</span>
+            <span class="err">...</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="introducing-path-to-iterable">Introducing Path to Iterable<a class="headerlink" href="#introducing-path-to-iterable" title="Permanent link">&para;</a></h3>
+<p>We can use <code>path_to_iterable</code> on an <code>object</code> which works similar to <code>mapping.path</code>, but it applies the current <code>object</code> and all its attrbute mappings and nested objects to each and every element in whatever list <code>path_to_iterable</code> points to.</p>
+<p>Lets solve the above example!</p>
+<div class="tabbed-set" data-tabs="13:3"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><label for="__tabbed_13_1">config.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;players&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="hll">            <span class="nt">&quot;path_to_iterable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;character_data&quot;</span><span class="p">],</span>
+</span>            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nickname&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+<span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;character_data&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span>                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+<span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;character_data&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span>                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="nt">&quot;if_statements&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="nt">&quot;condition&quot;</span><span class="p">:</span> <span class="s2">&quot;is&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="nt">&quot;then&quot;</span><span class="p">:</span> <span class="s2">&quot;warrior&quot;</span><span class="p">,</span>
+                            <span class="nt">&quot;otherwise&quot;</span><span class="p">:</span> <span class="s2">&quot;cleric&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gold&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+<span class="hll">                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;character_data&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span>                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><label for="__tabbed_13_2">input.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;something_uninteresting&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="nt">&quot;character_data&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;SuperAwesomeNick&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;OtherAwesomeDude&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span>
+            <span class="p">[</span><span class="s2">&quot;PoorDude&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+<input id="__tabbed_13_3" name="__tabbed_13" type="radio" /><label for="__tabbed_13_3">output.json</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;players&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;nickname&quot;</span><span class="p">:</span> <span class="s2">&quot;SuperAwesomeNick&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;warrior&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gold&quot;</span><span class="p">:</span> <span class="mi">500</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;nickname&quot;</span><span class="p">:</span> <span class="s2">&quot;OtherAwesomeDude&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;cleric&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gold&quot;</span><span class="p">:</span> <span class="mi">300</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;nickname&quot;</span><span class="p">:</span> <span class="s2">&quot;PoorDude&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;cleric&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gold&quot;</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</div>
+</div>
+<p>Note that we still have to reference the key when mapping. The key name(<code>character_data</code>) is the last name in the list of <code>path_to_iterable</code>.</p>
+<p>And thats it!</p>
+<p>Congratulations the introduction course is done!</p>
+<p>Time to map some data and have fun doing it!</p>
                 
               
               
@@ -384,6 +1414,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../usage/" title="Usage" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Usage
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../configuration/" title="Configuration" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Configuration
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
