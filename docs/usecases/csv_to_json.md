@@ -71,7 +71,7 @@ Then we'd use a configuration that you will see is structurally quite similar to
 
     === "config.json"
 
-        ```json linenums="1" hl_lines="2 3"
+        ```json
         {
             "name": "root",
             "array": true,
