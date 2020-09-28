@@ -8,6 +8,7 @@ from piri.casting import get_casting_function
 from piri.constants import (  # noqa: WPS235
     CONDITION,
     CONTAINS,
+    FROM,
     IN,
     IS,
     NOT,
@@ -137,6 +138,36 @@ def apply_separator(
         return mapped_values[0]
 
     return separator.join([str(mapped) for mapped in mapped_values])
+
+
+def apply_slicing(
+    value_to_slice: Optional[MapValue],
+    slicing: Dict[str, Any],
+) -> Optional[MapValue]:
+    """Slice value from index to index.
+
+    :param slicing: :term:`slicing` object
+    :type slicing: dict
+
+    :param value_to_slice: The value to slice
+    :type value_to_slice: MapValue
+
+    :return: Success/Failure containers
+    :rtype: MapValue
+
+    Example
+        >>> apply_slicing('123', {'from': 1})
+        '23'
+        >>> apply_slicing('test', {'from': 1, 'to': 3})
+        'es'
+    """
+    if value_to_slice is None:
+        return value_to_slice
+
+    if not slicing:
+        return value_to_slice
+
+    return str(value_to_slice)[slicing[FROM]:slicing.get(TO)]
 
 
 def apply_casting(

@@ -92,6 +92,27 @@ You add a list of `strings` or `integers` that will get you to your data. so for
 
 >input() -> 'default'
 
+## Slicing
+
+Lets you slice a value from index `from` to index `to`. Slicing is implemented exactly like pythons string[x:x] slicing. This means that when `from` is negative you count back from the end, and if `to` is `null` or left out then we consume the rest of the string.
+
+
+| name | type | description | default |
+| --- | --- | --- | --- |
+| __from__ | int | Where to cut value from counted from `0` | |
+| to | int\|null | To what index we cut to, leave key/value out or set value=`null` to go to end of string | |
+
+```json
+{
+	"from": 1,
+	"to": 3,
+}
+```
+> input('hello') -> 'el'
+
+!!! Note
+    All values are turned into `string` before slicing is applied. This lets you also slice any values independant on their original type in the input data. If the config Slicing object is empty, this str casting is also skipped. Any result after slicing is also a string. So if you need a different format use [casting to change it](#casting)
+
 ## If Statement
 
 This is where you can change found(or not found) data to something else based on a condition. They are chained in the sense that what the first one produces will be the input to the next one. Thus if you want the original value if the first one fails, then leave out ```otherwise```
@@ -116,7 +137,7 @@ This is where you can change found(or not found) data to something else based on
 
 > input('1') -> 'first_type'
 
-## Casting object
+## Casting
 The casting object lets you cast whatever value is found to some new value. Currently integer, decimal and date are supported and original format is optional helper data that we need for some special cases where the format of the input value cannot be asserted automatically.
 
 | name | type | description | default |
