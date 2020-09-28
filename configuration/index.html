@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -13,7 +14,7 @@
       
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -21,9 +22,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -337,6 +338,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slicing" class="md-nav__link">
+    Slicing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#if-statement" class="md-nav__link">
     If Statement
   </a>
@@ -344,8 +352,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#casting-object" class="md-nav__link">
-    Casting object
+  <a href="#casting" class="md-nav__link">
+    Casting
   </a>
   
 </li>
@@ -476,6 +484,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#slicing" class="md-nav__link">
+    Slicing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#if-statement" class="md-nav__link">
     If Statement
   </a>
@@ -483,8 +498,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#casting-object" class="md-nav__link">
-    Casting object
+  <a href="#casting" class="md-nav__link">
+    Casting
   </a>
   
 </li>
@@ -694,6 +709,45 @@
 <p>input({'path': { 'does_not_exist'}}) -&gt; 'default'</p>
 <p>input() -&gt; 'default'</p>
 </blockquote>
+<h2 id="slicing">Slicing<a class="headerlink" href="#slicing" title="Permanent link">&para;</a></h2>
+<p>Lets you slice a value from index <code>from</code> to index <code>to</code>. Slicing is implemented exactly like pythons string[x:x] slicing. This means that when <code>from</code> is negative you count back from the end, and if <code>to</code> is <code>null</code> or left out then we consume the rest of the string.</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+<th>default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>from</strong></td>
+<td>int</td>
+<td>Where to cut value from counted from <code>0</code></td>
+<td></td>
+</tr>
+<tr>
+<td>to</td>
+<td>int|null</td>
+<td>To what index we cut to, leave key/value out or set value=<code>null</code> to go to end of string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;from&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;to&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>input('hello') -&gt; 'el'</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All values are turned into <code>string</code> before slicing is applied. This lets you also slice any values independant on their original type in the input data. If the config Slicing object is empty, this str casting is also skipped. Any result after slicing is also a string. So if you need a different format use <a href="#casting">casting to change it</a></p>
+</div>
 <h2 id="if-statement">If Statement<a class="headerlink" href="#if-statement" title="Permanent link">&para;</a></h2>
 <p>This is where you can change found(or not found) data to something else based on a condition. They are chained in the sense that what the first one produces will be the input to the next one. Thus if you want the original value if the first one fails, then leave out <code>otherwise</code></p>
 <table>
@@ -744,7 +798,7 @@
 <p>input('2') -&gt; 'default_type'</p>
 <p>input('1') -&gt; 'first_type'</p>
 </blockquote>
-<h2 id="casting-object">Casting object<a class="headerlink" href="#casting-object" title="Permanent link">&para;</a></h2>
+<h2 id="casting">Casting<a class="headerlink" href="#casting" title="Permanent link">&para;</a></h2>
 <p>The casting object lets you cast whatever value is found to some new value. Currently integer, decimal and date are supported and original format is optional helper data that we need for some special cases where the format of the input value cannot be asserted automatically.</p>
 <table>
 <thead>
@@ -956,13 +1010,13 @@
       
     </div>
     
-      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "..",
-          features: ["tabs"],
+          features: ['tabs'],
           search: Object.assign({
             worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
           }, typeof search !== "undefined" && search)

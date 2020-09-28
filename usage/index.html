@@ -1,6 +1,7 @@
 
 
 
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -13,7 +14,7 @@
       
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
     
     
       
@@ -21,9 +22,9 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ff0a5ce4.min.css">
       
       
         
@@ -58,6 +59,11 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#running-piri" class="md-skip">
+          Skip to content
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -262,9 +268,63 @@
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Usage
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" title="Usage" class="md-nav__link md-nav__link--active">
       Usage
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-piri" class="md-nav__link">
+    Running Piri
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Piri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piri-cli" class="md-nav__link">
+    Piri CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piri-web" class="md-nav__link">
+    Piri WEB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piri-python-package" class="md-nav__link">
+    Piri python package
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -367,6 +427,61 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-piri" class="md-nav__link">
+    Running Piri
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Piri">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#piri-cli" class="md-nav__link">
+    Piri CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piri-web" class="md-nav__link">
+    Piri WEB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#piri-python-package" class="md-nav__link">
+    Piri python package
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -380,136 +495,45 @@
                 
                 <p>The goal of this library is to make configurable data transformation(mapping) easy and flexible.</p>
 <p>We have decided to only support json to json mapping. This is because quite frankly its impossible to have configurable mapping that works on any format. We chose json because its quite easy to make anything into json and its quite easy to make json into anything.</p>
-<p>When we made this library we have dealt primarily with csv data or xml data.</p>
-<p>example csv file could looks something like this:</p>
-<p><div class="highlight"><pre><span></span><code>thomas;borgen;street123;1010;20-10-10;500
-john;doe;street124;1011;20-10-11;6000
-</code></pre></div>
-which would easily be turned in a json file looking like this:
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">[</span><span class="s2">&quot;thomas&quot;</span><span class="p">,</span> <span class="s2">&quot;borgen&quot;</span><span class="p">,</span> <span class="s2">&quot;street123&quot;</span><span class="p">,</span> <span class="s2">&quot;1010&quot;</span><span class="p">,</span> <span class="s2">&quot;19-10-2020&quot;</span><span class="p">,</span> <span class="s2">&quot;500&quot;</span><span class="p">],</span>
-        <span class="p">[</span><span class="s2">&quot;john&quot;</span><span class="p">,</span> <span class="s2">&quot;doe&quot;</span><span class="p">,</span> <span class="s2">&quot;street124&quot;</span><span class="p">,</span> <span class="s2">&quot;1011&quot;</span><span class="p">,</span> <span class="s2">&quot;20-10-2020&quot;</span><span class="p">,</span> <span class="s2">&quot;6000&quot;</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p>Lets say we want to map this into a structure like this</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;firstname lastname&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;street&quot;</span><span class="p">:</span> <span class="s2">&quot;street&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;zipcode&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;invoice&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;isodate&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;amount&quot;</span><span class="p">:</span> <span class="mf">10.0</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">]</span>
+<h2 id="running-piri">Running Piri<a class="headerlink" href="#running-piri" title="Permanent link">&para;</a></h2>
+<p>There are multiple ways of running piri with the most convenient for testing being with <code>piri-cli</code>. Then theres <code>piri-web</code> which is a webserver where you can post configuration and data, and it returns the mapped result. Last but not least, theres running <code>piri</code> as a package in your python code. This section will shed light on when to use which and add some quickstart examples.</p>
+<h3 id="piri-cli">Piri CLI<a class="headerlink" href="#piri-cli" title="Permanent link">&para;</a></h3>
+<p>The piri CLI is the easiest way to get started. All you need is python&gt;=3.6 on your system. You also do not need to write any python code.</p>
+<p>usefull when:</p>
+<ul>
+<li>Testing if piri could be interesting for you</li>
+<li>Need to trigger mapping with scheduling tools like Cron or Windows Service</li>
+<li>You are using a different programming language, but can execute cmd scripts</li>
+</ul>
+<p>the <a href="../introduction">introduction</a> uses piri-cli, head over there for a quick start</p>
+<h3 id="piri-web">Piri WEB<a class="headerlink" href="#piri-web" title="Permanent link">&para;</a></h3>
+<p>Piri Web is a web api built with the <a href="https://falconframework.org/">falcon framework</a>. We have one-click deploy buttons for <code>GCP Run</code> and <code>Heroku</code>. It enables you to very easily set up a webserver where you can post configuration and raw data in the body and get mapped data in the body of the response. This also does not require to write any python code.</p>
+<p>Usefull when:</p>
+<ul>
+<li>You can loadbalance it and deploy multiple instances</li>
+<li>You are on a platform like GCP, AWS, Heroku</li>
+<li>You are already in a microservice/webservice oriented environment</li>
+</ul>
+<p>Look at the <a href="https://github.com/greenbird/piri-web">git repo</a> for deployment guide</p>
+<h3 id="piri-python-package">Piri python package<a class="headerlink" href="#piri-python-package" title="Permanent link">&para;</a></h3>
+<p>If you already are using Python and just want to add piri, you can easily import it into your program and run the code. This makes the most sense when you need to handle the data before or after the piri transformation for example when you need to dump result to xml.</p>
+<p>Usefull when:</p>
+<ul>
+<li>You need to do extensive handling of input data before mapping</li>
+<li>You need to transform the output json into something else</li>
+</ul>
+<p>Caveats:
+Remember that the more you handle the data before or after piri, the more you must document your changes to the data.</p>
+<p>To use piri, import the process function and feed it your data and the configuration.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">piri.process</span> <span class="kn">import</span> <span class="n">process</span>
+
+<span class="n">your_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">your_config</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">your_data</span><span class="p">,</span> <span class="n">your_config</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Then we'd use a configuration that you will see is structurally quite similar to the output that we want.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;root&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&quot;path_to_iterable&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
-    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-                <span class="p">},</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="p">}</span>
-            <span class="p">],</span>
-            <span class="nt">&quot;separator&quot;</span><span class="p">:</span> <span class="s2">&quot; &quot;</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;street&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-                        <span class="p">}</span>
-                    <span class="p">]</span>
-                <span class="p">},</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;zip&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-                        <span class="p">}</span>
-                    <span class="p">]</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;array&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;due_date&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-                        <span class="p">}</span>
-                    <span class="p">],</span>
-                    <span class="nt">&quot;casting&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="nt">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span>
-                        <span class="nt">&quot;original_format&quot;</span><span class="p">:</span> <span class="s2">&quot;dd.mm.yyyy&quot;</span>
-                    <span class="p">}</span>
-                <span class="p">},</span>
-                <span class="p">{</span>
-                    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;amount&quot;</span><span class="p">,</span>
-                    <span class="nt">&quot;mappings&quot;</span><span class="p">:</span> <span class="p">[</span>
-                        <span class="p">{</span>
-                            <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-                        <span class="p">}</span>
-                    <span class="p">],</span>
-                    <span class="nt">&quot;casting&quot;</span><span class="p">:</span> <span class="p">{</span>
-                        <span class="nt">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;decimal&quot;</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<p>which will produce</p>
-<div class="highlight"><pre><span></span><code><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;thomas borgen&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;street&quot;</span><span class="p">:</span> <span class="s2">&quot;street123&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;1010&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;invoice&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-10-20&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;amount&quot;</span><span class="p">:</span> <span class="mf">500.0</span>
-        <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;john doe&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;street&quot;</span><span class="p">:</span> <span class="s2">&quot;street124&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;1011&quot;</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;invoice&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;due_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-10-19&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;amount&quot;</span><span class="p">:</span> <span class="mf">6000.0</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
+<p>Notice that process expects <code>data: Union[List, Dict]</code> and <code>configuration: Dict</code></p>
                 
               
               
@@ -576,13 +600,13 @@ which would easily be turned in a json file looking like this:
       
     </div>
     
-      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "..",
-          features: ["tabs"],
+          features: ['tabs'],
           search: Object.assign({
             worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
           }, typeof search !== "undefined" && search)
