@@ -3,7 +3,7 @@ from typing_extensions import Final
 # Objects
 NAME = 'name'
 ARRAY: Final = 'array'
-PATH_TO_ITERABLE: Final = 'path_to_iterable'
+ITERABLES: Final = 'iterables'
 
 ATTRIBUTES: Final = 'attributes'
 OBJECTS: Final = 'objects'
@@ -16,9 +16,13 @@ IF_STATEMENTS: Final = 'if_statements'
 CASTING: Final = 'casting'
 DEFAULT: Final = 'default'
 
-# Mapping
+# Iterables
+ALIAS: Final = 'alias'
 PATH: Final = 'path'
-# DEFAULT
+
+# Mapping
+# 'path' from iterables
+# 'default'
 
 # IF STATEMENT
 CONDITION: Final = 'condition'

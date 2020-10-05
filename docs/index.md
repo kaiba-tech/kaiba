@@ -7,7 +7,9 @@ ___
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 ___
 
-**[Documentation](https://greenbird.github.io/piri/) |
+**Documentation
+([Stable](https://piri.readthedocs.io/) |
+[Latest](https://piri.readthedocs.io/en/latest/)) |
 [Source Code](https://github.com/greenbird/piri) |
 [Task Tracker](https://github.com/greenbird/piri/issues)**
 
@@ -62,7 +64,7 @@ We believe that this will make collaboration between teams faster and easier. Us
     * integer, decimal, iso date
 
 ## Contributing
-Please see [contribute](../contributing)
+Please see [contribute](https://piri.readthedocs.io/en/stable/contributing)
 
 ## Installation
 
@@ -74,6 +76,10 @@ pip install piri
 ```sh
 poetry add piri
 ```
+
+## Introduction
+
+Have a look at our introduction course [here](https://piri.readthedocs.io/en/stable/introduction)
 
 ## Quickstart
 ```python
@@ -88,7 +94,12 @@ my_config = {
         {
             'name': 'invoices',
             'array': True,
-            'path_to_iterable': ['root', 'invoices'],
+            'iterables': [
+                {
+                    'alias': 'invoices',
+                    'path': ['root', 'invoices'],
+                },
+            ],
             'attributes': [
                 {
                     'name': 'amount',

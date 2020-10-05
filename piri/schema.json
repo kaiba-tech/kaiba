@@ -116,6 +116,21 @@
                 "required": ["path"]
             }
         },
+        "iterable": {
+            "type": "object",
+            "properties": {
+                "alias": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "type": ["string", "integer"]
+                    }
+                }
+            },
+            "required": ["alias", "path"]
+        },
         "attribute": {
             "type": "object",
             "properties": {
@@ -167,11 +182,12 @@
                 "array": {
                     "type": "boolean"
                 },
-                "path_to_iterable": {
+                "iterables": {
                     "type": "array",
                     "items": {
-                        "type": ["string", "integer"]
-                    }
+                        "$ref": "#definitions/iterable"
+                    },
+                    "default": []
                 },
                 "branching_attributes": {
                     "type": "array",
@@ -195,11 +211,12 @@
                 "array": {
                     "type": "boolean"
                 },
-                "path_to_iterable": {
+                "iterables": {
                     "type": "array",
                     "items": {
-                        "type": ["string", "integer"]
-                    }
+                        "$ref": "#definitions/iterable"
+                    },
+                    "default": []
                 },
                 "objects": {
                     "type": "array",
