@@ -4,41 +4,38 @@
     "title": "Mapmallow configuration schema",
     "$ref": "#/definitions/mapping_object",
     "definitions": {
-        "if_statement": {
-            "description": "Allows for `is`, `not`, `in` and `contains` evaluation and ability to set a value depending on the outcome",
+        "iterable": {
             "type": "object",
             "properties": {
-                "condition": {
-                    "enum": ["is", "not", "in", "contains"]
+                "alias": {
+                    "type": "string"
                 },
-                "target": {
-                    "type": ["object", "array", "string", "boolean", "number", "integer"]
-                },
-                "then": {
-                    "type": ["object", "array", "string", "boolean", "number", "integer", "null"]
-                },
-                "otherwise": {
-                    "type": ["object", "array", "string", "boolean", "number", "integer", "null"]
-                }
-            },
-            "required": ["condition", "target", "then"],
-            "if": {
-                "properties": {
-                    "condition": {
-                        "const": "in"
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "type": ["string", "integer"]
                     }
                 }
             },
-            "then": {
-                "properties": {
-                    "target": {
-                        "type": ["string", "array"]
-                    }
+            "required": ["alias", "path"]
+        },
+        "regexp": {
+            "description": "Let's you find value by REGEXP pattern",
+            "type": "object",
+            "properties": {
+                "search": {
+                    "type": "string",
+                    "format": "regex"
+                },
+                "group": {
+                    "type": ["integer", "array"],
+                    "default": 0
                 }
-            }
+            },
+            "required": ["search"]
         },
         "slicing": {
-            "description": "Lets you slice found value from inclusive index[from] to exclusive index[to] leave 'to' as null to get to end of string",
+            "description": "Let's you slice found value from inclusive index[from] to exclusive index[to] leave 'to' as null to get to end of string",
             "type": "object",
             "properties": {
                 "from": {
@@ -95,6 +92,10 @@
                     "$ref": "#definitions/slicing",
                     "default": {}
                 },
+                "regexp": {
+                    "$ref": "#definitions/regexp",
+                    "default": {}
+                },
                 "if_statements": {
                     "type": "array",
                     "items": {
@@ -115,21 +116,6 @@
             "then": {
                 "required": ["path"]
             }
-        },
-        "iterable": {
-            "type": "object",
-            "properties": {
-                "alias": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "array",
-                    "items": {
-                        "type": ["string", "integer"]
-                    }
-                }
-            },
-            "required": ["alias", "path"]
         },
         "attribute": {
             "type": "object",
@@ -171,6 +157,39 @@
             },
             "then": {
                 "required": ["mappings"]
+            }
+        },
+        "if_statement": {
+            "description": "Allows for `is`, `not`, `in` and `contains` evaluation and ability to set a value depending on the outcome",
+            "type": "object",
+            "properties": {
+                "condition": {
+                    "enum": ["is", "not", "in", "contains"]
+                },
+                "target": {
+                    "type": ["object", "array", "string", "boolean", "number", "integer"]
+                },
+                "then": {
+                    "type": ["object", "array", "string", "boolean", "number", "integer", "null"]
+                },
+                "otherwise": {
+                    "type": ["object", "array", "string", "boolean", "number", "integer", "null"]
+                }
+            },
+            "required": ["condition", "target", "then"],
+            "if": {
+                "properties": {
+                    "condition": {
+                        "const": "in"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "target": {
+                        "type": ["string", "array"]
+                    }
+                }
             }
         },
         "branching_object": {

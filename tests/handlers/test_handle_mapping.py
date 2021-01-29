@@ -47,6 +47,37 @@ def test_default_value_is_used():
     ).unwrap() == 'default'
 
 
+def test_regexp_is_applied():
+    """Test that we can search by pattern."""
+    input_data: dict = {'game': '8. d4 Re8 ... 14. Rxe8+ Rxe8 15. h3'}  # noqa: E501
+    config: dict = {
+        'path': ['game'],
+        'regexp': {
+            'search': '(Rxe8.*)',
+        },
+    }
+    assert handle_mapping(
+        input_data,
+        config,
+    ).unwrap() == 'Rxe8+ Rxe8 15. h3'
+
+
+def test_regexp_is_applied_on_group_as_list():
+    """Test that we can search by pattern when it is a list."""
+    input_data: dict = {'game': '1. e4 e5 6. Qe2+ Qe7 7. Qxe7+ Kxe7 8. d4 Re8'}
+    config: dict = {
+        'path': ['game'],
+        'regexp': {
+            'search': r'(e\d)+',
+            'group': [0, 1, 6],
+        },
+    }
+    assert handle_mapping(
+        input_data,
+        config,
+    ).unwrap() == ['e4', 'e5', 'e8']
+
+
 def test_slicing_is_applied():
     """Test that applying slicing works."""
     input_data = {'key': 'value'}

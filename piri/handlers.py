@@ -12,6 +12,7 @@ from piri.constants import (
     IF_STATEMENTS,
     MAPPINGS,
     PATH,
+    REGEXP,
     SEPARATOR,
     SLICING,
 )
@@ -19,6 +20,7 @@ from piri.functions import (
     apply_casting,
     apply_default,
     apply_if_statements,
+    apply_regexp,
     apply_separator,
     apply_slicing,
 )
@@ -60,6 +62,12 @@ def handle_mapping(
     return flow(
         collection,
         partial(fetch_data_by_keys, path=cfg.get(PATH, [])),
+        fix(lambda _: None),  # type: ignore
+        bind(
+            partial(
+                apply_regexp, regexp=cfg.get(REGEXP, {}),
+            ),
+        ),
         fix(lambda _: None),  # type: ignore
         map_(partial(
             apply_slicing, slicing=cfg.get(SLICING, {}),

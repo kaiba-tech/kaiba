@@ -65,3 +65,13 @@ def test_list():
         [0, 1, 2],
         {'from': 1, 'to': None},
     ) == [1, 2]
+
+
+def test_slice_range_longer_than_string():
+    """Test that slice range longer than the string length returns string."""
+    assert apply_slicing('0123', {'from': 0, 'to': 50}) == '0123'
+
+
+def test_slice_range_on_range_out_of_string():
+    """Test that slice range out of the string."""
+    assert apply_slicing('0123', {'from': 5, 'to': 10}) == ''
