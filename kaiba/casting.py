@@ -9,7 +9,7 @@ from returns.pointfree import alt, bind, map_, rescue
 from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
-from piri.constants import (
+from kaiba.constants import (
     COMMA,
     DATE,
     DECIMAL,
@@ -18,7 +18,7 @@ from piri.constants import (
     INTEGER_CONTAINING_DECIMALS,
     PERIOD,
 )
-from piri.valuetypes import MapValue
+from kaiba.valuetypes import MapValue
 
 
 @safe

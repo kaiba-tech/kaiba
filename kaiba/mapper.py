@@ -6,8 +6,8 @@ from returns.maybe import maybe
 from returns.pipeline import is_successful
 from returns.result import safe
 
-from piri.collection_handlers import iterable_data_handler
-from piri.constants import (
+from kaiba.collection_handlers import iterable_data_handler
+from kaiba.constants import (
     ARRAY,
     ATTRIBUTES,
     BRANCHING_ATTRIBUTES,
@@ -16,7 +16,7 @@ from piri.constants import (
     NAME,
     OBJECTS,
 )
-from piri.handlers import handle_attribute
+from kaiba.handlers import handle_attribute
 
 decimal.getcontext().rounding = decimal.ROUND_HALF_UP
 
