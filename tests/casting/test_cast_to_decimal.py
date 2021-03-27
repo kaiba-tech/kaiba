@@ -3,7 +3,7 @@ from decimal import Decimal
 from returns.pipeline import is_successful
 from typing_extensions import Final
 
-from piri.casting import CastToDecimal
+from kaiba.casting import CastToDecimal
 
 target: Final[Decimal] = Decimal('1234567.89')
 

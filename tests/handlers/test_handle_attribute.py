@@ -1,6 +1,6 @@
 import decimal
 
-from piri.handlers import handle_attribute
+from kaiba.handlers import handle_attribute
 
 
 def test_get_key_in_dict():

@@ -1,6 +1,6 @@
 from returns.pipeline import is_successful
 
-from piri.mapper import map_data
+from kaiba.mapper import map_data
 
 
 def test_creating_key_to_name():

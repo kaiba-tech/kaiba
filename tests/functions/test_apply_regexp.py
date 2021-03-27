@@ -1,4 +1,4 @@
-from piri.functions import apply_regexp
+from kaiba.functions import apply_regexp
 
 
 def test_regexp_on_index_out_of_range():

@@ -1,6 +1,6 @@
 from returns.pipeline import is_successful
 
-from piri.collection_handlers import set_value_in_dict
+from kaiba.collection_handlers import set_value_in_dict
 
 
 def test():

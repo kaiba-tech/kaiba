@@ -1,7 +1,7 @@
 from returns.pipeline import is_successful
 from typing_extensions import Final
 
-from piri.casting import CastToInteger
+from kaiba.casting import CastToInteger
 
 target: Final[int] = 123
 
