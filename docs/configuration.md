@@ -46,7 +46,7 @@ Iterables are your bread and butter for looping lists in the input data. For eac
 ```
 [Explanation of path](#explanation-of-path)
 
-[Iterables will get more explained](https://github.com/greenbird/piri/issues/113)
+[Explanation of Iterables coming](#)
 
 ## Attribute
 

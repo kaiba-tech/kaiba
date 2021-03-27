@@ -1,6 +1,6 @@
 ---
 strict: true
-site_name: piri
+site_name: kaiba
 site_description: Configurable json to json mapping
 theme:
   name: material
@@ -13,8 +13,8 @@ theme:
   language: en
   features:
     - navigation.tabs
-repo_name: greenbird/piri
-repo_url: https://github.com/greenbird/piri
+repo_name: kaiba-tech/kaiba
+repo_url: https://github.com/kaiba-tech/kaiba
 edit_uri: ""
 markdown_extensions:
   - admonition

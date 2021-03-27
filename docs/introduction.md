@@ -1,13 +1,13 @@
-Piri uses a configuration file to govern output structure and contents. This section is the introductionary course to Piri.
+Kaiba uses a configuration file to govern output structure and contents. This section is the introductionary course to Kaiba.
 
 
 ## The setup
 
-For this introduction course we will use [piri-cli](https://github.com/greenbird/piri-cli) since it provides you with a simple command line tool to run piri. And no need to create any python files.
+For this introduction course we will use [kaiba-cli](https://github.com/kaiba-tech/kaiba-cli) since it provides you with a simple command line tool to run kaiba. And no need to create any python files.
 
 Install with pip:
 ```sh
-pip install piri-cli
+pip install kaiba-cli
 ```
 
 All examples will have a config, input and output json tab like this:
@@ -29,7 +29,7 @@ Copy the contents of config.json and input.json down to your working dir.
 
 Run all examples with the following unless otherwise stated.
 ```sh
-piri config.json input.json
+kaiba config.json input.json
 ```
 
 
@@ -57,7 +57,7 @@ Json is a human readable data format that stores data in objects consisting of a
 
 ## The Root
 
-The root of all ev... piri configs looks like this
+The root of all ev... kaiba configs looks like this
 
 ```json
 {
@@ -1265,7 +1265,7 @@ Well its easy, first we just add iterables to `"data"`, then we must iterate `"n
     ```
 
 
-We will write a more in depth explanation of iterables and how they work internally. [Link to the issue](https://github.com/greenbird/piri/issues/113)
+We will write a more in depth explanation of iterables and how they work internally. [Link to the issue](https://github.com/kaiba-tech/kaiba/issues/113)
 
 
 And thats it!
