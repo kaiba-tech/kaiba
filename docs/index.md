@@ -1,4 +1,4 @@
-# Piri
+# Kaiba
 Configurable Data Mapping for mortals
 ___
 ![test](https://github.com/greenbird/piri/workflows/test/badge.svg)
