@@ -121,7 +121,7 @@ def handle_attribute(
     """
     mapped_values = [
         mapped.unwrap()
-        for mapped in
+        for mapped in  # noqa: WPS361
         [
             handle_mapping(collection, mapping)
             for mapping in cfg.get(MAPPINGS, [])
