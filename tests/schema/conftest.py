@@ -4,14 +4,14 @@ import pytest
 from jsonschema import Draft7Validator, draft7_format_checker
 from returns.result import safe
 
-from piri.common import ReadLocalFile
-from piri.schema import SchemaValidator
+from kaiba.common import ReadLocalFile
+from kaiba.schema import SchemaValidator
 
 
 @pytest.fixture(scope='session')
 def schema():
     """Get the schema."""
-    return ReadLocalFile()('piri/schema.json', 'r').bind(
+    return ReadLocalFile()('kaiba/schema.json', 'r').bind(
         safe(json.loads),
     ).unwrap()
 

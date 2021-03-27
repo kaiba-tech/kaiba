@@ -5,8 +5,8 @@ from returns.pipeline import flow
 from returns.pointfree import bind
 from returns.result import Failure, ResultE, Success, safe
 
-from piri.casting import get_casting_function
-from piri.constants import (  # noqa: WPS235
+from kaiba.casting import get_casting_function
+from kaiba.constants import (  # noqa: WPS235
     CONDITION,
     CONTAINS,
     DEFAULT_GROUP,
@@ -22,7 +22,7 @@ from piri.constants import (  # noqa: WPS235
     THEN,
     TO,
 )
-from piri.valuetypes import MapValue, NewValue, ValueTypes
+from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 
 
 @safe
@@ -199,7 +199,7 @@ def apply_regexp(  # noqa: WPS212, WPS234
     :rtype: MapValue
 
     Example
-        >>> from piri.functions import apply_regexp
+        >>> from kaiba.functions import apply_regexp
         >>> apply_regexp('abcdef', {'search': '(?<=abc)def'}).unwrap()
         'def'
         >>> apply_regexp(

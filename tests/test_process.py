@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from piri.process import process
+from kaiba.process import process
 
 
 def test_creating_key_to_name():

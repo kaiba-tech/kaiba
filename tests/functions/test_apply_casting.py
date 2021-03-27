@@ -1,6 +1,6 @@
 from returns.pipeline import is_successful
 
-from piri.functions import apply_casting
+from kaiba.functions import apply_casting
 
 
 def test_no_value_raises_fails():

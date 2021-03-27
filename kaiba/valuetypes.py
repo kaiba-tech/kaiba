@@ -5,7 +5,7 @@ from returns.result import Result
 
 ValueTypes = (str, int, float, bool, Decimal)
 
-Value = Union[str, int, float, bool, Decimal]
+Value = Union[str, int, float, bool, Decimal]  # noqa: WPS110
 ValueDict = Dict[str, Value]
 ValueDictList = List[ValueDict]
 NewValue = Union[dict, list, Value]

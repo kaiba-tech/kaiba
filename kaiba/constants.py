@@ -6,7 +6,7 @@ ARRAY: Final = 'array'
 ITERABLES: Final = 'iterables'
 
 ATTRIBUTES: Final = 'attributes'
-OBJECTS: Final = 'objects'
+OBJECTS: Final = 'objects'  # noqa: WPS110
 BRANCHING_OBJECTS: Final = 'branching_objects'
 BRANCHING_ATTRIBUTES: Final = 'branching_attributes'
 

@@ -1,6 +1,6 @@
 from returns.pipeline import is_successful
 
-from piri.collection_handlers import fetch_list_by_keys
+from kaiba.collection_handlers import fetch_list_by_keys
 
 
 def test():

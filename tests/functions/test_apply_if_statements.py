@@ -1,6 +1,6 @@
 from returns.result import Success
 
-from piri.functions import apply_if_statements
+from kaiba.functions import apply_if_statements
 
 
 def test_if_is():

@@ -1,6 +1,6 @@
 from returns.pipeline import is_successful
 
-from piri.functions import apply_default
+from kaiba.functions import apply_default
 
 
 def test_apply_default():

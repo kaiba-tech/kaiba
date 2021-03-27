@@ -1,7 +1,7 @@
 import pytest
 from returns.primitives.exceptions import UnwrapFailedError
 
-from piri.iso import GetCountryCode, GetCurrencyCode, GetLanguageCode
+from kaiba.iso import GetCountryCode, GetCurrencyCode, GetLanguageCode
 
 
 class TestGetCountryCode(object):

@@ -1,7 +1,7 @@
 from returns.pipeline import is_successful
 from returns.result import Success
 
-from piri.handlers import handle_mapping
+from kaiba.handlers import handle_mapping
 
 
 def test_get_string_value_from_key():

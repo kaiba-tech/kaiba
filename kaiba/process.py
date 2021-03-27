@@ -6,8 +6,8 @@ from returns.pipeline import is_successful
 from returns.result import ResultE
 from typing_extensions import final
 
-from piri.mapper import map_data
-from piri.schema import SchemaValidator
+from kaiba.mapper import map_data
+from kaiba.schema import SchemaValidator
 
 
 @final

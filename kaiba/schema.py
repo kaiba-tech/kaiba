@@ -6,7 +6,7 @@ from jsonschema import Draft7Validator, draft7_format_checker
 from returns.result import Failure, ResultE, Success, safe
 from typing_extensions import Final, final
 
-from piri.common import ReadLocalFile
+from kaiba.common import ReadLocalFile
 
 SCHEMA: Final[dict] = ReadLocalFile()(
     '{0}/schema.json'.format(os.path.dirname(__file__)), 'r',

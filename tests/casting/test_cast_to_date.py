@@ -1,7 +1,7 @@
 from returns.pipeline import is_successful
 from typing_extensions import Final
 
-from piri.casting import CastToDate
+from kaiba.casting import CastToDate
 
 target_after_2000: Final['str'] = '2019-09-07'
 target_before_2000: Final['str'] = '1994-06-08'

@@ -2,8 +2,8 @@ from typing import Any, Dict, List, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
-from piri.constants import ALIAS, PATH
-from piri.valuetypes import MapValue
+from kaiba.constants import ALIAS, PATH
+from kaiba.valuetypes import MapValue
 
 
 @safe
