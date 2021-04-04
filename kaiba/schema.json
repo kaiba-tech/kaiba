@@ -149,14 +149,21 @@
                     "default": null
                 }
             },
-            "required": ["name"],
             "if": {
                 "not": {
                     "required": ["default"]
                 }
             },
             "then": {
-                "required": ["mappings"]
+                "properties": {
+                    "mappings": {
+                        "minItems": 1
+                    }
+                },
+                "required": ["name", "mappings"]
+            },
+            "else": {
+                "required": ["name", "default"]
             }
         },
         "if_statement": {
