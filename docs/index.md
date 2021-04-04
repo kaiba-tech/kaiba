@@ -33,7 +33,7 @@ __This enables you to change any input into the output you desire.__
 
 [kaiba-cli](https://github.com/kaiba-tech/kaiba-cli), commandline interface for file to file mapping.
 
-[kaiba-web](https://github.com/kaiba-tech/kaiba-web), One Click deploy Web REST API for kaiba JSON mapping.
+[kaiba-api](https://github.com/kaiba-tech/kaiba-api), FastAPI driven rest server that maps data with kaiba
 
 ## Enterprise solutions
 
