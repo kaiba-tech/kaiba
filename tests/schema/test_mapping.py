@@ -2,9 +2,15 @@ from jsonschema import ValidationError
 from returns.pipeline import is_successful
 
 
-def test_validates(mapping_validator, valid):
+def test_validates_with_only_default(mapping_validator):
     """Test that we get dict back on valid validation."""
     test: dict = {'default': 'test'}
+    assert mapping_validator(test).unwrap() == test
+
+
+def test_validates_with_only_path(mapping_validator):
+    """Test that we validate ok when only supplying path."""
+    test: dict = {'path': ['bob'], 'if_statements': []}
     assert mapping_validator(test).unwrap() == test
 
 

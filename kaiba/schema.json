@@ -114,7 +114,15 @@
                 }
             },
             "then": {
+                "properties": {
+                    "path": {
+                        "minItems": 1
+                    }
+                },
                 "required": ["path"]
+            },
+            "else": {
+                "required": ["default"]
             }
         },
         "attribute": {
