@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "testid",
+    "$id": "#",
     "title": "Kaiba configuration schema",
     "$ref": "#/definitions/mapping_object",
     "definitions": {
@@ -89,17 +89,17 @@
                     }
                 },
                 "slicing": {
-                    "$ref": "#definitions/slicing",
+                    "$ref": "#/definitions/slicing",
                     "default": {}
                 },
                 "regexp": {
-                    "$ref": "#definitions/regexp",
+                    "$ref": "#/definitions/regexp",
                     "default": {}
                 },
                 "if_statements": {
                     "type": "array",
                     "items": {
-                        "$ref": "#definitions/if_statement"
+                        "$ref": "#/definitions/if_statement"
                     },
                     "default": []
                 },
@@ -126,7 +126,7 @@
                 "mappings": {
                     "type": "array",
                     "items": {
-                        "$ref": "#definitions/mapping"
+                        "$ref": "#/definitions/mapping"
                     }
                 },
                 "separator": {
@@ -136,12 +136,12 @@
                 "if_statements": {
                     "type": "array",
                     "items": {
-                        "$ref": "#definitions/if_statement"
+                        "$ref": "#/definitions/if_statement"
                     },
                     "default": []
                 },
                 "casting": {
-                    "$ref": "#definitions/casting",
+                    "$ref": "#/definitions/casting",
                     "default": {}
                 },
                 "default": {
@@ -204,7 +204,7 @@
                 "iterables": {
                     "type": "array",
                     "items": {
-                        "$ref": "#definitions/iterable"
+                        "$ref": "#/definitions/iterable"
                     },
                     "default": []
                 },
@@ -233,7 +233,7 @@
                 "iterables": {
                     "type": "array",
                     "items": {
-                        "$ref": "#definitions/iterable"
+                        "$ref": "#/definitions/iterable"
                     },
                     "default": []
                 },
