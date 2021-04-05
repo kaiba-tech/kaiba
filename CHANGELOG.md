@@ -6,6 +6,7 @@
 | New Feature | minor |
 | otherwise | patch |
 
+
 ## Version 1.0.0 Release: Kaiba
 
 Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure and input transformation and mappings.
@@ -24,3 +25,11 @@ Kaiba is forked from the greenbird/piri @ version 2.2.0
     * integer, decimal, iso date
 * Regular Expressions - Regex
 * Slicing
+
+
+## Version 0.2.1 - Schema troubles
+
+Fixes problems with Schema validation
+
+* In attribute make sure either name + mappings or name + default is required
+* In mappings make sure that length of path is above 1 if default is not provided.
