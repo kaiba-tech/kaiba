@@ -2,18 +2,14 @@ import json
 
 import pytest
 from jsonschema import Draft7Validator, draft7_format_checker
-from returns.result import safe
 
-from kaiba.common import ReadLocalFile
-from kaiba.schema import SchemaValidator
+from kaiba.schema import SCHEMA, SchemaValidator
 
 
 @pytest.fixture(scope='session')
 def schema():
     """Get the schema."""
-    return ReadLocalFile()('kaiba/schema.json', 'r').bind(
-        safe(json.loads),
-    ).unwrap()
+    return SCHEMA
 
 
 @pytest.fixture(scope='session')
