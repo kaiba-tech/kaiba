@@ -39,10 +39,10 @@ simplejson = "^3.17.2"
 
 safety = "^1.10.3"
 
-pytest = "^6.2.2"
-pytest-cov = "^2.11.1"
+pytest = "^6.2.4"
+pytest-cov = "^2.12.0"
 mkdocs-material = "^7.0.6"
-importlib-metadata = "^3.8.0"
+importlib-metadata = "^4.3.0"
 isort = "^5.8.0"
 
 [build-system]
