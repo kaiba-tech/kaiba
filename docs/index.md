@@ -73,9 +73,10 @@ We believe that this will make collaboration between teams faster and easier. Us
 * Combine multiple values to one.
 * Default values
 * If statements
-    * is, contains, not
-* casting
+    * is, contains, in, not
+* Casting
     * integer, decimal, iso date
+* Regular Expressions
 
 ## Contributing
 Please see [contribute](https://kaiba.readthedocs.io/en/stable/contributing)
