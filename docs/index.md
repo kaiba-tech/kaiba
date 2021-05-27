@@ -19,6 +19,20 @@ Kaiba is a JSON to JSON mapper. That means that we read input JSON and create ou
 
 __This enables you to change any input into the output you desire.__
 
+## The Kaiba App
+
+The kaiba App is currently in development
+
+[app.kaiba.tech](https://app.kaiba.tech)
+
+The app is a UI for creating Kaiba configurations. With the UI you can map in real time easily with an ui and create the config.
+
+## The Kaiba API
+
+The kaiba api is open for anyone to try, you send your data and the configuration and get mapped data response.
+
+[api.kaiba.tech/docs](https://api.kaiba.tech/docs)
+
 ## Typical usecases
 
 * You `GET` data from api, but need to transform it for your backend system
