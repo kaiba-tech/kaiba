@@ -25,35 +25,35 @@ class Slicing(BaseModel):
     slice_to: Optional[int] = Field(None, alias='to')
 
 
-class CastingToEnum(Enum):
+class CastingEnum(str, Enum):
     """Types that we can cast a value to."""
 
-    string = 'string'
-    integer = 'integer'
-    decimal = 'decimal'
-    date = 'date'
+    STRING = 'string'  # noqa: WPS115
+    INTEGER = 'integer'  # noqa: WPS115
+    DECIMAL = 'decimal'  # noqa: WPS115
+    DATE = 'date'  # noqa: WPS115
 
 
 class Casting(BaseModel):
     """Allows user to cast to type."""
 
-    to: CastingToEnum
+    to: CastingEnum
     original_format: Optional[str] = None
 
 
-class IfStatementConditionEnum(Enum):
+class ConditionEnum(str, Enum):
     """Conditions for if statements."""
 
-    _is = 'is'
-    _not = 'not'
-    _in = 'in'
-    _contains = 'contains'
+    IS = 'is'  # noqa: WPS115
+    NOT = 'not'  # noqa: WPS115
+    IN = 'in'  # noqa: WPS115
+    CONTAINS = 'contains'  # noqa: WPS115
 
 
 class IfStatement(BaseModel):
     """Handles if statements."""
 
-    condition: IfStatementConditionEnum
+    condition: ConditionEnum
     target: Any  # Should be any valid json value
     then: Any  # Should be any valid json value
     otherwise: Optional[Any] = None  # Should be any valid json value

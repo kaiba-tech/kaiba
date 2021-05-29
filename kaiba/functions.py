@@ -23,14 +23,18 @@ from kaiba.constants import (  # noqa: WPS235
     TO,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
+from kaiba.pydantic_schema import IfStatement, ConditionEnum
 
 
 @safe
-def apply_if_statements(if_value, if_objects) -> MapValue:
+def apply_if_statements(
+    if_value,
+    if_objects: List[IfStatement]
+) -> MapValue:
     """Apply if statements to a value.
 
     :param if_value: The value to use when evaluating if statements
-    :type if_value: MapValue
+    :type if_value: MapValuen
 
     :param if_objects: :term:`if_objects` collection of if operations
     :type if_objects: List[Dict[str, Any]]
@@ -85,31 +89,31 @@ def apply_if_statements(if_value, if_objects) -> MapValue:
 @safe
 def _apply_statement(
     if_value: Optional[MapValue],
-    if_object: Dict[str, Any],
+    if_object: IfStatement,
 ) -> Optional[MapValue]:
     evaluation: bool = False
 
-    condition = if_object[CONDITION]
-    target = if_object[TARGET]
+    condition = if_object.condition
+    target = if_object.target
 
-    if condition == IS:
+    if condition == ConditionEnum.IS:
         evaluation = if_value == target
 
-    if condition == NOT:
+    if condition == ConditionEnum.NOT:
         evaluation = if_value != target
 
-    if condition == IN:
+    if condition == ConditionEnum.IN:
         evaluation = if_value in target
 
-    if condition == CONTAINS:
+    if condition == ConditionEnum.CONTAINS:
         list_or_dict = isinstance(if_value, (dict, list))
         evaluation = list_or_dict and target in if_value  # type: ignore
         evaluation = evaluation or not list_or_dict and target in str(if_value)
 
     if evaluation:
-        return if_object[THEN]
+        return if_object.then
 
-    return if_object.get(OTHERWISE, if_value)
+    return if_object.otherwise or if_value
 
 
 @safe
