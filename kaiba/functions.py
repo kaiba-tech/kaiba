@@ -23,7 +23,7 @@ from kaiba.constants import (  # noqa: WPS235
     TO,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
-from kaiba.pydantic_schema import IfStatement, ConditionEnum, Slicing
+from kaiba.pydantic_schema import IfStatement, ConditionEnum, Slicing, Regexp
 
 
 @safe
@@ -188,7 +188,7 @@ def apply_slicing(
 @safe
 def apply_regexp(  # noqa: WPS212, WPS234
     value_to_match: Optional[MapValue],
-    regexp: Dict[str, Any],
+    regexp: Regexp,
 ) -> Union[List[MapValue], MapValue, None]:
     r"""Match value by a certain regexp pattern.
 
@@ -208,40 +208,30 @@ def apply_regexp(  # noqa: WPS212, WPS234
         'def'
         >>> apply_regexp(
         ...     'Isaac Newton, physicist',
-        ...     {'search': r'(\w+)', 'group': 1},
+        ...     Regexp(**{'search': r'(\w+)', 'group': 1}),
         ... ).unwrap()
         'Newton'
         >>> apply_regexp(
-        ...     'r7/p4pN1/1pn4k/8/2bP3R/2P3R1/6PP/6K1 b - -',
-        ...     {'search': r'(P[\d|\w])', 'group': [0, 2]},
+        ...     'Isaac Newton, physicist',
+        ...     Regexp(**{'search': r'(\w+)', 'group': [1, 2]}),
         ... ).unwrap()
-        ['P3', 'PP']
-        >>> apply_regexp(None, {'search': 'a+'}).unwrap()
-        >>> apply_regexp('lichess rocks!', {'search': None}).unwrap()
+        ['Newton', physicist]
+        >>> apply_regexp(None, Regexp(**{'search': 'a+'})).unwrap()
+        >>> apply_regexp('lichess rocks!', Regexp(**{'search': None})).unwrap()
         'lichess rocks!'
         >>> apply_regexp('Open-source matters', None).unwrap()
         'Open-source matters'
-        >>> apply_regexp(
-        ...     '1. e2 e4 d2 d4 2. Nc3 Nc6 3. Qe2 Qe7',
-        ...     {'search': r'(e\d)', 'group': []},
-        ... ).unwrap()
-        ['e2', 'e4', 'e2', 'e7']
-        >>> apply_regexp(
-        ...     '[Event \"Live Chess\"]\n[Site \"Chess.com\"]\n[Date ',
-        ...     {'search': r'Event \"[\d\w ]+\"'}
-        ... ).unwrap()
-        'Event "Live Chess"'
     """
     if value_to_match is None:
         return value_to_match
 
-    if not regexp or not regexp[SEARCH]:
+    if not regexp or not regexp.search:
         return value_to_match
 
-    pattern = regexp[SEARCH]
+    pattern = regexp.search
     groups = re.finditer(pattern, value_to_match)
     matches: list = [gr.group(0) for gr in groups]
-    num_group: Union[int, list] = regexp.get(GROUP, DEFAULT_GROUP)
+    num_group: Union[int, List[int]] = regexp.group
     if isinstance(num_group, list):
         if not num_group:
             return matches

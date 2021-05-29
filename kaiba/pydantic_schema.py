@@ -15,7 +15,7 @@ class Regexp(BaseModel):
     """Use regular expression to find your data."""
 
     search: Pattern
-    group: Optional[Union[int, List[int]]] = 0  # noqa: WPS234
+    group: Union[int, List[int]] = 0
 
 
 class Slicing(BaseModel):
