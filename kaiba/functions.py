@@ -23,7 +23,7 @@ from kaiba.constants import (  # noqa: WPS235
     TO,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
-from kaiba.pydantic_schema import IfStatement, ConditionEnum
+from kaiba.pydantic_schema import IfStatement, ConditionEnum, Slicing
 
 
 @safe
@@ -153,7 +153,7 @@ def apply_separator(
 
 def apply_slicing(
     value_to_slice: Optional[NewValue],
-    slicing: Dict[str, Any],
+    slicing: Slicing,
 ) -> Optional[NewValue]:
     """Slice value from index to index.
 
@@ -182,7 +182,7 @@ def apply_slicing(
     if not isinstance(value_to_slice, list):
         value_to_slice = str(value_to_slice)
 
-    return value_to_slice[slicing[FROM]:slicing.get(TO)]
+    return value_to_slice[slicing.slice_from:slicing.slice_to]
 
 
 @safe
