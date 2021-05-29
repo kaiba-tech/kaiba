@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Pattern, Union
 
 from pydantic import BaseModel, Field
 
@@ -14,15 +14,15 @@ class Iterable(BaseModel):
 class Regexp(BaseModel):
     """Use regular expression to find your data."""
 
-    search: str
+    search: Pattern
     group: Optional[Union[int, List[int]]] = 0  # noqa: WPS234
 
 
 class Slicing(BaseModel):
     """Slice from inclusive to exclusive like python slice."""
 
-    slice_from = Field(alias='from')
-    slice_to = Field(None, alias='to')
+    slice_from: int = Field(alias='from')
+    slice_to: Optional[int] = Field(None, alias='to')
 
 
 class CastingToEnum(Enum):
@@ -73,9 +73,9 @@ class Attribute(BaseModel):
     """Create an attribute for an object."""
 
     name: str
-    mappings: List[Mapping]
+    mappings: List[Mapping] = []
     separator: Optional[str]
-    if_statements: Optional[List[IfStatement]]
+    if_statements: List[IfStatement] = []
     casting: Optional[Casting]
     default: Optional[str] = None
 
@@ -84,7 +84,7 @@ class BranchingObject(BaseModel):
     """Branching object model."""
 
     name: str
-    array: bool
+    array: bool = False
     iterables: Optional[List[Iterable]] = []
     branching_attributes: List[List[Attribute]]
 
@@ -93,7 +93,7 @@ class KaibaObject(BaseModel):
     """Our main object."""
 
     name: str
-    array: bool
+    array: bool = False
     iterables: List[Iterable] = []
     attributes: List[Attribute] = []
     objects: List['KaibaObject'] = []  # noqa: WPS110

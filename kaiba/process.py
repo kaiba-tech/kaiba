@@ -1,13 +1,15 @@
 from typing import Callable, Union
 
 from attr import dataclass
+from pydantic import ValidationError
 from returns.functions import raise_exception
 from returns.pipeline import is_successful
-from returns.result import ResultE
+from returns.result import ResultE, Failure
 from typing_extensions import final
 
 from kaiba.mapper import map_data
 from kaiba.schema import SchemaValidator
+from kaiba.pydantic_schema import KaibaObject
 
 
 @final
@@ -23,12 +25,17 @@ class Process(object):
         configuration: dict,
     ) -> ResultE[Union[list, dict]]:
         """Validate configuration then process data."""
-        cfg = self.validate(configuration)
+        # cfg = self.validate(configuration)
 
-        if not is_successful(cfg):
-            return cfg
+        try:
+            cfg = KaibaObject(**configuration)
+        except ValidationError as ve:
+            return Failure(ve)
 
-        return map_data(input_data, cfg.unwrap())
+        # if not is_successful(cfg):
+        #    return cfg
+
+        return map_data(input_data, cfg)
 
 
 def process(

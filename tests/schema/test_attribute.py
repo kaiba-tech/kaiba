@@ -1,18 +1,17 @@
-from jsonschema import ValidationError
+from pydantic import ValidationError
 from returns.pipeline import is_successful
 
+from kaiba.pydantic_schema import Attribute
 
-def test_validates(attribute_validator, valid):
+
+def test_validates():
     """Test that we get dict back on valid validation."""
     test: dict = {'name': 'attrib', 'default': 'bob'}
+    try:
+        att = Attribute(**test)
+    except ValidationError as e:
+        print(e.json())
+
+    assert 1 == 2
+
     assert attribute_validator(test).unwrap() == test
-
-
-def test_invalid(attribute_validator, invalid):
-    """Test that we get a list of errors."""
-    test: dict = {'seperator': ' '}
-    validate_result = attribute_validator(test)
-    assert not is_successful(validate_result)
-    assert isinstance(validate_result.failure(), ValueError)
-    assert isinstance(validate_result.failure().args[0][0], ValidationError)
-    assert 'name' in str(validate_result.failure())
