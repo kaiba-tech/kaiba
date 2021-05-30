@@ -1,28 +1,11 @@
 import re
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from returns.pipeline import flow
 from returns.pointfree import bind
-from returns.result import Failure, ResultE, Success, safe
+from returns.result import Failure, ResultE, safe
 
 from kaiba.casting import get_casting_function
-from kaiba.constants import (  # noqa: WPS235
-    CONDITION,
-    CONTAINS,
-    DEFAULT_GROUP,
-    FROM,
-    GROUP,
-    IN,
-    IS,
-    NOT,
-    ORIGINAL_FORMAT,
-    OTHERWISE,
-    SEARCH,
-    TARGET,
-    THEN,
-    TO,
-)
-from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 from kaiba.pydantic_schema import (
     Casting,
     ConditionEnum,
@@ -30,6 +13,7 @@ from kaiba.pydantic_schema import (
     Slicing,
     Regexp,
 )
+from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 
 
 @safe
@@ -65,17 +49,21 @@ def apply_if_statements(
 
     Example
         >>> apply_if_statements(
-        ...     '1', [{'condition': 'is', 'target': '1', 'then': '2'}],
+        ...     '1', [
+        ...         IfStatement(
+        ...             **{'condition': 'is', 'target': '1', 'then': '2'}
+        ...         )
+        ...     ],
         ... ).unwrap() == '2'
         True
         >>> apply_if_statements(
         ...     'a',
-        ...     [{
+        ...     [IfStatement(**{
         ...         'condition': 'is',
         ...         'target': '1',
         ...         'then': '2',
         ...         'otherwise': '3'
-        ...     }],
+        ...     })],
         ... ).unwrap() == '3'
         True
 
@@ -174,9 +162,9 @@ def apply_slicing(
     :rtype: MapValue
 
     Example
-        >>> apply_slicing('123', {'from': 1})
+        >>> apply_slicing('123', Slicing(**{'from': 1}))
         '23'
-        >>> apply_slicing('test', {'from': 1, 'to': 3})
+        >>> apply_slicing('test', Slicing(**{'from': 1, 'to': 3}))
         'es'
     """
     if value_to_slice is None:
@@ -210,7 +198,7 @@ def apply_regexp(  # noqa: WPS212, WPS234
 
     Example
         >>> from kaiba.functions import apply_regexp
-        >>> apply_regexp('abcdef', {'search': '(?<=abc)def'}).unwrap()
+        >>> apply_regexp('abcdef', Regexp(**{'search': '(?<=abc)def'})).unwrap()
         'def'
         >>> apply_regexp(
         ...     'Isaac Newton, physicist',
@@ -221,10 +209,8 @@ def apply_regexp(  # noqa: WPS212, WPS234
         ...     'Isaac Newton, physicist',
         ...     Regexp(**{'search': r'(\w+)', 'group': [1, 2]}),
         ... ).unwrap()
-        ['Newton', physicist]
+        ['Newton', 'physicist']
         >>> apply_regexp(None, Regexp(**{'search': 'a+'})).unwrap()
-        >>> apply_regexp('lichess rocks!', Regexp(**{'search': None})).unwrap()
-        'lichess rocks!'
         >>> apply_regexp('Open-source matters', None).unwrap()
         'Open-source matters'
     """
