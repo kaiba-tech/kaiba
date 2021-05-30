@@ -19,18 +19,19 @@ from kaiba.constants import (
     PERIOD,
 )
 from kaiba.valuetypes import MapValue
+from kaiba.pydantic_schema import CastingEnum
 
 
 @safe
-def get_casting_function(cast_to: str) -> Callable:
+def get_casting_function(cast_to: CastingEnum) -> Callable:
     """Return casting function depending on name."""
-    if cast_to == INTEGER:
+    if cast_to == CastingEnum.INTEGER:
         return CastToInteger()
 
-    elif cast_to == DECIMAL:
+    elif cast_to == CastingEnum.DECIMAL:
         return CastToDecimal()
 
-    elif cast_to == DATE:
+    elif cast_to == CastingEnum.DATE:
         return CastToDate()
 
     raise NotImplementedError(

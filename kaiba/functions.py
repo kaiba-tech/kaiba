@@ -23,7 +23,13 @@ from kaiba.constants import (  # noqa: WPS235
     TO,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
-from kaiba.pydantic_schema import IfStatement, ConditionEnum, Slicing, Regexp
+from kaiba.pydantic_schema import (
+    Casting,
+    ConditionEnum,
+    IfStatement,
+    Slicing,
+    Regexp,
+)
 
 
 @safe
@@ -241,7 +247,7 @@ def apply_regexp(  # noqa: WPS212, WPS234
 
 def apply_casting(
     value_to_cast: Optional[MapValue],
-    casting: Dict[str, Any],
+    casting: Casting,
 ) -> ResultE[MapValue]:
     """Cast one type of code to another.
 
@@ -255,23 +261,20 @@ def apply_casting(
     :rtype: MapValue
 
     Example
-        >>> apply_casting('123', {'to': 'integer'}).unwrap()
+        >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
         123
-        >>> apply_casting('123.12', {'to': 'decimal'}).unwrap()
+        >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
         Decimal('123.12')
     """
     if value_to_cast is None:
         return Failure(ValueError('value_to_cast is empty'))
 
-    if TO not in casting or casting[TO] is None:
-        return Success(value_to_cast)
-
     return flow(
-        casting[TO],
+        casting.to,
         get_casting_function,
         bind(  # type: ignore
             lambda function: function(  # type: ignore
-                value_to_cast, casting.get(ORIGINAL_FORMAT),
+                value_to_cast, casting.original_format,
             ),
         ),
     )

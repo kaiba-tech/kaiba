@@ -1,43 +1,25 @@
 from returns.pipeline import is_successful
 
 from kaiba.functions import apply_casting
-
-
-def test_no_value_raises_fails():
-    """No cast_to string should just return input value."""
-    assert apply_casting('val', {'to': None}).unwrap() == 'val'
+from kaiba.pydantic_schema import Casting
 
 
 def test_value_but_cast_to_fails():
     """No value should just fail with ValueError."""
-    test = apply_casting(None, {})
+    test = apply_casting(None, Casting(**{'to': 'integer'}))
     assert not is_successful(test)
     assert isinstance(test.failure(), ValueError)
     assert 'value_to_cast is empty' in str(test.failure())
-
-
-def test_not_implemented_cast_to():
-    """Test that we get NotImplementedError for unknown cast_to's."""
-    test = apply_casting('val', {'to': 'not_supported'})
-    assert not is_successful(test)
-    assert isinstance(test.failure(), NotImplementedError)
-    assert 'Unsupported cast to value' in str(test.failure())
-
-
-def test_no_cast_to_returns_value():
-    """Test that when we do not provide cast_to we get original value."""
-    test = apply_casting('val', {'to': None})
-    assert test.unwrap() == 'val'
 
 
 def test_string_fails_when_month_is_not_integer():
     """Test threws ValueError when month out of range."""
     test = apply_casting(
         '19.MM.12',
-        {
+        Casting(**{
             'to': 'date',
             'original_format': 'yy.mm.dd',
-        },
+        }),
     )
     expected = '{0}{1}'.format(
         'Unable to cast (19.MM.12) to ISO date. ',

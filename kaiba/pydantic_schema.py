@@ -25,7 +25,7 @@ class Slicing(BaseModel):
     slice_to: Optional[int] = Field(None, alias='to')
 
 
-class CastingEnum(str, Enum):
+class CastingEnum(str, Enum):  # noqa: WPS600
     """Types that we can cast a value to."""
 
     STRING = 'string'  # noqa: WPS115
@@ -41,7 +41,7 @@ class Casting(BaseModel):
     original_format: Optional[str] = None
 
 
-class ConditionEnum(str, Enum):
+class ConditionEnum(str, Enum):  # noqa: WPS600
     """Conditions for if statements."""
 
     IS = 'is'  # noqa: WPS115
