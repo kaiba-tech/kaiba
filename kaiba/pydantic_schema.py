@@ -62,11 +62,11 @@ class IfStatement(BaseModel):
 class Mapping(BaseModel):
     """Mapping actually finds data at given path."""
 
-    path: List[Union[str, int]]
+    path: List[Union[str, int]] = []
     slicing: Optional[Slicing]
     regexp: Optional[Regexp]
-    if_statements: Optional[List[IfStatement]]
-    default: Optional[Any] = None
+    if_statements: List[IfStatement] = []
+    default: Optional[Any]
 
 
 class Attribute(BaseModel):

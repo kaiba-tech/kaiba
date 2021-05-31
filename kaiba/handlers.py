@@ -25,11 +25,12 @@ from kaiba.functions import (
     apply_slicing,
 )
 from kaiba.valuetypes import MapValue
+from kaiba.pydantic_schema import Mapping
 
 
 def handle_mapping(
     collection: Union[Dict[str, Any], List[Any]],
-    cfg: Dict[str, Any],
+    cfg: Mapping,
 ) -> ResultE[MapValue]:
     """Find data in path and apply if statements or default value.
 
@@ -61,22 +62,22 @@ def handle_mapping(
     """
     return flow(
         collection,
-        partial(fetch_data_by_keys, path=cfg.get(PATH, [])),
+        partial(fetch_data_by_keys, path=cfg.path),
         fix(lambda _: None),  # type: ignore
         bind(
             partial(
-                apply_regexp, regexp=cfg.get(REGEXP, {}),
+                apply_regexp, regexp=cfg.regexp,
             ),
         ),
         fix(lambda _: None),  # type: ignore
         map_(partial(
-            apply_slicing, slicing=cfg.get(SLICING, {}),
+            apply_slicing, slicing=cfg.slicing,
         )),
         bind(partial(
-            apply_if_statements, if_objects=cfg.get(IF_STATEMENTS, []),
+            apply_if_statements, if_objects=cfg.if_statements,
         )),
         rescue(  # type: ignore
-            lambda _: apply_default(cfg.get(DEFAULT)),
+            lambda _: apply_default(cfg.default),
         ),
     )
 
