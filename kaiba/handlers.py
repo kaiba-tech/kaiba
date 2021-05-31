@@ -6,13 +6,6 @@ from returns.pointfree import bind, fix, map_, rescue
 from returns.result import ResultE, safe
 
 from kaiba.collection_handlers import fetch_data_by_keys
-from kaiba.constants import (
-    CASTING,
-    DEFAULT,
-    IF_STATEMENTS,
-    MAPPINGS,
-    SEPARATOR,
-)
 from kaiba.functions import (
     apply_casting,
     apply_default,
@@ -21,8 +14,8 @@ from kaiba.functions import (
     apply_separator,
     apply_slicing,
 )
+from kaiba.pydantic_schema import Attribute, Mapping
 from kaiba.valuetypes import MapValue
-from kaiba.pydantic_schema import Mapping, Attribute
 
 
 def handle_mapping(
@@ -130,7 +123,7 @@ def handle_attribute(
     # partially declare if statement and casting functions
     ifs = partial(apply_if_statements, if_objects=cfg.if_statements)
 
-    cast = safe(lambda val: val)
+    cast = safe(lambda the_value: the_value)
     if cfg.casting:
         cast = partial(apply_casting, casting=cfg.casting)
 

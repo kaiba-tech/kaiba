@@ -1,12 +1,13 @@
 from returns.pipeline import is_successful
 
 from kaiba.mapper import map_data
+from kaiba.pydantic_schema import KaibaObject
 
 
 def test_creating_key_to_name():
     """Test that we can fetch key in dict."""
     input_data = {'key': 'test name'}
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': False,
         'attributes': [
@@ -19,7 +20,7 @@ def test_creating_key_to_name():
                 ],
             },
         ],
-    }
+    })
 
     assert map_data(
         input_data,
@@ -30,7 +31,7 @@ def test_creating_key_to_name():
 def test_array_true_but_no_loop_gives_array():
     """Test that we get an array if we set array = true in object."""
     input_data = {'key': 'test name'}
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': True,
         'attributes': [
@@ -43,7 +44,7 @@ def test_array_true_but_no_loop_gives_array():
                 ],
             },
         ],
-    }
+    })
 
     assert map_data(
         input_data,
@@ -54,7 +55,7 @@ def test_array_true_but_no_loop_gives_array():
 def test_missing_data_gives_nothing():
     """Test that we get an array if we set array = true in object."""
     input_data = {'key': 'test name'}
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': True,
         'attributes': [
@@ -67,7 +68,7 @@ def test_missing_data_gives_nothing():
                 ],
             },
         ],
-    }
+    })
 
     assert not is_successful(map_data(
         input_data,
@@ -78,7 +79,7 @@ def test_missing_data_gives_nothing():
 def test_missing_data_creates_no_object():
     """Test that if an object mapping result is empty we create now 'key'."""
     input_data = {'key': 'test name'}
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': True,
         'attributes': [
@@ -103,7 +104,7 @@ def test_missing_data_creates_no_object():
                 ],
             },
         ],
-    }
+    })
 
     expected_result = [{
         'an_attribute': 'val',
@@ -117,7 +118,7 @@ def test_missing_data_creates_no_object():
 
 def test_double_repeatable():
     """Test that we can map nested repeatable objects."""
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': True,
         'iterables': [
@@ -158,7 +159,7 @@ def test_double_repeatable():
                 ],
             },
         ],
-    }
+    })
     input_data = {
         'journals': [
             {
@@ -200,7 +201,7 @@ def test_double_repeatable():
 
 def test_mapping_where_data_is_not_found():
     """Test that when we map and don't find data its okay."""
-    config = {
+    config = KaibaObject(**{
         'name': 'root',
         'array': True,
         'iterables': [
@@ -259,7 +260,7 @@ def test_mapping_where_data_is_not_found():
                 ],
             },
         ],
-    }
+    })
     input_data = {
         'journals': [
             {
@@ -296,7 +297,7 @@ def test_mapping_where_data_is_not_found():
 
 def test_most_features():
     """Test that we can fetch key in dict."""
-    config = {
+    config = KaibaObject(**{
         'name': 'schema',
         'array': False,
         'attributes': [
@@ -416,7 +417,7 @@ def test_most_features():
                 ],
             },
         ],
-    }
+    })
     input_data = {
         'key': 'val1',
         'key2': 'val2',

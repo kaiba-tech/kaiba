@@ -17,6 +17,7 @@ from kaiba.constants import (
     OBJECTS,
 )
 from kaiba.handlers import handle_attribute
+from kaiba.pydantic_schema import Attribute, BranchingObject, KaibaObject
 
 decimal.getcontext().rounding = decimal.ROUND_HALF_UP
 
@@ -26,7 +27,7 @@ MappedDict = Dict[str, Any]
 @safe
 def map_data(
     input_data,
-    configuration,
+    configuration: KaibaObject,
 ) -> Union[list, dict]:
     """Map entrypoint.
 
@@ -38,12 +39,12 @@ def map_data(
     current iteration data added to the root of the input_data dictionary
     """
     iterate_data = iterable_data_handler(
-        input_data, configuration.get(ITERABLES, []),
+        input_data, configuration.iterables,
     )
 
     if not is_successful(iterate_data):
         return map_object(input_data, configuration).map(
-            partial(set_array, array=configuration[ARRAY]),
+            partial(set_array, array=configuration.array),
         ).unwrap()
 
     mapped_objects: List[dict] = []
@@ -68,7 +69,10 @@ def set_array(input_data, array):
 
 
 @maybe
-def map_object(input_data, configuration) -> Optional[MappedDict]:
+def map_object(
+    input_data,
+    configuration: KaibaObject,
+) -> Optional[MappedDict]:
     """Map one object.
 
     One object has a collections of:
@@ -89,15 +93,15 @@ def map_object(input_data, configuration) -> Optional[MappedDict]:
     object_data: MappedDict = {}
 
     map_attributes(
-        input_data, configuration.get(ATTRIBUTES, []),
+        input_data, configuration.attributes,
     ).map(object_data.update)
 
     map_objects(
-        input_data, configuration.get(OBJECTS, []),
+        input_data, configuration.objects,
     ).map(object_data.update)
 
     map_branching_objects(
-        input_data, configuration.get(BRANCHING_OBJECTS, []),
+        input_data, configuration.branching_objects,
     ).map(object_data.update)
 
     # need this as long as empty dict is not seen as None by returns.maybe
@@ -105,7 +109,10 @@ def map_object(input_data, configuration) -> Optional[MappedDict]:
 
 
 @maybe
-def map_attributes(input_data, configuration) -> Optional[MappedDict]:
+def map_attributes(
+    input_data,
+    configuration: List[Attribute]
+) -> Optional[MappedDict]:
     """For all attributes map attribute.
 
     name of attribute should be set
@@ -120,7 +127,7 @@ def map_attributes(input_data, configuration) -> Optional[MappedDict]:
         attribute_value = handle_attribute(input_data, attribute_cfg)
 
         if is_successful(attribute_value):
-            attributes[attribute_cfg[NAME]] = attribute_value.unwrap()
+            attributes[attribute_cfg.name] = attribute_value.unwrap()
 
     return attributes or None
 
@@ -128,7 +135,7 @@ def map_attributes(input_data, configuration) -> Optional[MappedDict]:
 @maybe
 def map_objects(
     input_data,
-    configuration,
+    configuration: List[KaibaObject],
 ) -> Optional[MappedDict]:
     """For all objects map object.
 
@@ -144,7 +151,7 @@ def map_objects(
         object_value = map_data(input_data, object_cfg)
 
         if is_successful(object_value):
-            mapped_objects[object_cfg[NAME]] = object_value.unwrap()
+            mapped_objects[object_cfg.name] = object_value.unwrap()
 
     return mapped_objects or None
 
@@ -152,7 +159,7 @@ def map_objects(
 @maybe
 def map_branching_attributes(
     input_data,
-    b_attributes,
+    b_attributes: List[List[Attribute]],
 ) -> Optional[List[MappedDict]]:
     """Map branching attributes.
 
@@ -175,7 +182,7 @@ def map_branching_attributes(
 @maybe
 def map_branching_objects(
     input_data,
-    configuration,
+    configuration: List[BranchingObject],
 ) -> Optional[MappedDict]:
     """Map branching object.
 
@@ -186,11 +193,11 @@ def map_branching_objects(
 
     for b_object in configuration:
         mapped = map_branching_attributes(
-            input_data, b_object[BRANCHING_ATTRIBUTES],
+            input_data, b_object.branching_attributes,
         )
 
         if is_successful(mapped):
-            mapped_objects[b_object[NAME]] = mapped.unwrap()
+            mapped_objects[b_object.name] = mapped.unwrap()
 
     # need this as long as empty dict is not seen as None by returns.maybe
     return mapped_objects or None
