@@ -74,7 +74,7 @@ class Attribute(BaseModel):
 
     name: str
     mappings: List[Mapping] = []
-    separator: Optional[str]
+    separator: str = ''
     if_statements: List[IfStatement] = []
     casting: Optional[Casting]
     default: Optional[str] = None
