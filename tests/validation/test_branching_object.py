@@ -10,7 +10,7 @@ def test_validates():  # noqa: WPS218
         name='Name',
     )
     assert test.name == 'Name'
-    assert test.array == False
+    assert test.array is False
     assert isinstance(test.iterables, list)
     assert isinstance(test.branching_attributes, list)
 

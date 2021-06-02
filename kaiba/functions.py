@@ -10,8 +10,8 @@ from kaiba.pydantic_schema import (
     Casting,
     ConditionEnum,
     IfStatement,
-    Slicing,
     Regexp,
+    Slicing,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 
@@ -19,7 +19,7 @@ from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 @safe
 def apply_if_statements(
     if_value,
-    if_objects: List[IfStatement]
+    if_objects: List[IfStatement],
 ) -> MapValue:
     """Apply if statements to a value.
 

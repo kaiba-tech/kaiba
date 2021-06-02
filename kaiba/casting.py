@@ -9,17 +9,9 @@ from returns.pointfree import alt, bind, map_, rescue
 from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
-from kaiba.constants import (
-    COMMA,
-    DATE,
-    DECIMAL,
-    EMPTY,
-    INTEGER,
-    INTEGER_CONTAINING_DECIMALS,
-    PERIOD,
-)
-from kaiba.valuetypes import MapValue
+from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
 from kaiba.pydantic_schema import CastingEnum
+from kaiba.valuetypes import MapValue
 
 
 @safe

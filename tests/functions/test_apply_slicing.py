@@ -49,7 +49,10 @@ def test_float_is_stringified():
 
 def test_boolean_is_stringified():
     """Test that a boolean value is stringfied."""
-    assert apply_slicing(False, Slicing(**{'from': 0, 'to': 1})) == 'F'  # noqa: WPS425
+    assert apply_slicing(
+        False,  # noqa: WPS425
+        Slicing(**{'from': 0, 'to': 1}),
+    ) == 'F'
 
 
 def test_object_is_stringified():

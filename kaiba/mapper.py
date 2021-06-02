@@ -7,15 +7,6 @@ from returns.pipeline import is_successful
 from returns.result import safe
 
 from kaiba.collection_handlers import iterable_data_handler
-from kaiba.constants import (
-    ARRAY,
-    ATTRIBUTES,
-    BRANCHING_ATTRIBUTES,
-    BRANCHING_OBJECTS,
-    ITERABLES,
-    NAME,
-    OBJECTS,
-)
 from kaiba.handlers import handle_attribute
 from kaiba.pydantic_schema import Attribute, BranchingObject, KaibaObject
 
@@ -111,7 +102,7 @@ def map_object(
 @maybe
 def map_attributes(
     input_data,
-    configuration: List[Attribute]
+    configuration: List[Attribute],
 ) -> Optional[MappedDict]:
     """For all attributes map attribute.
 

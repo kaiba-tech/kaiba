@@ -10,7 +10,7 @@ def test_validates_only_object():  # noqa: WPS218
         name='Name',
     )
     assert test.name == 'Name'
-    assert test.array == False
+    assert test.array is False
     assert isinstance(test.iterables, list)
     assert isinstance(test.attributes, list)
     assert isinstance(test.branching_objects, list)
@@ -40,7 +40,6 @@ def test_invalid(invalid):
 
     errors = ve.value.errors()  # noqa: WPS441
 
-    print(errors)
     assert errors[0]['loc'] == (
         'attributes', 0, 'if_statements', 0, 'condition',
     )

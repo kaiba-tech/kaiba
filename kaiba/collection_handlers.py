@@ -2,9 +2,8 @@ from typing import Any, Dict, List, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
-from kaiba.constants import ALIAS, PATH
-from kaiba.valuetypes import MapValue
 from kaiba.pydantic_schema import Iterable
+from kaiba.valuetypes import MapValue
 
 
 @safe
@@ -81,9 +80,9 @@ def iterable_data_handler(
 
     my_list: list = []
 
-    for iterable in create_iterable(raw_data, iterable).unwrap():
+    for iterable_list in create_iterable(raw_data, iterable).unwrap():
 
-        iterable_data_handler(iterable, rest).map(
+        iterable_data_handler(iterable_list, rest).map(
             my_list.extend,
         )
 

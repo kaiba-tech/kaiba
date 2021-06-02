@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import IfStatement, ConditionEnum
+from kaiba.pydantic_schema import IfStatement
 
 
 def test_validates():  # noqa: WPS218
@@ -10,9 +10,9 @@ def test_validates():  # noqa: WPS218
         condition='is',
     )
     assert test.condition == 'is'
-    assert test.target == None
-    assert test.then == None
-    assert test.otherwise == None
+    assert test.target is None
+    assert test.then is None
+    assert test.otherwise is None
 
 
 def test_invalid_bad_condition_enum():

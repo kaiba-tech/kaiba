@@ -1,8 +1,8 @@
 from enum import Enum
-from typing import Any, List, Optional, Pattern, Union, TypeVar
+from typing import Any, List, Optional, Pattern, Union
 
 from pydantic import BaseModel, Field
-from pydantic.types import StrictInt, StrictStr, StrictBool
+from pydantic.types import StrictBool, StrictInt, StrictStr
 
 AnyType = Union[str, int, float, bool, list, dict]
 StrInt = Union[StrictStr, StrictInt]
