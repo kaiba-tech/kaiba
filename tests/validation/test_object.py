@@ -20,7 +20,7 @@ def test_validates_only_object():  # noqa: WPS218
 def test_invalid_only_object():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        KaibaObject(array=False)
+        KaibaObject(array=False)  # type: ignore
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 

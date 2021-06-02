@@ -12,6 +12,7 @@ from kaiba.pydantic_schema import (
     IfStatement,
     Regexp,
     Slicing,
+    AnyType,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 
@@ -82,9 +83,9 @@ def apply_if_statements(
 
 @safe
 def _apply_statement(
-    if_value: Optional[MapValue],
+    if_value: Optional[AnyType],
     if_object: IfStatement,
-) -> Optional[MapValue]:
+) -> Optional[AnyType]:
     evaluation: bool = False
 
     condition = if_object.condition
@@ -97,13 +98,12 @@ def _apply_statement(
         evaluation = if_value != target
 
     if condition == ConditionEnum.IN:
-        evaluation = if_value in target
+        evaluation = if_value in target  # type: ignore
 
     if condition == ConditionEnum.CONTAINS:
         list_or_dict = isinstance(if_value, (dict, list))
         evaluation = list_or_dict and target in if_value  # type: ignore
-        evaluation = evaluation or not list_or_dict and target in str(if_value)
-
+        evaluation = evaluation or not list_or_dict and target in str(if_value)  #  type: ignore # noqa: E501 E262
     if evaluation:
         return if_object.then
 

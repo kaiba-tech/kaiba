@@ -21,7 +21,7 @@ def test_validates():  # noqa: WPS218
 def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Attribute(separator=' ')
+        Attribute(separator=' ')  # type: ignore
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 
