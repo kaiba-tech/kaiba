@@ -7,12 +7,12 @@ from returns.result import Failure, ResultE, safe
 
 from kaiba.casting import get_casting_function
 from kaiba.pydantic_schema import (
+    AnyType,
     Casting,
     ConditionEnum,
     IfStatement,
     Regexp,
     Slicing,
-    AnyType,
 )
 from kaiba.valuetypes import MapValue, NewValue, ValueTypes
 
