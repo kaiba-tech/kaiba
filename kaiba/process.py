@@ -2,7 +2,7 @@ from typing import Union
 
 from pydantic import ValidationError
 from returns.functions import raise_exception
-from returns.result import Failure, ResultE, safe
+from returns.result import Failure, ResultE
 
 from kaiba.mapper import map_data
 from kaiba.pydantic_schema import KaibaObject
@@ -13,7 +13,11 @@ def process(
     configuration: dict,
 ) -> ResultE[Union[list, dict]]:
     """Validate configuration then process data."""
-    cfg = KaibaObject(**configuration)
+    try:
+        cfg = KaibaObject(**configuration)
+    except ValidationError as ve:
+        return Failure(ve)
+
     return map_data(input_data, cfg)
 
 
