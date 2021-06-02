@@ -31,12 +31,7 @@ def get_casting_function(cast_to: CastingEnum) -> Callable:
     elif cast_to == CastingEnum.DECIMAL:
         return CastToDecimal()
 
-    elif cast_to == CastingEnum.DATE:
-        return CastToDate()
-
-    raise NotImplementedError(
-        'Unsupported cast to value ({0})'.format(cast_to),
-    )
+    return CastToDate()
 
 
 @final

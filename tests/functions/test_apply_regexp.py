@@ -2,6 +2,15 @@ from kaiba.functions import apply_regexp
 from kaiba.pydantic_schema import Regexp
 
 
+def test_regexp_get_empty_list_grup():
+    """Test regexp when group indeces are out of range."""
+    regexp = apply_regexp(
+        'Hard work',
+        Regexp(**{'search': 'r', 'group': []}),
+    )
+    assert regexp.unwrap() == ['r', 'r']
+
+
 def test_regexp_on_index_out_of_range():
     """Test regexp when group indeces are out of range."""
     regexp = apply_regexp(
