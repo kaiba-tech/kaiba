@@ -34,7 +34,10 @@ def test_negative_from():
 
 def test_negative_to():
     """Test that a negative to value ends cut at end minus to."""
-    assert apply_slicing('01234', Slicing(**{'from': 0, 'to': -2})) == '012'
+    assert apply_slicing(
+        '01234',
+        Slicing(**{'from': 0, 'to': -2}),
+    ) == '012'
 
 
 def test_int_is_stringified():
@@ -73,9 +76,15 @@ def test_list():
 
 def test_slice_range_longer_than_string():
     """Test that slice range longer than the string length returns string."""
-    assert apply_slicing('0123', Slicing(**{'from': 0, 'to': 50})) == '0123'
+    assert apply_slicing(
+        '0123',
+        Slicing(**{'from': 0, 'to': 50}),
+    ) == '0123'
 
 
 def test_slice_range_on_range_out_of_string():
     """Test that slice range out of the string."""
-    assert apply_slicing('0123', Slicing(**{'from': 5, 'to': 10})) == ''
+    assert apply_slicing(
+        '0123',
+        Slicing(**{'from': 5, 'to': 10}),
+    ) == ''
