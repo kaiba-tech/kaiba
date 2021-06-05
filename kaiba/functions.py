@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Union
+from typing import Any, List, Optional, Union
 
 from returns.pipeline import flow
 from returns.pointfree import bind
@@ -102,7 +102,7 @@ def _apply_statement(
     if condition == ConditionEnum.CONTAINS:
         list_or_dict = isinstance(if_value, (dict, list))
         evaluation = list_or_dict and target in if_value  # type: ignore
-        evaluation = evaluation or not list_or_dict and str(target) in str(if_value)  #  type: ignore # noqa: E501 E262
+        evaluation = evaluation or not list_or_dict and str(target) in str(if_value)  # noqa: E501 E262
     if evaluation:
         return if_object.then
 
@@ -145,20 +145,20 @@ def apply_separator(
 
 
 def apply_slicing(
-    value_to_slice: Optional[AnyType],
+    value_to_slice: Optional[Any],
     slicing: Slicing,
 ) -> Optional[AnyType]:
     """Slice value from index to index.
 
     :param value_to_slice: The value to slice
-    :type value_to_slice: AnyType
+    :type value_to_slice: Any
 
     :param slicing: :term:`slicing` object
     :type slicing: dict
 
 
     :return: Success/Failure containers
-    :rtype: AnyType
+    :rtype: Any
 
     Example
         >>> apply_slicing('123', Slicing(**{'from': 1}))
