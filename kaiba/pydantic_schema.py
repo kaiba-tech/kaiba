@@ -1,10 +1,12 @@
+from decimal import Decimal
 from enum import Enum
 from typing import Any, List, Optional, Pattern, Union
 
 from pydantic import BaseModel, Field
 from pydantic.types import StrictBool, StrictInt, StrictStr
 
-AnyType = Union[str, int, float, bool, list, dict]
+# AnyType = Union[str, int, Decimal, bool, list, dict]
+AnyType = Union[StrictStr, StrictInt, StrictBool, Decimal, list, dict]
 StrInt = Union[StrictStr, StrictInt]
 
 
@@ -81,7 +83,7 @@ class Attribute(BaseModel):
     separator: str = ''
     if_statements: List[IfStatement] = []
     casting: Optional[Casting]
-    default: Optional[str] = None
+    default: Optional[AnyType] = None
 
 
 class BranchingObject(BaseModel):

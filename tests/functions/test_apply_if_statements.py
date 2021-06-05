@@ -169,6 +169,21 @@ def test_if_not_condition_array_value():
     assert apply_if_statements(*test) == Success('value2')
 
 
+def test_if_not_condition_array_value_with_int():
+    """Test that we can do if not statement on arrays."""
+    test = [
+        [123],
+        [
+            IfStatement(**{
+                'condition': 'is',
+                'target': [123],
+                'then': 'value2',
+            }),
+        ],
+    ]
+    assert apply_if_statements(*test) == Success('value2')
+
+
 def test_if_not_condition_objects_value():
     """Test that we can do if not statement on objectss."""
     test = [
@@ -289,11 +304,14 @@ def test_if_contains_works_with_non_strings():
         [
             IfStatement(**{
                 'condition': 'contains',
-                'target': '123',
+                'target': 123,
                 'then': 'value2',
             }),
         ],
     ]
+    bob_test = apply_if_statements(*test)
+    print(bob_test)
+
     assert apply_if_statements(*test) == Success('value2')
 
 

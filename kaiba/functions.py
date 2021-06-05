@@ -14,24 +14,24 @@ from kaiba.pydantic_schema import (
     Regexp,
     Slicing,
 )
-from kaiba.valuetypes import MapValue, NewValue, ValueTypes
+from kaiba.valuetypes import ValueTypes
 
 
 @safe
 def apply_if_statements(
-    if_value,
+    if_value: Optional[AnyType],
     if_objects: List[IfStatement],
-) -> MapValue:
+) -> Optional[AnyType]:
     """Apply if statements to a value.
 
     :param if_value: The value to use when evaluating if statements
-    :type if_value: MapValuen
+    :type if_value: AnyType
 
     :param if_objects: :term:`if_objects` collection of if operations
     :type if_objects: List[Dict[str, Any]]
 
     :return: Success/Failure containers
-    :rtype: MapValue
+    :rtype: AnyType
 
     one if object looks like this
 
@@ -73,7 +73,7 @@ def apply_if_statements(
 
         if_value = _apply_statement(
             if_value, if_object,
-        ).value_or(if_value)
+        )
 
     if if_value is None:
         raise ValueError('If statement failed or produced `None`')
@@ -81,7 +81,6 @@ def apply_if_statements(
     return if_value
 
 
-@safe
 def _apply_statement(
     if_value: Optional[AnyType],
     if_object: IfStatement,
@@ -103,7 +102,7 @@ def _apply_statement(
     if condition == ConditionEnum.CONTAINS:
         list_or_dict = isinstance(if_value, (dict, list))
         evaluation = list_or_dict and target in if_value  # type: ignore
-        evaluation = evaluation or not list_or_dict and target in str(if_value)  #  type: ignore # noqa: E501 E262
+        evaluation = evaluation or not list_or_dict and str(target) in str(if_value)  #  type: ignore # noqa: E501 E262
     if evaluation:
         return if_object.then
 
@@ -112,19 +111,19 @@ def _apply_statement(
 
 @safe
 def apply_separator(
-    mapped_values: List[MapValue],
+    mapped_values: List[AnyType],
     separator: str,
-) -> MapValue:
+) -> AnyType:
     """Apply separator between the values of a List[Any].
 
     :param mapped_values: The list of values to join with the separator
-    :type mapped_values: List[MapValue]
+    :type mapped_values: List[AnyType]
 
     :param separator: :term:`separator` value to join mapped_values list with
     :type separator: str
 
     :return: Success/Failure containers
-    :rtype: MapValue
+    :rtype: AnyType
 
     Example
         >>> from returns.pipeline import is_successful
@@ -146,20 +145,20 @@ def apply_separator(
 
 
 def apply_slicing(
-    value_to_slice: Optional[NewValue],
+    value_to_slice: Optional[AnyType],
     slicing: Slicing,
-) -> Optional[NewValue]:
+) -> Optional[AnyType]:
     """Slice value from index to index.
 
     :param value_to_slice: The value to slice
-    :type value_to_slice: MapValue
+    :type value_to_slice: AnyType
 
     :param slicing: :term:`slicing` object
     :type slicing: dict
 
 
     :return: Success/Failure containers
-    :rtype: MapValue
+    :rtype: AnyType
 
     Example
         >>> apply_slicing('123', Slicing(**{'from': 1}))
@@ -181,20 +180,20 @@ def apply_slicing(
 
 @safe
 def apply_regexp(  # noqa: WPS212, WPS234
-    value_to_match: Optional[MapValue],
+    value_to_match: Optional[AnyType],
     regexp: Regexp,
-) -> Union[List[MapValue], MapValue, None]:
+) -> Union[List[AnyType], AnyType, None]:
     r"""Match value by a certain regexp pattern.
 
     :param value_to_match: The value to match
-    :type value_to_match: MapValue
+    :type value_to_match: AnyType
 
     :param regexp: :term: `matching` object which has parameters for
         regexp match
     :type regexp: dict
 
     :return: Success/Failure container
-    :rtype: MapValue
+    :rtype: AnyType
 
     Example
         >>> from kaiba.functions import apply_regexp
@@ -232,19 +231,19 @@ def apply_regexp(  # noqa: WPS212, WPS234
 
 
 def apply_casting(
-    value_to_cast: Optional[MapValue],
+    value_to_cast: Optional[AnyType],
     casting: Casting,
-) -> ResultE[MapValue]:
+) -> ResultE[AnyType]:
     """Cast one type of code to another.
 
     :param casting: :term:`casting` object
     :type casting: dict
 
     :param value_to_cast: The value to cast to casting['to']
-    :type value_to_cast: MapValue
+    :type value_to_cast: AnyType
 
     :return: Success/Failure containers
-    :rtype: MapValue
+    :rtype: AnyType
 
     Example
         >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
@@ -268,19 +267,19 @@ def apply_casting(
 
 @safe
 def apply_default(
-    mapped_value: Optional[Any] = None,
-    default: Optional[MapValue] = None,
-) -> MapValue:
+    mapped_value: Optional[AnyType] = None,
+    default: Optional[AnyType] = None,
+) -> AnyType:
     """Apply default value if exists and if mapped value is None.
 
     :param mapped_value: If this value is *None* the default value is returned
-    :type mapped_value: Optional[MapValue]
+    :type mapped_value: Optional[AnyType]
 
     :param default: :term:`default` value to return if mapped value is None
-    :type default: Optional[MapValue]
+    :type default: Optional[AnyType]
 
     :return: Success/Failure containers
-    :rtype: MapValue
+    :rtype: AnyType
 
     If default *is not* none and mapped_value *is* None then return default
     else if mapped_value is not in accepted ValueTypes then throw an error

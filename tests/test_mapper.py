@@ -28,6 +28,22 @@ def test_creating_key_to_name():
     ).unwrap() == {'name': 'test name'}
 
 
+def test_pydantic_makes_float_into_decimal():
+    """Test that a json float is turned into Decimal."""
+    config = KaibaObject(**{
+        'name': 'root',
+        'attributes': [
+            {
+                'name': 'name',
+                'default': 123.123,
+            },
+        ],
+    })
+
+    # Decimal has is_finite
+    assert config.attributes[0].default.is_finite()  # type: ignore
+
+
 def test_array_true_but_no_loop_gives_array():
     """Test that we get an array if we set array = true in object."""
     input_data = {'key': 'test name'}
