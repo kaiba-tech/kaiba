@@ -27,6 +27,12 @@ Kaiba is forked from the greenbird/piri @ version 2.2.0
 * Slicing
 
 
+## Version 0.3.0 - Migrate to pydantic
+
+This version changes how we validate our json configuration and also how we parse it. Using pydantic it is much easier to handle to handle typing and the code in general.
+
+* Removes json schema adds pydantic for config validation
+
 ## Version 0.2.1 - Schema troubles
 
 Fixes problems with Schema validation
