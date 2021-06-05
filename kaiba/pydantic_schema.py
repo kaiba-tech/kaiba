@@ -5,7 +5,6 @@ from typing import Any, List, Optional, Pattern, Union
 from pydantic import BaseModel, Field
 from pydantic.types import StrictBool, StrictInt, StrictStr
 
-# AnyType = Union[str, int, Decimal, bool, list, dict]
 AnyType = Union[StrictStr, StrictInt, StrictBool, Decimal, list, dict]
 StrInt = Union[StrictStr, StrictInt]
 

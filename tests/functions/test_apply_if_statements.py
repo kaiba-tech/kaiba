@@ -309,9 +309,6 @@ def test_if_contains_works_with_non_strings():
             }),
         ],
     ]
-    bob_test = apply_if_statements(*test)
-    print(bob_test)
-
     assert apply_if_statements(*test) == Success('value2')
 
 

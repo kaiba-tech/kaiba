@@ -1,5 +1,5 @@
 import re
-from typing import Any, List, Optional, Union
+from typing import List, Optional, Union
 
 from returns.pipeline import flow
 from returns.pointfree import bind
