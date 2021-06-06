@@ -9,9 +9,7 @@
 
 ## Version 1.0.0 Release: Kaiba
 
-Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure and input transformation and mappings.
-
-Kaiba is forked from the greenbird/piri @ version 2.2.0
+Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure, input transformation and mappings.
 
 ### Features
 
@@ -34,6 +32,8 @@ This version changes how we validate our json configuration and also how we pars
 * Removes json schema adds pydantic for config validation
 
 ## Version 0.2.1 - Schema troubles
+
+Kaiba is forked from the greenbird/piri @ version 2.2.0
 
 Fixes problems with Schema validation
 

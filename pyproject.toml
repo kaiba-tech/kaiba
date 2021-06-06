@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kaiba"
-version = "0.2.1"
+version = "0.3.0"
 description = "Configurable and documentable Json transformation and mapping"
 authors = ["Thomas Borgen <thomas.borgen@greenbird.com>"]
 
