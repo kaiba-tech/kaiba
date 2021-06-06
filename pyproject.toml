@@ -49,7 +49,6 @@ isort = "^5.8.0"
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-
 [tool.isort]
 known_first_party = "kaiba"
 profile = "wemake"
