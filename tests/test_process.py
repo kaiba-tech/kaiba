@@ -1,8 +1,9 @@
 import json
 
 import pytest
+from pydantic import ValidationError
 
-from kaiba.process import process
+from kaiba.process import process_raise
 
 
 def test_creating_key_to_name():
@@ -23,7 +24,7 @@ def test_creating_key_to_name():
         ],
     }
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == {'name': 'test name'}
@@ -33,8 +34,8 @@ def test_bad_config_gives_failure():
     """Test that we can fetch key in dict."""
     input_data = {'key': 'test name'}
     config = {
-        'name': 'root',
-        'attributes': [
+        'namme': 'root',
+        'attributesadfs': [
             {
                 'name': 'name',
                 'mappings': [
@@ -45,10 +46,11 @@ def test_bad_config_gives_failure():
             },
         ],
     }
-    with pytest.raises(ValueError) as ve:
-        process(input_data, config)
+    with pytest.raises(ValidationError) as ve:
+        process_raise(input_data, config)
 
-        assert 'array' in str(ve)
+    assert ve.match('name')  # noqa: WPS441
+    assert ve.match('field required')  # noqa: WPS441
 
 
 def test_array_true_but_no_loop_gives_array():
@@ -69,7 +71,7 @@ def test_array_true_but_no_loop_gives_array():
         ],
     }
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == [{'name': 'test name'}]
@@ -152,7 +154,7 @@ def test_double_repeatable():
         },
     ]
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == expected_result
@@ -248,7 +250,7 @@ def test_mapping_where_data_is_not_found():
         },
     ]
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == expected_result
@@ -404,7 +406,7 @@ def test_most_features():
         ],
     }
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == expected_result
@@ -421,7 +423,7 @@ def test_regexp_feature():  # noqa: WPS210
     with open('tests/json/expected_regexp.json', 'r') as expected_file:
         expected_result = json.load(expected_file)
 
-    assert process(
+    assert process_raise(
         input_data,
         config,
     ) == expected_result

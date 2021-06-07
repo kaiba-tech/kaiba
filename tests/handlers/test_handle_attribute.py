@@ -1,17 +1,18 @@
 import decimal
 
 from kaiba.handlers import handle_attribute
+from kaiba.pydantic_schema import Attribute
 
 
 def test_get_key_in_dict():
     """Test that we can fetch key in dict."""
     input_data = {'key': 'val1'}
-    config = {
+    config = Attribute(**{
         'name': 'attrib',
         'mappings': [
             {'path': ['key']},
         ],
-    }
+    })
 
     assert handle_attribute(
         input_data,
@@ -22,13 +23,13 @@ def test_get_key_in_dict():
 def test_casting_to_decimal():
     """Test that we can cast a string value to decimal."""
     input_data = {'key': '1,123,123.12'}
-    config = {
+    config = Attribute(**{
         'name': 'attrib',
         'mappings': [
             {'path': ['key']},
         ],
         'casting': {'to': 'decimal'},
-    }
+    })
 
     assert handle_attribute(
         input_data,
@@ -39,7 +40,7 @@ def test_casting_to_decimal():
 def test_regexp_is_applied_to_attribute():
     """Test that we can search by pattern."""
     input_data: dict = {'game': '1. e4 e5 ... 14. Rxe8+ Rxe8'}
-    config: dict = {
+    config = Attribute(**{
         'name': 'moves',
         'mappings': [
             {
@@ -50,7 +51,7 @@ def test_regexp_is_applied_to_attribute():
                 },
             },
         ],
-    }
+    })
     assert handle_attribute(
         input_data,
         config,
@@ -60,7 +61,7 @@ def test_regexp_is_applied_to_attribute():
 def test_regexp_is_not_applied_to_attribute():
     """Test that we don't lose data when search by pattern fails."""
     input_data: dict = {'game': '1. d4 d5'}
-    config: dict = {
+    config = Attribute(**{
         'name': 'moves',
         'mappings': [
             {
@@ -71,7 +72,7 @@ def test_regexp_is_not_applied_to_attribute():
                 },
             },
         ],
-    }
+    })
     regexp = handle_attribute(input_data, config)
     assert isinstance(regexp.failure(), ValueError) is True
     assert regexp.failure().args == ('Default value should not be `None`',)
@@ -80,7 +81,7 @@ def test_regexp_is_not_applied_to_attribute():
 def test_all():
     """Test a full attribute schema."""
     input_data = {'key': 'val1', 'key2': 'val2'}
-    config = {
+    config = Attribute(**{
         'name': 'attrib',
         'mappings': [
             {
@@ -114,7 +115,7 @@ def test_all():
             },
         ],
         'default': 'default2',
-    }
+    })
 
     assert handle_attribute(
         input_data,

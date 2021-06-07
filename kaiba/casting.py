@@ -9,33 +9,21 @@ from returns.pointfree import alt, bind, map_, rescue
 from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
-from kaiba.constants import (
-    COMMA,
-    DATE,
-    DECIMAL,
-    EMPTY,
-    INTEGER,
-    INTEGER_CONTAINING_DECIMALS,
-    PERIOD,
-)
+from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
+from kaiba.pydantic_schema import CastingEnum
 from kaiba.valuetypes import MapValue
 
 
 @safe
-def get_casting_function(cast_to: str) -> Callable:
+def get_casting_function(cast_to: CastingEnum) -> Callable:
     """Return casting function depending on name."""
-    if cast_to == INTEGER:
+    if cast_to == CastingEnum.INTEGER:
         return CastToInteger()
 
-    elif cast_to == DECIMAL:
+    elif cast_to == CastingEnum.DECIMAL:
         return CastToDecimal()
 
-    elif cast_to == DATE:
-        return CastToDate()
-
-    raise NotImplementedError(
-        'Unsupported cast to value ({0})'.format(cast_to),
-    )
+    return CastToDate()
 
 
 @final

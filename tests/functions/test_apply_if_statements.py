@@ -1,6 +1,7 @@
 from returns.result import Success
 
 from kaiba.functions import apply_if_statements
+from kaiba.pydantic_schema import IfStatement
 
 
 def test_if_is():
@@ -8,11 +9,11 @@ def test_if_is():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': 'target_value',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -23,11 +24,11 @@ def test_if_is_condition_false():
     test = [
         'not_target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': 'target_value',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('not_target_value')
@@ -38,11 +39,11 @@ def test_if_is_condition_array_value():
     test = [
         ['target_value'],
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': ['target_value'],
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -53,11 +54,11 @@ def test_if_is_condition_objects_value():
     test = [
         {'val': 'target'},
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': {'val': 'target'},
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -68,11 +69,11 @@ def test_if_in():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'in',
                 'target': ['target_value'],
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -83,11 +84,11 @@ def test_if_in_condition_false():
     test = [
         'not_target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'in',
                 'target': 'target_value',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('not_target_value')
@@ -98,11 +99,11 @@ def test_if_in_condition_array_value():
     test = [
         ['target_value'],
         [
-            {
+            IfStatement(**{
                 'condition': 'in',
                 'target': [['target_value']],
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -113,11 +114,11 @@ def test_if_in_condition_objects_value():
     test = [
         {'val': 'target'},
         [
-            {
+            IfStatement(**{
                 'condition': 'in',
                 'target': [{'val': 'target'}],
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -128,11 +129,11 @@ def test_if_not():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'not',
                 'target': 'not_target',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -143,11 +144,11 @@ def test_if_not_condition_false():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'not',
                 'target': 'target_value',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('target_value')
@@ -158,11 +159,26 @@ def test_if_not_condition_array_value():
     test = [
         ['target_value'],
         [
-            {
+            IfStatement(**{
                 'condition': 'not',
                 'target': ['not_target'],
                 'then': 'value2',
-            },
+            }),
+        ],
+    ]
+    assert apply_if_statements(*test) == Success('value2')
+
+
+def test_if_not_condition_array_value_with_int():
+    """Test that we can do if not statement on arrays."""
+    test = [
+        [123],
+        [
+            IfStatement(**{
+                'condition': 'is',
+                'target': [123],
+                'then': 'value2',
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -173,11 +189,11 @@ def test_if_not_condition_objects_value():
     test = [
         {'val': 'target'},
         [
-            {
+            IfStatement(**{
                 'condition': 'not',
                 'target': {'val': 'tarnot'},
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -188,11 +204,11 @@ def test_if_contains():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': '_value',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -203,11 +219,11 @@ def test_if_contains_condition_false():
     test = [
         'not_target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': 'does_not_contain',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('not_target_value')
@@ -218,11 +234,11 @@ def test_if_contains_condition_array_value():
     test = [
         ['value', 'target'],
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': 'target',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -233,11 +249,11 @@ def test_if_contains_condition_objects_value():
     test = [
         {'val': 'target'},
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': 'val',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -248,11 +264,11 @@ def test_if_contains_objects_in_array_value():
     test = [
         [{'val': 'target'}],
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': {'val': 'target'},
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -271,11 +287,11 @@ def test_if_contains_array_does_not_stringify():
     test = [
         [{'val': 'target'}],
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
                 'target': 'target',
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success([{'val': 'target'}])
@@ -286,11 +302,11 @@ def test_if_contains_works_with_non_strings():
     test = [
         123,
         [
-            {
+            IfStatement(**{
                 'condition': 'contains',
-                'target': '123',
+                'target': 123,
                 'then': 'value2',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value2')
@@ -301,16 +317,16 @@ def test_if_chained():
     test = [
         'target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': 'target_value',
                 'then': 'value2',
-            },
-            {
+            }),
+            IfStatement(**{
                 'condition': 'is',
                 'target': 'value2',
                 'then': 'value3',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('value3')
@@ -321,12 +337,12 @@ def test_if_failed_condition_goes_to_otherwise():
     test = [
         'not_target_value',
         [
-            {
+            IfStatement(**{
                 'condition': 'is',
                 'target': 'target_value',
                 'then': 'no',
                 'otherwise': 'yes',
-            },
+            }),
         ],
     ]
     assert apply_if_statements(*test) == Success('yes')

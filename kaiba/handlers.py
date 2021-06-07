@@ -3,19 +3,9 @@ from typing import Any, Dict, List, Union
 from returns.curry import partial
 from returns.pipeline import flow, is_successful
 from returns.pointfree import bind, fix, map_, rescue
-from returns.result import ResultE
+from returns.result import ResultE, safe
 
 from kaiba.collection_handlers import fetch_data_by_keys
-from kaiba.constants import (
-    CASTING,
-    DEFAULT,
-    IF_STATEMENTS,
-    MAPPINGS,
-    PATH,
-    REGEXP,
-    SEPARATOR,
-    SLICING,
-)
 from kaiba.functions import (
     apply_casting,
     apply_default,
@@ -24,12 +14,13 @@ from kaiba.functions import (
     apply_separator,
     apply_slicing,
 )
+from kaiba.pydantic_schema import Attribute, Mapping
 from kaiba.valuetypes import MapValue
 
 
 def handle_mapping(
     collection: Union[Dict[str, Any], List[Any]],
-    cfg: Dict[str, Any],
+    cfg: Mapping,
 ) -> ResultE[MapValue]:
     """Find data in path and apply if statements or default value.
 
@@ -61,29 +52,29 @@ def handle_mapping(
     """
     return flow(
         collection,
-        partial(fetch_data_by_keys, path=cfg.get(PATH, [])),
+        partial(fetch_data_by_keys, path=cfg.path),
         fix(lambda _: None),  # type: ignore
         bind(
             partial(
-                apply_regexp, regexp=cfg.get(REGEXP, {}),
+                apply_regexp, regexp=cfg.regexp,
             ),
         ),
         fix(lambda _: None),  # type: ignore
         map_(partial(
-            apply_slicing, slicing=cfg.get(SLICING, {}),
+            apply_slicing, slicing=cfg.slicing,
         )),
         bind(partial(
-            apply_if_statements, if_objects=cfg.get(IF_STATEMENTS, []),
+            apply_if_statements, if_objects=cfg.if_statements,
         )),
         rescue(  # type: ignore
-            lambda _: apply_default(cfg.get(DEFAULT)),
+            lambda _: apply_default(cfg.default),
         ),
     )
 
 
 def handle_attribute(
     collection: Union[Dict[str, Any], List[Any]],
-    cfg: dict,
+    cfg: Attribute,
 ) -> ResultE[MapValue]:
     """Handle one attribute with mappings, ifs, casting and default value.
 
@@ -124,21 +115,24 @@ def handle_attribute(
         for mapped in  # noqa: WPS361
         [
             handle_mapping(collection, mapping)
-            for mapping in cfg.get(MAPPINGS, [])
+            for mapping in cfg.mappings
         ]
         if is_successful(mapped)
     ]
 
     # partially declare if statement and casting functions
-    ifs = partial(apply_if_statements, if_objects=cfg.get(IF_STATEMENTS, []))
-    cast = partial(apply_casting, casting=cfg.get(CASTING, {}))
+    ifs = partial(apply_if_statements, if_objects=cfg.if_statements)
+
+    cast = safe(lambda the_value: the_value)
+    if cfg.casting:
+        cast = partial(apply_casting, casting=cfg.casting)
 
     return flow(
-        apply_separator(mapped_values, separator=cfg.get(SEPARATOR, '')),
+        apply_separator(mapped_values, separator=cfg.separator),
         fix(lambda _: None),  # type: ignore
         bind(ifs),
         bind(cast),
         rescue(
-            lambda _: apply_default(default=cfg.get(DEFAULT)),
+            lambda _: apply_default(default=cfg.default),
         ),
     )

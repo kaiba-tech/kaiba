@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
-from kaiba.constants import ALIAS, PATH
+from kaiba.pydantic_schema import Iterable
 from kaiba.valuetypes import MapValue
 
 
@@ -65,37 +65,43 @@ def fetch_list_by_keys(
     raise ValueError('Non list data found: ', str(collection))
 
 
-def iterable_data_handler(raw_data, paths) -> ResultE[list]:
-    """Iterate and create all combinations from list of paths."""
-    if not paths:
-        return Failure(ValueError('No paths'))
+def iterable_data_handler(
+    raw_data,
+    iterables: List[Iterable],
+) -> ResultE[list]:
+    """Iterate and create all combinations from list of iterables."""
+    if not iterables:
+        return Failure(ValueError('No iterables'))
 
-    path, rest = paths[0], paths[1:]
+    iterable, rest = iterables[0], iterables[1:]
 
     if not rest:
-        return create_iterable(raw_data, path)
+        return create_iterable(raw_data, iterable)
 
     my_list: list = []
 
-    for iterable in create_iterable(raw_data, path).unwrap():
+    for iterable_list in create_iterable(raw_data, iterable).unwrap():
 
-        iterable_data_handler(iterable, rest).map(
+        iterable_data_handler(iterable_list, rest).map(
             my_list.extend,
         )
 
     return Success(my_list)
 
 
-def create_iterable(input_data, iterable) -> ResultE[list]:
+def create_iterable(
+    input_data,
+    iterable: Iterable,
+) -> ResultE[list]:
     """Return set of set of data per entry in list at iterable[path]."""
     return fetch_list_by_keys(
         input_data,
-        iterable[PATH],
+        iterable.path,
     ).map(
         lambda collections: [
             {
                 **input_data,
-                **{iterable[ALIAS]: collection},
+                **{iterable.alias: collection},
             }
             for collection in collections
         ],
