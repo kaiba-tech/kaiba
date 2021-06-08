@@ -28,9 +28,9 @@ class KaibaObject(KaibaBaseModel):
                     'attributes': [
                         {
                             'name': 'an_attribute',
-                            'default': 'a value'
-                        }
-                    ]
+                            'default': 'a value',
+                        },
+                    ],
                 },
             ],
         }

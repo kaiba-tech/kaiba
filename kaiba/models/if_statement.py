@@ -57,6 +57,5 @@ class IfStatement(KaibaBaseModel):
                     'then': 'value was a substring of input',
                     'otherwise': 'value was not in the input',
                 },
-
-            ]
+            ],
         }
