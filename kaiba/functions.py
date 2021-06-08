@@ -6,29 +6,26 @@ from returns.pointfree import bind
 from returns.result import Failure, ResultE, safe
 
 from kaiba.casting import get_casting_function
-from kaiba.pydantic_schema import (
-    AnyType,
-    Regexp,
-    Slicing,
-)
+from kaiba.models.base import AnyType
 from kaiba.models.casting import Casting
-from kaiba.models.if_statement import IfStatement, Conditions
-
+from kaiba.models.if_statement import Conditions, IfStatement
+from kaiba.models.regex import Regex
+from kaiba.models.slicing import Slicing
 from kaiba.valuetypes import ValueTypes
 
 
 @safe
 def apply_if_statements(
     if_value: Optional[AnyType],
-    if_objects: List[IfStatement],
+    statements: List[IfStatement],
 ) -> Optional[AnyType]:
     """Apply if statements to a value.
 
     :param if_value: The value to use when evaluating if statements
     :type if_value: AnyType
 
-    :param if_objects: :term:`if_objects` collection of if operations
-    :type if_objects: List[Dict[str, Any]]
+    :param statements: :term:`statements` collection of if operations
+    :type statements: List[Dict[str, Any]]
 
     :return: Success/Failure containers
     :rtype: AnyType
@@ -69,10 +66,10 @@ def apply_if_statements(
         True
 
     """
-    for if_object in if_objects:
+    for statement in statements:
 
         if_value = _apply_statement(
-            if_value, if_object,
+            if_value, statement,
         )
 
     if if_value is None:
@@ -83,12 +80,12 @@ def apply_if_statements(
 
 def _apply_statement(
     if_value: Optional[AnyType],
-    if_object: IfStatement,
+    statement: IfStatement,
 ) -> Optional[AnyType]:
     evaluation: bool = False
 
-    condition = if_object.condition
-    target = if_object.target
+    condition = statement.condition
+    target = statement.target
 
     if condition == Conditions.IS:
         evaluation = if_value == target
@@ -104,9 +101,9 @@ def _apply_statement(
         evaluation = list_or_dict and target in if_value  # type: ignore
         evaluation = evaluation or not list_or_dict and str(target) in str(if_value)  # noqa: E501 E262
     if evaluation:
-        return if_object.then
+        return statement.then
 
-    return if_object.otherwise or if_value
+    return statement.otherwise or if_value
 
 
 @safe
@@ -179,50 +176,52 @@ def apply_slicing(
 
 
 @safe
-def apply_regexp(  # noqa: WPS212, WPS234
+def apply_regex(  # noqa: WPS212, WPS234
     value_to_match: Optional[AnyType],
-    regexp: Regexp,
+    regex: Regex,
 ) -> Union[List[AnyType], AnyType, None]:
-    r"""Match value by a certain regexp pattern.
+    r"""Match value by a certain regex pattern.
 
     :param value_to_match: The value to match
     :type value_to_match: AnyType
 
-    :param regexp: :term: `matching` object which has parameters for
-        regexp match
-    :type regexp: dict
+    :param regex: :term: `matching` object which has parameters for
+        regex match
+    :type regex: Regex
 
     :return: Success/Failure container
     :rtype: AnyType
 
     Example
-        >>> from kaiba.functions import apply_regexp
-        >>> apply_regexp('abcdef', Regexp(**{'search': '(?<=abc)def'})).unwrap()
+        >>> apply_regex(
+        ...     'abcdef',
+        ...     Regex(**{'expression': '(?<=abc)def'})
+        ... ).unwrap()
         'def'
-        >>> apply_regexp(
+        >>> apply_regex(
         ...     'Isaac Newton, physicist',
-        ...     Regexp(**{'search': r'(\w+)', 'group': 1}),
+        ...     Regex(**{'expression': r'(\w+)', 'group': 1}),
         ... ).unwrap()
         'Newton'
-        >>> apply_regexp(
+        >>> apply_regex(
         ...     'Isaac Newton, physicist',
-        ...     Regexp(**{'search': r'(\w+)', 'group': [1, 2]}),
+        ...     Regex(**{'expression': r'(\w+)', 'group': [1, 2]}),
         ... ).unwrap()
         ['Newton', 'physicist']
-        >>> apply_regexp(None, Regexp(**{'search': 'a+'})).unwrap()
-        >>> apply_regexp('Open-source matters', None).unwrap()
+        >>> apply_regex(None, Regex(**{'expression': 'a+'})).unwrap()
+        >>> apply_regex('Open-source matters', None).unwrap()
         'Open-source matters'
     """
     if value_to_match is None:
         return value_to_match
 
-    if not regexp or not regexp.search:
+    if not regex or not regex.expression:
         return value_to_match
 
-    pattern = regexp.search
+    pattern = regex.expression
     groups = re.finditer(pattern, value_to_match)
     matches: list = [gr.group(0) for gr in groups]
-    num_group: Union[int, List[int]] = regexp.group
+    num_group: Union[int, List[int]] = regex.group
     if isinstance(num_group, list):
         if not num_group:
             return matches

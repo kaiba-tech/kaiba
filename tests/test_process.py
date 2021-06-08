@@ -15,7 +15,7 @@ def test_creating_key_to_name():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                     },
@@ -38,7 +38,7 @@ def test_bad_config_gives_failure():
         'attributesadfs': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                     },
@@ -62,7 +62,7 @@ def test_array_true_but_no_loop_gives_array():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                     },
@@ -82,7 +82,7 @@ def test_double_repeatable():
     config = {
         'name': 'root',
         'array': True,
-        'iterables': [
+        'iterators': [
             {
                 'alias': 'journals',
                 'path': ['journals'],
@@ -91,7 +91,7 @@ def test_double_repeatable():
         'attributes': [
             {
                 'name': 'journal_id',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['journals', 'journal', 'id'],
                     },
@@ -102,7 +102,7 @@ def test_double_repeatable():
             {
                 'name': 'invoices',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'invoices',
                         'path': ['journals', 'journal', 'invoices'],
@@ -111,7 +111,7 @@ def test_double_repeatable():
                 'attributes': [
                     {
                         'name': 'amount',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['invoices', 'amount'],
                             },
@@ -165,7 +165,7 @@ def test_mapping_where_data_is_not_found():
     config = {
         'name': 'root',
         'array': True,
-        'iterables': [
+        'iterators': [
             {
                 'alias': 'journals',
                 'path': ['journals'],
@@ -174,7 +174,7 @@ def test_mapping_where_data_is_not_found():
         'attributes': [
             {
                 'name': 'journal_id',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['journals', 'journal', 'id'],
                     },
@@ -185,7 +185,7 @@ def test_mapping_where_data_is_not_found():
             {
                 'name': 'invoices',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'invoices',
                         'path': ['journals', 'journal', 'invoices'],
@@ -194,7 +194,7 @@ def test_mapping_where_data_is_not_found():
                 'attributes': [
                     {
                         'name': 'amount',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['invoices', 'amount'],
                             },
@@ -211,7 +211,7 @@ def test_mapping_where_data_is_not_found():
                     [
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra1'],
                                 },
@@ -264,7 +264,7 @@ def test_most_features():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                         'if_statements': [
@@ -305,7 +305,7 @@ def test_most_features():
                 'attributes': [
                     {
                         'name': 'address1',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['a1'],
                             },
@@ -313,7 +313,7 @@ def test_most_features():
                     },
                     {
                         'name': 'address2',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['a2'],
                             },
@@ -324,7 +324,7 @@ def test_most_features():
             {
                 'name': 'people',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'persons',
                         'path': ['persons'],
@@ -333,7 +333,7 @@ def test_most_features():
                 'attributes': [
                     {
                         'name': 'firstname',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['persons', 'name'],
                             },
@@ -354,7 +354,7 @@ def test_most_features():
                         },
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra1'],
                                 },
@@ -368,7 +368,7 @@ def test_most_features():
                         },
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra2'],
                                 },
@@ -412,15 +412,15 @@ def test_most_features():
     ) == expected_result
 
 
-def test_regexp_feature():  # noqa: WPS210
+def test_regex_feature():  # noqa: WPS210
     """Test Regexp on the example from the docs."""
-    with open('tests/json/config_regexp.json', 'r') as config_file:
+    with open('tests/json/config_regex.json', 'r') as config_file:
         config = json.load(config_file)
 
-    with open('tests/json/input_regexp.json', 'r') as input_file:
+    with open('tests/json/input_regex.json', 'r') as input_file:
         input_data = json.load(input_file)
 
-    with open('tests/json/expected_regexp.json', 'r') as expected_file:
+    with open('tests/json/expected_regex.json', 'r') as expected_file:
         expected_result = json.load(expected_file)
 
     assert process_raise(

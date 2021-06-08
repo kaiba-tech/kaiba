@@ -10,43 +10,33 @@ from kaiba.functions import (
     apply_casting,
     apply_default,
     apply_if_statements,
-    apply_regexp,
+    apply_regex,
     apply_separator,
     apply_slicing,
 )
-from kaiba.pydantic_schema import Attribute, Mapping
+from kaiba.models.attribute import Attribute
+from kaiba.models.data_fetcher import DataFetcher
 from kaiba.valuetypes import MapValue
 
 
-def handle_mapping(
+def handle_data_fetcher(
     collection: Union[Dict[str, Any], List[Any]],
-    cfg: Mapping,
+    cfg: DataFetcher,
 ) -> ResultE[MapValue]:
-    """Find data in path and apply if statements or default value.
+    """Find a data at path or produce a value.
 
-    .. versionadded:: 0.0.1
-
-    :param configuration: :term:`configuration` data to use when mapping
-    :type configuration: Dict[str, Any]
-
-    :param collection: The collection of data to find data in
-    :type collection: Union[Dict[str, Any], List[Any]]
-
-    :return: Success/Failure containers
-    :rtype: GoResult
-
-    configuration expected to look like this:
-
-    .. code-block:: json
-        {
-            "path": [],
-            "if_statementss": [{}, {}],
-            "default": 'val'
-        }
+    return value can be:
+    - value found at path
+    - value found but sliced
+    - value found applied to regular expression
+    - conditional value depending on if statements
+    - default value if all the above still produces `None`
 
     Flow description:
 
     find data from path or None ->
+    apply regular expression ->
+    apply slicing ->
     apply if statements ->
     return default value if Failure else mapped value
     """
@@ -56,7 +46,7 @@ def handle_mapping(
         fix(lambda _: None),  # type: ignore
         bind(
             partial(
-                apply_regexp, regexp=cfg.regexp,
+                apply_regex, regex=cfg.regex,
             ),
         ),
         fix(lambda _: None),  # type: ignore
@@ -64,7 +54,7 @@ def handle_mapping(
             apply_slicing, slicing=cfg.slicing,
         )),
         bind(partial(
-            apply_if_statements, if_objects=cfg.if_statements,
+            apply_if_statements, statements=cfg.if_statements,
         )),
         rescue(  # type: ignore
             lambda _: apply_default(cfg.default),
@@ -76,32 +66,11 @@ def handle_attribute(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: Attribute,
 ) -> ResultE[MapValue]:
-    """Handle one attribute with mappings, ifs, casting and default value.
-
-    :param collection: The collection of data to find data in
-    :type collection: Union[Dict[str, Any], List[Any]]
-
-    :param configuration: :term:`configuration` data to use when mapping
-    :type configuration: Dict[str, Any]
-
-    :return: Success/Failure containers
-    :rtype: MapValue
-
-    configuration expected to look like this:
-
-    .. code-block:: json
-
-        {
-            "mappings": [],  # array of mapping objects
-            "separator": None,
-            "if_statements": [],  # array of if statement objects
-            "casting": {}  # casting object, for casting types
-            "default": "default value"
-        }
+    """Handle one attribute with data fetchers, ifs, casting and default value.
 
     flow description:
 
-    Map all objects in cfg[MAPPINGS] ->
+    Fetch once for all data in Attribute.data_fetchers ->
     Apply separator to values if there are more than 1
     Failure -> fix to Success(None)
     Apply if statements
@@ -110,25 +79,25 @@ def handle_attribute(
 
     Return Result
     """
-    mapped_values = [
-        mapped.unwrap()
-        for mapped in  # noqa: WPS361
+    fetched_values = [
+        fetched.unwrap()
+        for fetched in  # noqa: WPS361
         [
-            handle_mapping(collection, mapping)
-            for mapping in cfg.mappings
+            handle_data_fetcher(collection, data_fetcher)
+            for data_fetcher in cfg.data_fetchers
         ]
-        if is_successful(mapped)
+        if is_successful(fetched)
     ]
 
     # partially declare if statement and casting functions
-    ifs = partial(apply_if_statements, if_objects=cfg.if_statements)
+    ifs = partial(apply_if_statements, statements=cfg.if_statements)
 
     cast = safe(lambda the_value: the_value)
     if cfg.casting:
         cast = partial(apply_casting, casting=cfg.casting)
 
     return flow(
-        apply_separator(mapped_values, separator=cfg.separator),
+        apply_separator(fetched_values, separator=cfg.separator),
         fix(lambda _: None),  # type: ignore
         bind(ifs),
         bind(cast),

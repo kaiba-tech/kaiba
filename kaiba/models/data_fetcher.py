@@ -12,7 +12,7 @@ class DataFetcher(KaibaBaseModel):
     """Data fetcher lets you fetch data from the input."""
 
     path: List[StrInt] = []
-    slice_: Optional[Slicing] = Field(alias='slice')
+    slicing: Optional[Slicing]
     regex: Optional[Regex]
     if_statements: List[IfStatement] = []
     default: Optional[Any]

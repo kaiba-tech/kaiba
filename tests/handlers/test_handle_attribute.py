@@ -1,7 +1,7 @@
 import decimal
 
 from kaiba.handlers import handle_attribute
-from kaiba.pydantic_schema import Attribute
+from kaiba.models.attribute import Attribute
 
 
 def test_get_key_in_dict():
@@ -9,7 +9,7 @@ def test_get_key_in_dict():
     input_data = {'key': 'val1'}
     config = Attribute(**{
         'name': 'attrib',
-        'mappings': [
+        'data_fetchers': [
             {'path': ['key']},
         ],
     })
@@ -25,7 +25,7 @@ def test_casting_to_decimal():
     input_data = {'key': '1,123,123.12'}
     config = Attribute(**{
         'name': 'attrib',
-        'mappings': [
+        'data_fetchers': [
             {'path': ['key']},
         ],
         'casting': {'to': 'decimal'},
@@ -37,16 +37,16 @@ def test_casting_to_decimal():
     ).unwrap() == decimal.Decimal('1123123.12')
 
 
-def test_regexp_is_applied_to_attribute():
-    """Test that we can search by pattern."""
+def test_regex_is_applied_to_attribute():
+    """Test that we can expression by pattern."""
     input_data: dict = {'game': '1. e4 e5 ... 14. Rxe8+ Rxe8'}
     config = Attribute(**{
         'name': 'moves',
-        'mappings': [
+        'data_fetchers': [
             {
                 'path': ['game'],
-                'regexp': {
-                    'search': '(Rxe8)',
+                'regex': {
+                    'expression': '(Rxe8)',
                     'group': 1,
                 },
             },
@@ -58,24 +58,24 @@ def test_regexp_is_applied_to_attribute():
     ).unwrap() == 'Rxe8'
 
 
-def test_regexp_is_not_applied_to_attribute():
-    """Test that we don't lose data when search by pattern fails."""
+def test_regex_is_not_applied_to_attribute():
+    """Test that we don't lose data when expression by pattern fails."""
     input_data: dict = {'game': '1. d4 d5'}
     config = Attribute(**{
         'name': 'moves',
-        'mappings': [
+        'data_fetchers': [
             {
                 'path': ['game'],
-                'regexp': {
-                    'search': '(d6)',
+                'regex': {
+                    'expression': '(d6)',
                     'group': 0,
                 },
             },
         ],
     })
-    regexp = handle_attribute(input_data, config)
-    assert isinstance(regexp.failure(), ValueError) is True
-    assert regexp.failure().args == ('Default value should not be `None`',)
+    regex = handle_attribute(input_data, config)
+    assert isinstance(regex.failure(), ValueError) is True
+    assert regex.failure().args == ('Default value should not be `None`',)
 
 
 def test_all():
@@ -83,7 +83,7 @@ def test_all():
     input_data = {'key': 'val1', 'key2': 'val2'}
     config = Attribute(**{
         'name': 'attrib',
-        'mappings': [
+        'data_fetchers': [
             {
                 'path': ['key'],
                 'if_statements': [

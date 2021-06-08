@@ -8,11 +8,11 @@
             "attributes": [
                 {
                     "name": "event",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                                 "path": ["pgn"],
-                                "regexp": {
-                                    "search": "Event \\\"[\\w\\d ]+\\\""
+                                "regex": {
+                                    "expression": "Event \\\"[\\w\\d ]+\\\""
                                 },
                                 "slicing": {
                                     "from": 7,
@@ -23,11 +23,11 @@
                 },
                 {
                     "name": "site",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["pgn"],
-                            "regexp": {
-                                "search": "Site \\\"[\\w\\d. ]+\\\""
+                            "regex": {
+                                "expression": "Site \\\"[\\w\\d. ]+\\\""
                             },
                             "slicing": {
                                 "from": 6,
@@ -38,11 +38,11 @@
                 },
                 {
                     "name": "result",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["pgn"],
-                            "regexp": {
-                                "search": "Result \\\"[\\w\\d\/ -]+\\\""
+                            "regex": {
+                                "expression": "Result \\\"[\\w\\d\/ -]+\\\""
                             },
                             "slicing": {
                                 "from": 8,
@@ -53,11 +53,11 @@
                 },
                 {
                     "name": "eco",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["pgn"],
-                            "regexp": {
-                                "search": "ECO \\\"[\\w\\d ]+\\\""
+                            "regex": {
+                                "expression": "ECO \\\"[\\w\\d ]+\\\""
                             },
                             "slicing": {
                                 "from": 5,
@@ -68,11 +68,11 @@
                 },
                 {
                     "name": "moves",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["pgn"],
-                            "regexp": {
-                                "search": "\\s1\\..*"
+                            "regex": {
+                                "expression": "\\s1\\..*"
                             },
                             "slicing": {
                                 "from": 1

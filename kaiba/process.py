@@ -5,7 +5,7 @@ from returns.functions import raise_exception
 from returns.result import Failure, ResultE
 
 from kaiba.mapper import map_data
-from kaiba.pydantic_schema import KaibaObject
+from kaiba.models.kaiba_object import KaibaObject
 
 
 def process(
