@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Slicing
+from kaiba.models.slicing import Slicing
 
 
 def test_validates():  # noqa: WPS218

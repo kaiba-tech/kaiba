@@ -1,12 +1,13 @@
 {
     "name": "schema",
     "array": true,
-    "path_to_iterable": ["path_to", "some_list"],
-
+    "iterators": [
+        {"alias": "iter_item", "path": [1, "some_list"]}
+    ],
     "attributes": [
         {
             "name": "attr1",
-            "mappings": [
+            "data_fetchers": [
                 {
                     "path": ["path", "to", "value"],
                     "default": "default value"
@@ -33,7 +34,7 @@
                 },
                 {
                     "name": "height",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["path"]
                         }
@@ -44,7 +45,7 @@
                 },
                 {
                     "name": "test-bad-casting-format",
-                    "mappings": [
+                    "data_fetchers": [
                         {
                             "path": ["path"]
                         }
@@ -68,7 +69,7 @@
                     },
                     {
                         "name": "field_data",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["path", "to", "amount"]
                             }

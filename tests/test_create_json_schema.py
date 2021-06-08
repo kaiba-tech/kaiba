@@ -1,4 +1,4 @@
-from kaiba.pydantic_schema import KaibaObject
+from kaiba.models.kaiba_object import KaibaObject
 
 
 def test_create_jsonschema_from_model():

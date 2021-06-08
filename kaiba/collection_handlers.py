@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
-from kaiba.pydantic_schema import Iterable
+from kaiba.models.iterator import Iterator
 from kaiba.valuetypes import MapValue
 
 
@@ -67,13 +67,13 @@ def fetch_list_by_keys(
 
 def iterable_data_handler(
     raw_data,
-    iterables: List[Iterable],
+    iterators: List[Iterator],
 ) -> ResultE[list]:
-    """Iterate and create all combinations from list of iterables."""
-    if not iterables:
-        return Failure(ValueError('No iterables'))
+    """Iterate and create all combinations from list of iterators."""
+    if not iterators:
+        return Failure(ValueError('No iterators'))
 
-    iterable, rest = iterables[0], iterables[1:]
+    iterable, rest = iterators[0], iterators[1:]
 
     if not rest:
         return create_iterable(raw_data, iterable)
@@ -91,7 +91,7 @@ def iterable_data_handler(
 
 def create_iterable(
     input_data,
-    iterable: Iterable,
+    iterable: Iterator,
 ) -> ResultE[list]:
     """Return set of set of data per entry in list at iterable[path]."""
     return fetch_list_by_keys(

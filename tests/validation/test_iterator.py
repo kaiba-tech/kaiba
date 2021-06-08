@@ -1,12 +1,12 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Iterable
+from kaiba.models.iterator import Iterator
 
 
 def test_validates():  # noqa: WPS218
     """Test that dict is marshalled to pydantic object."""
-    test = Iterable(
+    test = Iterator(
         alias='test',
         path=['data'],
     )
@@ -17,7 +17,7 @@ def test_validates():  # noqa: WPS218
 def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Iterable(**{'alias': 'test'})
+        Iterator(**{'alias': 'test'})
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 
@@ -28,7 +28,7 @@ def test_invalid():
 def test_empty_path_is_error():
     """Test that giving an empty path is an error."""
     with pytest.raises(ValidationError) as ve:
-        Iterable(alias='test', path=[])
+        Iterator(alias='test', path=[])
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 
@@ -39,7 +39,7 @@ def test_empty_path_is_error():
 def test_only_int_and_str_in_path():
     """Test that giving an empty path is an error."""
     with pytest.raises(ValidationError) as ve:
-        Iterable(alias='test', path=[12.2])
+        Iterator(alias='test', path=[12.2])
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 

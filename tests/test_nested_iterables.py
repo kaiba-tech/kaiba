@@ -1,5 +1,5 @@
 from kaiba.collection_handlers import iterable_data_handler
-from kaiba.pydantic_schema import Iterable
+from kaiba.models.iterator import Iterator
 
 
 def test_iterable_data_handler():
@@ -22,19 +22,19 @@ def test_iterable_data_handler():
     }
 
     paths_to_iterables = [
-        Iterable(**{
+        Iterator(**{
             'alias': 'data',
             'path': ['data'],
         }),
-        Iterable(**{
+        Iterator(**{
             'alias': 'nested',
             'path': ['data', 'nested'],
         }),
-        Iterable(**{
+        Iterator(**{
             'alias': 'doesnotexist',
             'path': ['does', 'not', 'exist'],
         }),
-        Iterable(**{
+        Iterator(**{
             'alias': 'another',
             'path': ['nested', 'another'],
         }),
@@ -48,4 +48,4 @@ def test_iterable_data_handler():
 def test_iterable_no_paths_returns_failure():
     """Test that when there are no paths we get a Failure."""
     iterables = iterable_data_handler({}, [])
-    assert 'No iterables' in str(iterables.failure())
+    assert 'No iterators' in str(iterables.failure())

@@ -8,7 +8,9 @@ from returns.result import safe
 
 from kaiba.collection_handlers import iterable_data_handler
 from kaiba.handlers import handle_attribute
-from kaiba.pydantic_schema import Attribute, BranchingObject, KaibaObject
+from kaiba.models.attribute import Attribute
+from kaiba.models.branching_object import BranchingObject
+from kaiba.models.kaiba_object import KaibaObject
 
 decimal.getcontext().rounding = decimal.ROUND_HALF_UP
 
@@ -30,7 +32,7 @@ def map_data(
     current iteration data added to the root of the input_data dictionary
     """
     iterate_data = iterable_data_handler(
-        input_data, configuration.iterables,
+        input_data, configuration.iterators,
     )
 
     if not is_successful(iterate_data):
@@ -40,7 +42,7 @@ def map_data(
 
     mapped_objects: List[dict] = []
 
-    # find returns function to work with iterables
+    # find returns function to work with iterators
     for iteration in iterate_data.unwrap():
         map_object(
             iteration,

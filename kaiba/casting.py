@@ -10,17 +10,17 @@ from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
 from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
-from kaiba.pydantic_schema import CastingEnum
+from kaiba.models.casting import CastToOptions
 from kaiba.valuetypes import MapValue
 
 
 @safe
-def get_casting_function(cast_to: CastingEnum) -> Callable:
+def get_casting_function(cast_to: CastToOptions) -> Callable:
     """Return casting function depending on name."""
-    if cast_to == CastingEnum.INTEGER:
+    if cast_to == CastToOptions.INTEGER:
         return CastToInteger()
 
-    elif cast_to == CastingEnum.DECIMAL:
+    elif cast_to == CastToOptions.DECIMAL:
         return CastToDecimal()
 
     return CastToDate()

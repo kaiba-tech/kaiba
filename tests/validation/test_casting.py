@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Casting, CastingEnum
+from kaiba.models.casting import Casting, CastToOptions
 
 
 def test_validates():  # noqa: WPS218
@@ -9,7 +9,7 @@ def test_validates():  # noqa: WPS218
     test = Casting(
         to='integer',
     )
-    assert test.to == CastingEnum.INTEGER
+    assert test.to == CastToOptions.INTEGER
     assert test.original_format is None
 
 

@@ -1,26 +1,26 @@
 from returns.pipeline import is_successful
 
 from kaiba.mapper import map_data
-from kaiba.pydantic_schema import KaibaObject
+from kaiba.models.kaiba_object import KaibaObject
 
 
 def test_creating_key_to_name():
     """Test that we can fetch key in dict."""
     input_data = {'key': 'test name'}
-    config = KaibaObject(**{
-        'name': 'root',
-        'array': False,
-        'attributes': [
+    config = KaibaObject(
+        name='root',
+        array=False,
+        attributes=[
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                     },
                 ],
             },
         ],
-    })
+    )
 
     assert map_data(
         input_data,
@@ -53,7 +53,7 @@ def test_array_true_but_no_loop_gives_array():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                     },
@@ -77,7 +77,7 @@ def test_missing_data_gives_nothing():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['missing'],
                     },
@@ -111,7 +111,7 @@ def test_missing_data_creates_no_object():
                 'attributes': [
                     {
                         'name': 'name',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['missing'],
                             },
@@ -137,7 +137,7 @@ def test_double_repeatable():
     config = KaibaObject(**{
         'name': 'root',
         'array': True,
-        'iterables': [
+        'iterators': [
             {
                 'alias': 'journals',
                 'path': ['journals'],
@@ -146,7 +146,7 @@ def test_double_repeatable():
         'attributes': [
             {
                 'name': 'journal_id',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['journals', 'journal', 'id'],
                     },
@@ -157,7 +157,7 @@ def test_double_repeatable():
             {
                 'name': 'invoices',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'invoices',
                         'path': ['journals', 'journal', 'invoices'],
@@ -166,7 +166,7 @@ def test_double_repeatable():
                 'attributes': [
                     {
                         'name': 'amount',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['invoices', 'amount'],
                             },
@@ -220,7 +220,7 @@ def test_mapping_where_data_is_not_found():
     config = KaibaObject(**{
         'name': 'root',
         'array': True,
-        'iterables': [
+        'iterators': [
             {
                 'alias': 'journals',
                 'path': ['journals'],
@@ -229,7 +229,7 @@ def test_mapping_where_data_is_not_found():
         'attributes': [
             {
                 'name': 'journal_id',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['journals', 'journal', 'id'],
                     },
@@ -240,7 +240,7 @@ def test_mapping_where_data_is_not_found():
             {
                 'name': 'invoices',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'invoices',
                         'path': ['journals', 'journal', 'invoices'],
@@ -249,7 +249,7 @@ def test_mapping_where_data_is_not_found():
                 'attributes': [
                     {
                         'name': 'amount',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['invoices', 'amount'],
                             },
@@ -266,7 +266,7 @@ def test_mapping_where_data_is_not_found():
                     [
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra1'],
                                 },
@@ -319,7 +319,7 @@ def test_most_features():
         'attributes': [
             {
                 'name': 'name',
-                'mappings': [
+                'data_fetchers': [
                     {
                         'path': ['key'],
                         'if_statements': [
@@ -360,7 +360,7 @@ def test_most_features():
                 'attributes': [
                     {
                         'name': 'address1',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['a1'],
                             },
@@ -368,7 +368,7 @@ def test_most_features():
                     },
                     {
                         'name': 'address2',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['a2'],
                             },
@@ -379,7 +379,7 @@ def test_most_features():
             {
                 'name': 'people',
                 'array': True,
-                'iterables': [
+                'iterators': [
                     {
                         'alias': 'persons',
                         'path': ['persons'],
@@ -388,7 +388,7 @@ def test_most_features():
                 'attributes': [
                     {
                         'name': 'firstname',
-                        'mappings': [
+                        'data_fetchers': [
                             {
                                 'path': ['persons', 'name'],
                             },
@@ -409,7 +409,7 @@ def test_most_features():
                         },
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra1'],
                                 },
@@ -423,7 +423,7 @@ def test_most_features():
                         },
                         {
                             'name': 'datavalue',
-                            'mappings': [
+                            'data_fetchers': [
                                 {
                                     'path': ['extra', 'extra2'],
                                 },

@@ -1,5 +1,5 @@
 from kaiba.functions import apply_slicing
-from kaiba.pydantic_schema import Slicing
+from kaiba.models.slicing import Slicing
 
 
 def test_no_value_is_ok():
