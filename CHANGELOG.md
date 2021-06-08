@@ -18,15 +18,23 @@ Kaiba is a data transformation tool written in Python that uses a DTL(Data Trans
 * Combine multiple values to one.
 * Default values
 * If statements
-    * is, in, contains, not
+    * is, not, in, contains
 * Casting
     * integer, decimal, iso date
-* Regular Expressions - Regex
+* Regular Expressions
+    * get whole regex result
+    * choose groups
 * Slicing
 
 ### Changelog
 
 * Restructures pydantic models
+* Rename Mapping->DataFetcher
+* Rename Attribute.mappings->Attribute.data_fetchers
+* Rename Regexp->Regex
+* Rename Regex.search to Regex.expression
+* Rename Iterable->Iterator
+* Rename iterables->iterators
 
 
 ## Version 0.3.0 - Migrate to pydantic
