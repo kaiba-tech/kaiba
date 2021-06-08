@@ -8,12 +8,11 @@ from returns.result import Failure, ResultE, safe
 from kaiba.casting import get_casting_function
 from kaiba.pydantic_schema import (
     AnyType,
-    ConditionEnum,
-    IfStatement,
     Regexp,
     Slicing,
 )
 from kaiba.models.casting import Casting
+from kaiba.models.if_statement import IfStatement, Conditions
 
 from kaiba.valuetypes import ValueTypes
 
@@ -91,16 +90,16 @@ def _apply_statement(
     condition = if_object.condition
     target = if_object.target
 
-    if condition == ConditionEnum.IS:
+    if condition == Conditions.IS:
         evaluation = if_value == target
 
-    if condition == ConditionEnum.NOT:
+    if condition == Conditions.NOT:
         evaluation = if_value != target
 
-    if condition == ConditionEnum.IN:
+    if condition == Conditions.IN:
         evaluation = if_value in target  # type: ignore
 
-    if condition == ConditionEnum.CONTAINS:
+    if condition == Conditions.CONTAINS:
         list_or_dict = isinstance(if_value, (dict, list))
         evaluation = list_or_dict and target in if_value  # type: ignore
         evaluation = evaluation or not list_or_dict and str(target) in str(if_value)  # noqa: E501 E262

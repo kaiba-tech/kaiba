@@ -1,7 +1,7 @@
 from returns.result import Success
 
 from kaiba.functions import apply_if_statements
-from kaiba.pydantic_schema import IfStatement
+from kaiba.models.if_statement import IfStatement
 
 
 def test_if_is():
