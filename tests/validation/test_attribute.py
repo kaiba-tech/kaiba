@@ -15,7 +15,7 @@ def test_validates():  # noqa: WPS218
     assert isinstance(test.data_fetchers, list)
     assert isinstance(test.if_statements, list)
     assert test.separator == ''
-    assert test.cast is None
+    assert test.casting is None
 
 
 def test_invalid():

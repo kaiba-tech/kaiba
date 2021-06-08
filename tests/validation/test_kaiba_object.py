@@ -56,3 +56,5 @@ def test_invalid(invalid):
         'branching_objects', 0, 'branching_attributes', 0, 0, 'name',
     )
     assert errors[2]['msg'] == 'field required'
+
+    # Should also complain about date original format not being correct

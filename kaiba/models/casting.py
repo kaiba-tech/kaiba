@@ -13,7 +13,7 @@ class CastToOptions(str, Enum):  # noqa: WPS600
     DATE = 'date'  # noqa: WPS115
 
 
-class Cast(KaibaBaseModel):
+class Casting(KaibaBaseModel):
     """Allows user to cast to type."""
 
     to: CastToOptions

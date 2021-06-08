@@ -1,7 +1,7 @@
 from returns.pipeline import is_successful
 
 from kaiba.functions import apply_casting
-from kaiba.pydantic_schema import Casting
+from kaiba.models.casting import Casting
 
 
 def test_value_but_cast_to_fails():

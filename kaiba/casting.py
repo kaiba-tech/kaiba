@@ -10,7 +10,7 @@ from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
 from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
-from kaiba.models.cast import CastToOptions
+from kaiba.models.casting import CastToOptions
 from kaiba.valuetypes import MapValue
 
 

@@ -1,12 +1,12 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.models.cast import Cast, CastToOptions
+from kaiba.models.casting import Casting, CastToOptions
 
 
 def test_validates():  # noqa: WPS218
     """Test that dict is marshalled to pydantic object."""
-    test = Cast(
+    test = Casting(
         to='integer',
     )
     assert test.to == CastToOptions.INTEGER
@@ -16,7 +16,7 @@ def test_validates():  # noqa: WPS218
 def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Cast(to='test')
+        Casting(to='test')
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('to',)

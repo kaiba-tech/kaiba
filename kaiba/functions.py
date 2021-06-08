@@ -8,12 +8,13 @@ from returns.result import Failure, ResultE, safe
 from kaiba.casting import get_casting_function
 from kaiba.pydantic_schema import (
     AnyType,
-    Casting,
     ConditionEnum,
     IfStatement,
     Regexp,
     Slicing,
 )
+from kaiba.models.casting import Casting
+
 from kaiba.valuetypes import ValueTypes
 
 
@@ -234,7 +235,7 @@ def apply_casting(
     value_to_cast: Optional[AnyType],
     casting: Casting,
 ) -> ResultE[AnyType]:
-    """Cast one type of code to another.
+    """Casting one type of code to another.
 
     :param casting: :term:`casting` object
     :type casting: dict

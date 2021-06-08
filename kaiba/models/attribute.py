@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from kaiba.models.base import AnyType, KaibaBaseModel
-from kaiba.models.cast import Cast
+from kaiba.models.casting import Casting
 from kaiba.models.data_fetcher import DataFetcher
 from kaiba.models.if_statement import IfStatement
 
@@ -13,7 +13,7 @@ class Attribute(KaibaBaseModel):
     data_fetchers: List[DataFetcher] = []
     separator: str = ''
     if_statements: List[IfStatement] = []
-    cast: Optional[Cast]
+    casting: Optional[Casting]
     default: Optional[AnyType] = None
 
     class Config:

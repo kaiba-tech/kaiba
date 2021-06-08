@@ -39,7 +39,7 @@
                             "path": ["path"]
                         }
                     ],
-                    "cast": {
+                    "casting": {
                         "to": "date"
                     }
                 },
@@ -50,7 +50,7 @@
                             "path": ["path"]
                         }
                     ],
-                    "cast": {
+                    "casting": {
                         "to": "date",
                         "original_format": "dd-mm-yyyyy"
                     }
