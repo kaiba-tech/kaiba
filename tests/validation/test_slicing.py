@@ -1,12 +1,12 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.models.slice import Slice
+from kaiba.models.slicing import Slicing
 
 
 def test_validates():  # noqa: WPS218
     """Test that dict is marshalled to pydantic object."""
-    test = Slice(**{'from': 0})
+    test = Slicing(**{'from': 0})
     assert test.slice_from == 0
     assert test.slice_to is None
 
@@ -14,7 +14,7 @@ def test_validates():  # noqa: WPS218
 def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Slice(to=0)
+        Slicing(to=0)
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('from',)
@@ -24,7 +24,7 @@ def test_invalid():
 def test_invalid_type():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Slice(**{'from': 'test'})
+        Slicing(**{'from': 'test'})
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('from',)

@@ -6,7 +6,7 @@ from pydantic.types import StrictInt
 from kaiba.models.base import KaibaBaseModel
 
 
-class Slice(KaibaBaseModel):
+class Slicing(KaibaBaseModel):
     """Slice from inclusive to exclusive like python slice."""
 
     slice_from: StrictInt = Field(alias='from')
