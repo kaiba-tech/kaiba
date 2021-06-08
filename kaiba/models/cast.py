@@ -18,3 +18,22 @@ class Cast(KaibaBaseModel):
 
     to: CastToOptions
     original_format: Optional[str] = None
+
+    class Config:
+        """Add json schema examples."""
+
+        schema_extra = {
+            'examples': [
+                {
+                    'to': 'integer',
+                },
+                {
+                    'to': 'date',
+                    'original_format': 'ddmmyy',
+                },
+                {
+                    'to': 'date',
+                    'original_format': 'yyyy.mm.dd',
+                },
+            ],
+        }

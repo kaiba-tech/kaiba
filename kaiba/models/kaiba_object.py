@@ -18,5 +18,22 @@ class KaibaObject(KaibaBaseModel):
     objects: List['KaibaObject'] = []  # noqa: WPS110
     branching_objects: List[BranchingObject] = []
 
+    class Config:
+        """Add json schema examples."""
+
+        schema_extra = {
+            'examples': [
+                {
+                    'name': 'object_name',
+                    'attributes': [
+                        {
+                            'name': 'an_attribute',
+                            'default': 'a value'
+                        }
+                    ]
+                },
+            ],
+        }
+
 
 KaibaObject.update_forward_refs()

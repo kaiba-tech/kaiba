@@ -43,7 +43,7 @@
             "branching_attributes": [
                 [
                     {
-                        "name": "field_data",
+                        "name": "field_name",
                         "default": "amount"
                     },
                     {

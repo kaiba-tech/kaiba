@@ -6,7 +6,22 @@ from kaiba.models.base import KaibaBaseModel
 
 
 class Regex(KaibaBaseModel):
-    """Use regular expression to find your data."""
+    """Use regular expression on data found by data_fetchers."""
 
     expression: Pattern
     group: Union[StrictInt, List[StrictInt]] = 0
+
+    class Config:
+        """Add json schema examples."""
+
+        schema_extra = {
+            'examples': [
+                {
+                    'expression': '[a-z]+',
+                },
+                {
+                    'expression': '([a-z])',
+                    'group': [0, 3, 4],
+                },
+            ],
+        }

@@ -7,7 +7,7 @@ from kaiba.models.if_statement import IfStatement
 
 
 class Attribute(KaibaBaseModel):
-    """Create an attribute for an object."""
+    """Adds an attribute with the given name."""
 
     name: str
     data_fetchers: List[DataFetcher] = []
@@ -15,3 +15,18 @@ class Attribute(KaibaBaseModel):
     if_statements: List[IfStatement] = []
     cast: Optional[Cast]
     default: Optional[AnyType] = None
+
+    class Config:
+        """Add json schema examples."""
+
+        schema_extra = {
+            'examples': [
+                {
+                    'name': 'my_attribute',
+                    'data_fetchers': [{
+                        'path': ['abc', 0]
+                    }],
+                    'default': 'default_value',
+                },
+            ],
+        }
