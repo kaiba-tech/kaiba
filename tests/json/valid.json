@@ -1,11 +1,13 @@
 {
     "name": "schema",
     "array": true,
-    "path_to_iterable": ["path_to", "some_list"],
+    "iterators": [
+        {"alias": "iter_item", "path": [0, "test"]}
+    ],
     "attributes": [
         {
             "name": "attr1",
-            "mappings": [
+            "data_fetchers": [
                 {
                     "path": ["path", "to", "value"],
                     "default": "default value"
@@ -46,7 +48,7 @@
                     },
                     {
                         "name": "field_data",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["path", "to", "amount"]
                             }

@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import BranchingObject
+from kaiba.models.branching_object import BranchingObject
 
 
 def test_validates():  # noqa: WPS218
@@ -11,7 +11,7 @@ def test_validates():  # noqa: WPS218
     )
     assert test.name == 'Name'
     assert test.array is False
-    assert isinstance(test.iterables, list)
+    assert isinstance(test.iterators, list)
     assert isinstance(test.branching_attributes, list)
 
 

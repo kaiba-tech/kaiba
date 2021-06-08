@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Attribute
+from kaiba.models.attribute import Attribute
 
 
 def test_validates():  # noqa: WPS218
@@ -12,10 +12,10 @@ def test_validates():  # noqa: WPS218
     )
     assert test.name == 'Name'
     assert test.default == 'Default'
-    assert isinstance(test.mappings, list)
+    assert isinstance(test.data_fetchers, list)
     assert isinstance(test.if_statements, list)
     assert test.separator == ''
-    assert test.casting is None
+    assert test.cast is None
 
 
 def test_invalid():

@@ -11,7 +11,7 @@ StrInt = Union[StrictStr, StrictInt]
 class KaibaBaseModel(BaseModel):
     """Allows for iterating lists at given path."""
 
-    class Config(Object):
+    class Config(object):
         """Make sure any unexpected attributes in config cause error."""
 
-        extra = Extra.ignore
+        extra = Extra.forbid

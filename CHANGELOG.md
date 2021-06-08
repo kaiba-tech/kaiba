@@ -24,6 +24,10 @@ Kaiba is a data transformation tool written in Python that uses a DTL(Data Trans
 * Regular Expressions - Regex
 * Slicing
 
+### Changelog
+
+* Restructures pydantic models
+
 
 ## Version 0.3.0 - Migrate to pydantic
 

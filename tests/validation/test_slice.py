@@ -1,33 +1,31 @@
-import re
-
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Regexp
+from kaiba.models.slice import Slice
 
 
 def test_validates():  # noqa: WPS218
     """Test that dict is marshalled to pydantic object."""
-    test = Regexp(search='[1-9]')
-    assert test.search == re.compile('[1-9]')
-    assert test.group == 0
+    test = Slice(**{'from': 0})
+    assert test.slice_from == 0
+    assert test.slice_to is None
 
 
-def test_invalid_expression():
+def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Regexp(search='abc[')
+        Slice(to=0)
 
     errors = ve.value.errors()[0]  # noqa: WPS441
-    assert errors['loc'] == ('search',)
-    assert errors['msg'] == 'Invalid regular expression'
+    assert errors['loc'] == ('from',)
+    assert errors['msg'] == 'field required'
 
 
-def test_invalid_group():
+def test_invalid_type():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Regexp(search='[1-9]', group='test')
+        Slice(**{'from': 'test'})
 
     errors = ve.value.errors()[0]  # noqa: WPS441
-    assert errors['loc'] == ('group',)
+    assert errors['loc'] == ('from',)
     assert errors['msg'] == 'value is not a valid integer'

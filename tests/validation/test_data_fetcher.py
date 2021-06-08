@@ -1,17 +1,17 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import Mapping
+from kaiba.models.data_fetcher import DataFetcher
 
 
 def test_validates():  # noqa: WPS218
     """Test that dict is marshalled to pydantic object."""
-    test = Mapping(
+    test = DataFetcher(
         path=['test', 123],
         default='Default',
     )
     assert test.path == ['test', 123]
-    assert test.regexp is None
+    assert test.regex is None
     assert isinstance(test.if_statements, list)
     assert test.default == 'Default'
 
@@ -19,7 +19,7 @@ def test_validates():  # noqa: WPS218
 def test_only_int_and_str_in_path():
     """Test that giving an empty path is an error."""
     with pytest.raises(ValidationError) as ve:
-        Mapping(path=[12.2])
+        DataFetcher(path=[12.2])
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 

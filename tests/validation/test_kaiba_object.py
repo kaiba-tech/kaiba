@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.pydantic_schema import KaibaObject
+from kaiba.models.kaiba_object import KaibaObject
 
 
 def test_validates_only_object():  # noqa: WPS218
@@ -11,7 +11,7 @@ def test_validates_only_object():  # noqa: WPS218
     )
     assert test.name == 'Name'
     assert test.array is False
-    assert isinstance(test.iterables, list)
+    assert isinstance(test.iterators, list)
     assert isinstance(test.attributes, list)
     assert isinstance(test.branching_objects, list)
     assert isinstance(test.objects, list)
@@ -40,12 +40,19 @@ def test_invalid(invalid):
 
     errors = ve.value.errors()  # noqa: WPS441
 
+    print(errors)
+
     assert errors[0]['loc'] == (
         'attributes', 0, 'if_statements', 0, 'condition',
     )
     assert errors[0]['msg'] == 'field required'
 
     assert errors[1]['loc'] == (
+        'objects', 0, 'attributes', 0, 'deult'
+    )
+    assert errors[1]['msg'] == 'extra fields not permitted'
+
+    assert errors[2]['loc'] == (
         'branching_objects', 0, 'branching_attributes', 0, 0, 'name',
     )
-    assert errors[1]['msg'] == 'field required'
+    assert errors[2]['msg'] == 'field required'
