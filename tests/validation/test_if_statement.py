@@ -17,7 +17,7 @@ def test_validates():  # noqa: WPS218
     assert test.otherwise is None
 
 
-def test_invalid_bad_condition_enum():
+def test_invalid_bad_condition_enum():  # noqa: WPS218
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
         IfStatement(  # type: ignore

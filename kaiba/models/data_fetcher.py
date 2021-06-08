@@ -1,7 +1,5 @@
 from typing import Any, List, Optional
 
-from pydantic import Field
-
 from kaiba.models.base import KaibaBaseModel, StrInt
 from kaiba.models.if_statement import IfStatement
 from kaiba.models.regex import Regex

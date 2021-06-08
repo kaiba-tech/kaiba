@@ -18,7 +18,7 @@ class Iterator(KaibaBaseModel):
             'examples': [
                 {
                     'alias': 'an_item',
-                    'path': ['path', 'to', 10, 'data']
+                    'path': ['path', 'to', 10, 'data'],
                 },
-            ]
+            ],
         }

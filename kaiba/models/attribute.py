@@ -24,7 +24,7 @@ class Attribute(KaibaBaseModel):
                 {
                     'name': 'my_attribute',
                     'data_fetchers': [{
-                        'path': ['abc', 0]
+                        'path': ['abc', 0],
                     }],
                     'default': 'default_value',
                 },

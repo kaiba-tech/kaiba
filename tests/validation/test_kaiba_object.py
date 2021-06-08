@@ -33,14 +33,12 @@ def test_validates(valid):
     assert KaibaObject(**valid)
 
 
-def test_invalid(invalid):
+def test_invalid(invalid):  # noqa: WPS218 allow asserts
     """Test that we get a list of errors."""
     with pytest.raises(ValidationError) as ve:
         KaibaObject(**invalid)
 
     errors = ve.value.errors()  # noqa: WPS441
-
-    print(errors)
 
     assert errors[0]['loc'] == (
         'attributes', 0, 'if_statements', 0, 'condition',
@@ -48,7 +46,7 @@ def test_invalid(invalid):
     assert errors[0]['msg'] == 'field required'
 
     assert errors[1]['loc'] == (
-        'objects', 0, 'attributes', 0, 'deult'
+        'objects', 0, 'attributes', 0, 'deult',
     )
     assert errors[1]['msg'] == 'extra fields not permitted'
 

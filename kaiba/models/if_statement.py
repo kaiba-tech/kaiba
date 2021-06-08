@@ -20,7 +20,7 @@ class IfStatement(KaibaBaseModel):
 
     condition: Conditions
     target: Optional[AnyType] = Field(...)  # ... = required but allow None
-    then: Optional[AnyType]  = Field(...)  # ... = required but allow Nones
+    then: Optional[AnyType] = Field(...)  # ... = required but allow Nones
     otherwise: Optional[AnyType] = None  # Should be any valid json value
 
     class Config:
