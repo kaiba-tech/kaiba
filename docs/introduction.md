@@ -62,7 +62,6 @@ The root of all ev... kaiba configs looks like this
 ```json
 {
     "name": "root",
-    "array": false,
     "attributes": [],
     "objects": []
 }
@@ -82,7 +81,6 @@ To actually map some data we can add `attributes`.
     ```json
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "firstname",
@@ -115,11 +113,9 @@ Congratulations, you've just mapped a default value to an attribute! - Click `ou
     ```json
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "person",
-                "array": false,
                 "attributes": [
                     {
                         "name": "firstname",
@@ -150,28 +146,26 @@ Congratulations, you've just mapped a default value to an attribute! - Click `ou
 What we just did is the core principle of creating the output structure. We added an object with the name `person`, then we moved our `firstname` attribute to the `person` object.
 
 
-## Time to Map some values!
+## Time to Fetch some values!
 
-We will now introduce the `mappings` key, it's and array of `mapping` objects.
+We will now introduce the `data_fetchers` key, it's and array of `DataFetcher` objects.
 
-The `mapping` object is the only place where you actually fetch data from the input. And you do that by specifying a `path`. The `path` describes the steps to take to get to the value we are interested in.
+The `DataFetcher` object is the only place where you actually fetch data from the input. And you do that by specifying a `path`. The `path` describes the steps to take to get to the value we are interested in.
 
-### Mapping.path with flat structure
+### DataFetcher.path with flat structure
 
 === "config.json"
 
     ```json hl_lines="13"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "person",
-                "array": false,
                 "attributes": [
                     {
                         "name": "firstname",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["name"]
                             }
@@ -203,22 +197,20 @@ The `mapping` object is the only place where you actually fetch data from the in
     ```
 
 
-### Mapping.path with nested structure
+### DataFetcher.path with nested structure
 
 === "config.json"
 
     ```json hl_lines="6 12 13 14"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "actor",
-                "array": false,
                 "attributes": [
                     {
                         "name": "name",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["the_matrix", "neo", "actor", "name"]
                             }
@@ -255,7 +247,7 @@ The `mapping` object is the only place where you actually fetch data from the in
     ```
 
 
-### Mapping.path with data in lists
+### DataFetcher.path with data in lists
 
 Consider the following json:
 ```json
@@ -264,7 +256,7 @@ Consider the following json:
 }
 ```
 
-In our `mapping` object we supply `path` which is a list of how we get to our data. So how do we get the `lastname` in that data?
+In our `DataFetcher` object we supply `path` which is a list of how we get to our data. So how do we get the `lastname` in that data?
 
 Easy, we reference the `index` of the list. The first data in the list starts at `0`, second element `1`, third `2` and so on. This number is the `index` and to get the last name we must use the index: `1`
 
@@ -273,11 +265,10 @@ Easy, we reference the `index` of the list. The first data in the list starts at
     ```json hl_lines="9 17"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "firstname",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["data", 0]
                     }
@@ -285,7 +276,7 @@ Easy, we reference the `index` of the list. The first data in the list starts at
             },
             {
                 "name": "lastname",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["data", 1]
                     }
@@ -316,7 +307,7 @@ Easy, we reference the `index` of the list. The first data in the list starts at
     We still have to reference the `"data"` key first, so our `path` goes first to `data` then it finds the value at index `1`
 
 
-### Mapping.path to list values and objects
+### DataFetcher.path to list values and objects
 
 Consider the following json:
 ```json
@@ -334,11 +325,10 @@ This works for objects aswell.
     ```json hl_lines="9 17"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "character",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["name"]
                     }
@@ -346,7 +336,7 @@ This works for objects aswell.
             },
             {
                 "name": "plays_in_movies",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["in_movies"]
                     }
@@ -380,7 +370,7 @@ This works for objects aswell.
     ```
 
 !!! Note
-    When mapping objects and arrays values some other functionality like `casting` obviously won't work.
+    When fetching objects and arrays values some other functionality like `casting` obviously won't work.
 
 ## Combining values
 
@@ -393,15 +383,13 @@ It's fairly normal to only need `name` but getting `firstname` _and_ `lastname` 
     ```json hl_lines="15 16 17 19"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "actor",
-                "array": false,
                 "attributes": [
                     {
                         "name": "name",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["the_matrix", "neo", "actor", "firstname"]
                             },
@@ -443,36 +431,34 @@ It's fairly normal to only need `name` but getting `firstname` _and_ `lastname` 
     ```
 
 
-To find more values and combine them, simply add another `mapping` object to `mappings` array.
+To find more values and combine them, simply add another `DataFetcher` object to `data_fetchers` array.
 
 Use `separator` to control with what char values should be separated.
 
-## Regexp
+## Regular Expressions
 
-You can use Regexp to find patterns in a given string and retrieve them as a string or as an array of strings.
+You can use `Regex` to find patterns in a given string and retrieve them as a string or as an array of strings.
 
-### Regexp Example
+### Regex Example
 
-Let's say you want to analyze your chess games, you get JSON with data BUT the fun part is inside `pgn` field, so let's retrieve Event, Site, Result, ECO and the game moves from `pgn` using Regexp.
+Let's say you want to analyze your chess games, you get JSON with data BUT the fun part is inside `pgn` field, so let's retrieve Event, Site, Result, ECO and the game moves from `pgn` using Regex.
 
 === "config.json"
 
     ```json hl_lines="19 20 21"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "game",
-                "array": false,
                 "attributes": [
                     {
                         "name": "event",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                     "path": ["pgn"],
-                                    "regexp": {
-                                        "search": "Event \\\"[\\w\\d ]+\\\""
+                                    "regex": {
+                                        "expression": "Event \\\"[\\w\\d ]+\\\""
                                     },
                                     "slicing": {
                                         "from": 7,
@@ -483,11 +469,11 @@ Let's say you want to analyze your chess games, you get JSON with data BUT the f
                     },
                     {
                         "name": "site",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["pgn"],
-                                "regexp": {
-                                    "search": "Site \\\"[\\w\\d. ]+\\\""
+                                "regex": {
+                                    "expression": "Site \\\"[\\w\\d. ]+\\\""
                                 },
                                 "slicing": {
                                     "from": 6,
@@ -498,11 +484,11 @@ Let's say you want to analyze your chess games, you get JSON with data BUT the f
                     },
                     {
                         "name": "result",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["pgn"],
-                                "regexp": {
-                                    "search": "Result \\\"[\\w\\d\/ -]+\\\""
+                                "regex": {
+                                    "expression": "Result \\\"[\\w\\d\/ -]+\\\""
                                 },
                                 "slicing": {
                                     "from": 8,
@@ -513,11 +499,11 @@ Let's say you want to analyze your chess games, you get JSON with data BUT the f
                     },
                     {
                         "name": "eco",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["pgn"],
-                                "regexp": {
-                                    "search": "ECO \\\"[\\w\\d ]+\\\""
+                                "regex": {
+                                    "expression": "ECO \\\"[\\w\\d ]+\\\""
                                 },
                                 "slicing": {
                                     "from": 5,
@@ -528,11 +514,11 @@ Let's say you want to analyze your chess games, you get JSON with data BUT the f
                     },
                     {
                         "name": "moves",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["pgn"],
-                                "regexp": {
-                                    "search": "\\s1\\..*"
+                                "regex": {
+                                    "expression": "\\s1\\..*"
                                 },
                                 "slicing": {
                                     "from": 1
@@ -589,7 +575,7 @@ Let's say you want to analyze your chess games, you get JSON with data BUT the f
 
 
 !!! Hint
-    If you have doubts about your regexp expressions, check them out on: [Regex 101](https://regex101.com/). Also, make sure that your JSON is valid as Regexp may require extra escape slashes.
+    If you have doubts about your regex expressions, check them out on: [Regex 101](https://regex101.com/). Also, make sure that your JSON is valid as Regexp may require extra escape slashes.
 
 ## Slicing
 
@@ -604,22 +590,21 @@ Lets say that we have some value like this `street-Santas Polar city 45`. We wou
     ```json hl_lines="19 20 21"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "fantasy",
                 "array": true,
-                "path_to_iterable": ["data"],
+                "iterators": [{"alias": "data_item", "path": "data"}],
                 "attributes": [
                     {
                         "name": "name",
-                        "mappings": [{"path": ["data", 0]}]
+                        "data_fetchers": [{"path": ["data_item", 0]}]
                     },
                     {
                         "name": "street",
-                        "mappings": [
+                        "data_fetchers": [
                             {
-                                "path": ["data", 1],
+                                "path": ["data_item", 1],
                                 "slicing": {
                                     "from": 7
                                 }
@@ -675,22 +660,21 @@ You can also slice numbers, bools and any other json value since we cast the val
     ```json hl_lines="19 20 21 22 25 26 27 28"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "fantasy",
                 "array": true,
-                "path_to_iterable": ["data"],
+                "iterators": [{"alias": "data_item", "path": "data"}],
                 "attributes": [
                     {
                         "name": "name",
-                        "mappings": [{"path": ["data", 0]}]
+                        "data_fetchers": [{"path": ["data_item", 0]}]
                     },
                     {
                         "name": "birthday",
-                        "mappings": [
+                        "data_fetchers": [
                             {
-                                "path": ["data", 1],
+                                "path": ["data_item", 1],
                                 "slicing": {
                                     "from": 0,
                                     "to": 8
@@ -754,11 +738,10 @@ Let's check if the value equals `1` and output `type_one`.
     ```json hl_lines="10 11 12 13 14 15 16"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "readable_type",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["type"],
                         "if_statements": [
@@ -799,18 +782,17 @@ If statements are really useful for changing the values depending on some condit
 
 `if_statements` is a list of `if statement` objects. We designed it like this so that we can chain them. The output of the first one will be the input of the next one.
 
-the `mapping` object is not the only one that can have if statements, the `attribute` can also have them. This allows for some interesting combinations.
+the `DataFetcher` object is not the only one that can have if statements, the `attribute` can also have them. This allows for some interesting combinations.
 
 === "config.json"
 
     ```json hl_lines="14 20 25 32 35"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "readable_type",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["type"],
                         "if_statements": [
@@ -881,7 +863,7 @@ Using input.json the places that are highlighted is everywhere the value changes
 
 For input2.json the first if statement is false and no value change. The second if statement is true so value is changed to `boring-type-two`. The third if statement is false so no value change. The last if statement checks if the value is `not` `funky_type` which is true, so the value is changed to `junk`.
 
-You can even add if statements for every `mapping` object you add into `mappings` so this can handle some quite complicated condition with multiple values.
+You can even add if statements for every `DataFetcher` object you add into `data_fetchers` so this can handle some quite complicated condition with multiple values.
 
 !!! Note
     If statements on `array` and `object` values behave a bit differently. Have a look in the [configuration](../configuration)
@@ -901,11 +883,10 @@ Casting is straightforward. You map your value like you would and then add the c
     ```json hl_lines="12 13 14"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "my_number",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["string_number"]
                     }
@@ -943,11 +924,10 @@ When casting to a `date` we always have to supply the `original_format` which is
     ```json hl_lines="12 13 14"
     {
         "name": "root",
-        "array": false,
         "attributes": [
             {
                 "name": "my_iso_date",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["yymmdd_date"]
                     }
@@ -1021,9 +1001,9 @@ Now to make the frontend dudes happy we would liketo structure this nicely... so
 }
 ```
 
-### Introducing Iterables
+### Introducing Iterators
 
-We can use `iterables` on an `object` which works similar to `mapping.path`, but it applies the current `object` and all its attribute mappings and nested objects to each and every element in whatever list `iterables` points to.
+We can use `iterators` on an `object` which works similar to `mapping.path`, but it applies the current `object` and all its attribute data_fetchers and nested objects to each and every element in whatever list `iterators` points to.
 
 Lets solve the above example!
 
@@ -1032,12 +1012,11 @@ Lets solve the above example!
     ```json hl_lines="8 9 10 11 12 13 19 27 43"
     {
         "name": "root",
-        "array": false,
         "objects": [
             {
                 "name": "players",
                 "array": true,
-                "iterables": [
+                "iterators": [
                     {
                         "alias": "character",
                         "path": ["data", "character_data"],
@@ -1046,7 +1025,7 @@ Lets solve the above example!
                 "attributes": [
                     {
                         "name": "nickname",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["character", 0]
                             }
@@ -1054,7 +1033,7 @@ Lets solve the above example!
                     },
                     {
                         "name": "class",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["character", 1]
                             }
@@ -1070,7 +1049,7 @@ Lets solve the above example!
                     },
                     {
                         "name": "gold",
-                        "mappings": [
+                        "data_fetchers": [
                             {
                                 "path": ["character", 2]
                             }
@@ -1122,12 +1101,12 @@ Lets solve the above example!
     ```
 
 
-`iterables` is an array of `iterable` objects that _must_ contain an `alias` and a `path`. `alias` is will be the name of the `key` that you will then be able to reference and `path` is the path to the iterable list/array in the input data.
+`iterators` is an array of `Iterator` objects that _must_ contain an `alias` and a `path`. `alias` is will be the name of the `key` that you will then be able to reference and `path` is the path to the iterable list/array in the input data.
 
 !!! Note
-    In our mappings.path we reference the key name(`character`) which is the `alias` we set up. Behind the scenes what really happens is that we add this `character` key to the root input data and run mapping for each val/obj in the list. Its completely name the `alias` the same as the last key to the iterable. This is demonstrated in the next example.
+    In our data_fetchers.path we reference the key name(`character`) which is the `alias` we set up. Behind the scenes what really happens is that we add this `character` key to the root input data and run mapping for each val/obj in the list. Its completely fine to name the `alias` the same as the last key to the in the `path`. This is demonstrated in the next example. However, it makes more sense to append `_item` or use the singular form as in list called `customers` use alias `customer`.
 
-    This means that you must be sure to use unique aliases since otherwise you will overwrite other data.
+    If you have multiple `iterators` you _must_ make sure to use unique aliases since otherwise you will overwrite other data.
 
 ### Iterables Continued
 
@@ -1166,7 +1145,7 @@ consider the following input:
 
 Theres 3 levels of lists. But lets say we want to flatten this structure. Then we will have to get all combinations of `data.nested.another.a` = `a`, `b`, `c` and `d`.
 
-Well its easy, first we just add iterables to `"data"`, then we must iterate `"nested"`, then we must iterate `"another"`.
+Well its easy, first we just add iterators to `"data"`, then we must iterate `"nested"`, then we must iterate `"another"`.
 
 
 === "config.json"
@@ -1175,7 +1154,7 @@ Well its easy, first we just add iterables to `"data"`, then we must iterate `"n
     {
         "name": "root",
         "array": true,
-        "iterables": [
+        "iterators": [
             {
                 "alias": "data",
                 "path": ["data"]
@@ -1192,7 +1171,7 @@ Well its easy, first we just add iterables to `"data"`, then we must iterate `"n
         "attributes": [
             {
                 "name": "nested_name",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["nested", "name"]
                     }
@@ -1200,7 +1179,7 @@ Well its easy, first we just add iterables to `"data"`, then we must iterate `"n
             },
             {
                 "name": "value_of_a",
-                "mappings": [
+                "data_fetchers": [
                     {
                         "path": ["another", "a"]
                     }
@@ -1265,13 +1244,12 @@ Well its easy, first we just add iterables to `"data"`, then we must iterate `"n
     ```
 
 
-We will write a more in depth explanation of iterables and how they work internally. [Link to the issue](https://github.com/kaiba-tech/kaiba/issues/113)
-
-
 And thats it!
 
 Congratulations the introduction course is done!
 
 Time to map some data and have fun doing it!
+
+Also head over to [Kaiba Config Generator](https://app.kaiba.tech) to do live mapping with a UI
 
 Have a look in [usecases](../usecases/usecases) section for some quick starts and tutorials

@@ -1,5 +1,6 @@
 # Kaiba
-Configurable Data Mapping for mortals
+
+Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure, data fetching and data transformation.
 ___
 ![test](https://github.com/kaiba-tech/kaiba/workflows/test/badge.svg)
 [![codecov](https://codecov.io/gh/kaiba-tech/kaiba/branch/master/graph/badge.svg)](https://codecov.io/gh/kaiba-tech/kaiba)
@@ -15,7 +16,7 @@ ___
 
 ## What is Kaiba
 
-Kaiba is a JSON to JSON mapper. That means that we read input JSON and create output JSON. How the output is created is based on instructions from a configuration file. The configuration file governs the the output structure and tells Kaiba where in the input to find data and where to place it in the output. In addition to this Kaiba supports data transformation with `data casting`, `if conditions`, `combination of data from multiple places` and of course setting `default` values.
+Kaiba is a JSON to JSON mapper. That means that we read input JSON and create output JSON. How the output is created is based on instructions from a configuration file. The configuration file governs the the output structure and tells Kaiba where in the input to find data and where to place it in the output. In addition to this Kaiba supports data transformation with `data casting`, `regular expressions`, `if conditions`, `combination of data from multiple places` and of course setting `default` values.
 
 __This enables you to change any input into the output you desire.__
 
@@ -25,7 +26,7 @@ The kaiba App is currently in development
 
 [app.kaiba.tech](https://app.kaiba.tech)
 
-The app is a UI for creating Kaiba configurations. With the UI you can map in real time easily with an ui and create the config.
+The app provides a user interface for creating Kaiba configurations. With the app you can map in real time easily and create the kaiba config.
 
 ## The Kaiba API
 
@@ -109,18 +110,18 @@ my_config = {
         {
             'name': 'invoices',
             'array': True,
-            'iterables': [
+            'iterators': [
                 {
-                    'alias': 'invoices',
+                    'alias': 'invoice',
                     'path': ['root', 'invoices'],
                 },
             ],
             'attributes': [
                 {
                     'name': 'amount',
-                    'mappings': [
+                    'data_fetchers': [
                         {
-                            'path': ['invoices', 'amount'],
+                            'path': ['invoice', 'amount'],
                         },
                     ],
                     'casting': {
@@ -131,7 +132,7 @@ my_config = {
                 },
                 {
                     'name': 'debtor',
-                    'mappings': [
+                    'data_fetchers': [
                         {
                             'path': ['root', 'customer', 'first_name'],
                         },
