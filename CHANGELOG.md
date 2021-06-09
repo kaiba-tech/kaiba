@@ -35,6 +35,7 @@ Kaiba is a data transformation tool written in Python that uses a DTL(Data Trans
 * Rename Regex.search to Regex.expression
 * Rename Iterable->Iterator
 * Rename iterables->iterators
+* Simplify typing
 
 
 ## Version 0.3.0 - Migrate to pydantic

@@ -15,14 +15,14 @@ from kaiba.functions import (
     apply_slicing,
 )
 from kaiba.models.attribute import Attribute
+from kaiba.models.base import AnyType
 from kaiba.models.data_fetcher import DataFetcher
-from kaiba.valuetypes import MapValue
 
 
 def handle_data_fetcher(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: DataFetcher,
-) -> ResultE[MapValue]:
+) -> ResultE[AnyType]:
     """Find a data at path or produce a value.
 
     return value can be:
@@ -65,7 +65,7 @@ def handle_data_fetcher(
 def handle_attribute(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: Attribute,
-) -> ResultE[MapValue]:
+) -> ResultE[AnyType]:
     """Handle one attribute with data fetchers, ifs, casting and default value.
 
     flow description:

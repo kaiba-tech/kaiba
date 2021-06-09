@@ -2,13 +2,13 @@ from typing import Any, Dict, List, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
+from kaiba.models.base import AnyType
 from kaiba.models.iterator import Iterator
-from kaiba.valuetypes import MapValue
 
 
 @safe
 def set_value_in_dict(
-    new_value: MapValue,
+    new_value: AnyType,
     collection: Dict[str, Any],
     path: List[str],
 ) -> None:
@@ -25,9 +25,9 @@ def set_value_in_dict(
 
 @safe
 def fetch_data_by_keys(
-    collection: Union[Dict[str, Any], List[Any]],
+    collection: Union[Dict[str, AnyType], List[AnyType]],
     path: List[Union[str, int]],
-) -> MapValue:
+) -> AnyType:
     """Find data in collection by following a list of path."""
     if not path:
         raise ValueError('path list empty')
@@ -36,13 +36,13 @@ def fetch_data_by_keys(
         # this will return a Failure[KeyError] if not found
         collection = collection[key]  # type: ignore
 
-    return collection  # type: ignore
+    return collection
 
 
 @safe
 def fetch_list_by_keys(
-    collection: Dict[str, Any],
-    path: List[str],
+    collection: Dict[str, AnyType],
+    path: List[Union[str, int]],
 ) -> list:
     """Find data that *must* be a list else it fails.
 
@@ -57,7 +57,7 @@ def fetch_list_by_keys(
 
     for key in path:
         # this will return a Failure[KeyError] if not found
-        collection = collection[key]
+        collection = collection[key]  # type: ignore
 
     if isinstance(collection, list):  # type: ignore
         return collection  # type: ignore
@@ -66,7 +66,7 @@ def fetch_list_by_keys(
 
 
 def iterable_data_handler(
-    raw_data,
+    raw_data: dict,
     iterators: List[Iterator],
 ) -> ResultE[list]:
     """Iterate and create all combinations from list of iterators."""
@@ -90,7 +90,7 @@ def iterable_data_handler(
 
 
 def create_iterable(
-    input_data,
+    input_data: dict,
     iterable: Iterator,
 ) -> ResultE[list]:
     """Return set of set of data per entry in list at iterable[path]."""
