@@ -9,22 +9,24 @@
 
 ## Version 1.0.0 Release: Kaiba
 
-Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure, input transformation and mappings.
+Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure, data fetching and data transformation.
 
 ### Features
 
-* Mapping with configuration File.
-* Looping data from multiple places to create 1 or many objects
+* Mapping by configuration File.
+* Looping/Iterating data from multiple places to create 1 or many objects
 * Combine multiple values to one.
 * Default values
 * If statements
-    * is, not, in, contains
+    * conditions: is, not, in, contains
+    * can match any valid json value including objects and lists
 * Casting
     * integer, decimal, iso date
 * Regular Expressions
     * get whole regex result
-    * choose groups
+    * choose matching groups
 * Slicing
+    * Slice/Substring strings or arrays
 
 ### Changelog
 
