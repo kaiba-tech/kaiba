@@ -25,7 +25,7 @@ The kaiba App is currently in development
 
 [app.kaiba.tech](https://app.kaiba.tech)
 
-The app is a UI for creating Kaiba configurations. With the UI you can map in real time easily with an ui and create the config.
+The app provides a user interface for creating Kaiba configurations. With the app you can map in real time easily and create the kaiba config.
 
 ## The Kaiba API
 
@@ -109,18 +109,18 @@ my_config = {
         {
             'name': 'invoices',
             'array': True,
-            'iterables': [
+            'iterators': [
                 {
-                    'alias': 'invoices',
+                    'alias': 'invoice',
                     'path': ['root', 'invoices'],
                 },
             ],
             'attributes': [
                 {
                     'name': 'amount',
-                    'mappings': [
+                    'data_fetchers': [
                         {
-                            'path': ['invoices', 'amount'],
+                            'path': ['invoice', 'amount'],
                         },
                     ],
                     'casting': {
@@ -131,7 +131,7 @@ my_config = {
                 },
                 {
                     'name': 'debtor',
-                    'mappings': [
+                    'data_fetchers': [
                         {
                             'path': ['root', 'customer', 'first_name'],
                         },

@@ -54,4 +54,4 @@ your_config = {}
 result = process(your_data, your_config)
 ```
 
-Notice that process expects `data: Union[List, Dict]` and `configuration: Dict`
+Notice that process expects `data: dict` and `configuration: dict`
