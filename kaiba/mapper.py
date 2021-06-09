@@ -1,5 +1,5 @@
 import decimal
-from typing import Any, Dict, List, Optional, Union
+from typing import List, Optional, Union
 
 from returns.curry import partial
 from returns.maybe import maybe
@@ -14,12 +14,10 @@ from kaiba.models.kaiba_object import KaibaObject
 
 decimal.getcontext().rounding = decimal.ROUND_HALF_UP
 
-MappedDict = Dict[str, Any]
-
 
 @safe
 def map_data(
-    input_data,
+    input_data: dict,
     configuration: KaibaObject,
 ) -> Union[list, dict]:
     """Map entrypoint.
@@ -36,7 +34,11 @@ def map_data(
     )
 
     if not is_successful(iterate_data):
-        return map_object(input_data, configuration).map(
+
+        return map_object(  # type: ignore
+            input_data,
+            configuration,
+        ).map(
             partial(set_array, array=configuration.array),
         ).unwrap()
 
@@ -54,7 +56,10 @@ def map_data(
     return mapped_objects
 
 
-def set_array(input_data, array):
+def set_array(
+    input_data: dict,
+    array: bool,
+) -> Union[List[dict], dict]:
     """Return data wrapped in array if if array=True."""
     if array:
         return [input_data]
@@ -63,9 +68,9 @@ def set_array(input_data, array):
 
 @maybe
 def map_object(
-    input_data,
+    input_data: dict,
     configuration: KaibaObject,
-) -> Optional[MappedDict]:
+) -> Optional[dict]:
     """Map one object.
 
     One object has a collections of:
@@ -83,7 +88,7 @@ def map_object(
         'branching_object1: [{'attrib1': 'val'}]
     }
     """
-    object_data: MappedDict = {}
+    object_data: dict = {}
 
     map_attributes(
         input_data, configuration.attributes,
@@ -103,9 +108,9 @@ def map_object(
 
 @maybe
 def map_attributes(
-    input_data,
+    input_data: dict,
     configuration: List[Attribute],
-) -> Optional[MappedDict]:
+) -> Optional[dict]:
     """For all attributes map attribute.
 
     name of attribute should be set
@@ -114,7 +119,7 @@ def map_attributes(
         'attribute2': 'value2',
     }
     """
-    attributes: MappedDict = {}
+    attributes: dict = {}
 
     for attribute_cfg in configuration:
         attribute_value = handle_attribute(input_data, attribute_cfg)
@@ -127,9 +132,9 @@ def map_attributes(
 
 @maybe
 def map_objects(
-    input_data,
+    input_data: dict,
     configuration: List[KaibaObject],
-) -> Optional[MappedDict]:
+) -> Optional[dict]:
     """For all objects map object.
 
     name of object should be set.
@@ -138,7 +143,7 @@ def map_objects(
         'name2': object2,
     }
     """
-    mapped_objects: MappedDict = {}
+    mapped_objects: dict = {}
 
     for object_cfg in configuration:
         object_value = map_data(input_data, object_cfg)
@@ -151,15 +156,15 @@ def map_objects(
 
 @maybe
 def map_branching_attributes(
-    input_data,
+    input_data: dict,
     b_attributes: List[List[Attribute]],
-) -> Optional[List[MappedDict]]:
+) -> Optional[List[dict]]:
     """Map branching attributes.
 
     Branching attributes are a list of attribute mappings that will be
     mapped to the same name in branching object.
     """
-    mapped_attributes: List[MappedDict] = []
+    mapped_attributes: List[dict] = []
 
     for sub_cfg in b_attributes:
         map_attributes(
@@ -174,15 +179,15 @@ def map_branching_attributes(
 
 @maybe
 def map_branching_objects(
-    input_data,
+    input_data: dict,
     configuration: List[BranchingObject],
-) -> Optional[MappedDict]:
+) -> Optional[dict]:
     """Map branching object.
 
     Branching object is a case where we want to create the same object multiple
     times, however we want to find the data in different places.
     """
-    mapped_objects: MappedDict = {}
+    mapped_objects: dict = {}
 
     for b_object in configuration:
         mapped = map_branching_attributes(

@@ -10,8 +10,8 @@ from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
 from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
+from kaiba.models.base import AnyType
 from kaiba.models.casting import CastToOptions
-from kaiba.valuetypes import MapValue
 
 
 @safe
@@ -38,7 +38,7 @@ class CastToDecimal(object):
     @safe
     def __call__(
         self,
-        value_to_cast: MapValue,
+        value_to_cast: AnyType,
         original_format: Optional[str] = None,
     ) -> decimal.Decimal:
         """Make this object callable."""
@@ -78,7 +78,7 @@ class CastToInteger(object):
 
     def __call__(
         self,
-        value_to_cast: MapValue,
+        value_to_cast: AnyType,
         original_format: Optional[str] = None,
     ) -> ResultE[int]:
         """Make this object callable."""
@@ -114,9 +114,9 @@ class CastToDate(object):
     # @pipeline(ResultE)
     def __call__(
         self,
-        value_to_cast: MapValue,
+        value_to_cast: AnyType,
         original_format: str,
-    ) -> ResultE[MapValue]:
+    ) -> ResultE[str]:
         r"""
         purpose: Convert string date into ISO format date.
 
@@ -133,7 +133,7 @@ class CastToDate(object):
                     {n} = matches previous match n amount of times
                     () = grouper, groups up stuff for use in replace.
         """
-        date_value: str = str(value_to_cast)
+        date_value = str(value_to_cast)
         return flow(
             date_value,
             self._value_is_iso,

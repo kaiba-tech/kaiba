@@ -1,4 +1,5 @@
 import re
+from decimal import Decimal
 from typing import Any, List, Optional, Union
 
 from returns.pipeline import flow
@@ -11,7 +12,8 @@ from kaiba.models.casting import Casting
 from kaiba.models.if_statement import Conditions, IfStatement
 from kaiba.models.regex import Regex
 from kaiba.models.slicing import Slicing
-from kaiba.valuetypes import ValueTypes
+
+ValueTypes = (str, int, float, bool, Decimal)
 
 
 @safe
