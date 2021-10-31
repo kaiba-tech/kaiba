@@ -39,7 +39,7 @@ simplejson = "^3.17.2"
 
 safety = "^1.10.3"
 
-pytest = "^6.2.4"
+pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
 mkdocs-material = "^7.0.6"
 importlib-metadata = "^4.3.0"
