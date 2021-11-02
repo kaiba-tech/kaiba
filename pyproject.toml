@@ -35,7 +35,7 @@ pydantic = "^1.8.2"
 mypy = "^0.812"
 wemake-python-styleguide = "^0.15.2"
 pre-commit = "^2.11.1"
-simplejson = "^3.17.2"
+simplejson = "^3.17.5"
 
 safety = "^1.10.3"
 
