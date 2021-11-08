@@ -804,11 +804,11 @@ docutils = ">=0.11,<1.0"
 
 [[package]]
 name = "returns"
-version = "0.14.0"
+version = "0.17.0"
 description = "Make your functions return something meaningful, typed, and safe!"
 category = "main"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 typing-extensions = ">=3.7,<4.0"
@@ -993,7 +993,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7fd67a5734058f8408702c6752c7bb5dc8bdbb31c796ddfafe2b796fac46e9c7"
+content-hash = "796d5782a6cc03a9c7d4da7c8b28057f08f240fb8b9ee248736c4cf5b63b0ce2"
 
 [metadata.files]
 appdirs = [
@@ -1454,8 +1454,8 @@ restructuredtext-lint = [
     {file = "restructuredtext_lint-1.3.2.tar.gz", hash = "sha256:d3b10a1fe2ecac537e51ae6d151b223b78de9fafdd50e5eb6b08c243df173c80"},
 ]
 returns = [
-    {file = "returns-0.14.0-py3-none-any.whl", hash = "sha256:6b529544ec64dffce72dd183165ed76acfd41bb1a17eb08f2fc0df85c74c9e89"},
-    {file = "returns-0.14.0.tar.gz", hash = "sha256:42e490d7e35ce6ba939bcfedaf1173b4b8cec286bdd1c3792043368f08cd0125"},
+    {file = "returns-0.17.0-py3-none-any.whl", hash = "sha256:28627f989b19d4bcadbd450a8fe4cf4d98e1335271300a428cc53ec83642259a"},
+    {file = "returns-0.17.0.tar.gz", hash = "sha256:8cb7980454bbb2adfd43c44148d902fbd1a0f7288a797eaa6fad1fef7d5ec06c"},
 ]
 safety = [
     {file = "safety-1.10.3-py2.py3-none-any.whl", hash = "sha256:5f802ad5df5614f9622d8d71fedec2757099705c2356f862847c58c6dfe13e84"},
