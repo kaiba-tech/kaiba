@@ -16,6 +16,66 @@ from kaiba.models.slicing import Slicing
 ValueTypes = (str, int, float, bool, Decimal)
 
 
+def unsafe_apply_if_statements(
+    if_value: Optional[AnyType],
+    statements: List[IfStatement],
+) -> Optional[AnyType]:
+    """Apply if statements to a value.
+
+    :param if_value: The value to use when evaluating if statements
+    :type if_value: AnyType
+
+    :param statements: :term:`statements` collection of if operations
+    :type statements: List[Dict[str, Any]]
+
+    :return: Success/Failure containers
+    :rtype: AnyType
+
+    one if object looks like this
+
+    .. code-block:: json
+
+        {
+            "condition": "is",
+            "target": "foo",
+            "then": "bar",
+            "otherwise": "no foo" - optional
+        }
+
+    The if statements are chained so that the next works on the output of the
+    previous. If no "otherwise" is provided then the original value or value
+    from the previous operation will be returned.
+
+    Example
+        >>> apply_if_statements(
+        ...     '1', [
+        ...         IfStatement(
+        ...             **{'condition': 'is', 'target': '1', 'then': '2'}
+        ...         )
+        ...     ],
+        ... ).unwrap() == '2'
+        True
+        >>> apply_if_statements(
+        ...     'a',
+        ...     [IfStatement(**{
+        ...         'condition': 'is',
+        ...         'target': '1',
+        ...         'then': '2',
+        ...         'otherwise': '3'
+        ...     })],
+        ... ).unwrap() == '3'
+        True
+
+    """
+    for statement in statements:
+
+        if_value = _apply_statement(
+            if_value, statement,
+        )
+
+    return if_value
+
+
 @safe
 def apply_if_statements(
     if_value: Optional[AnyType],
@@ -177,6 +237,57 @@ def apply_slicing(
     return value_to_slice[slicing.slice_from:slicing.slice_to]
 
 
+def unsafe_apply_regex(  # noqa: WPS212, WPS234
+    value_to_match: AnyType,
+    regex: Regex,
+) -> Union[List[AnyType], AnyType, None]:
+    r"""Match value by a certain regex pattern.
+
+    :param value_to_match: The value to match
+    :type value_to_match: AnyType
+
+    :param regex: :term: `matching` object which has parameters for
+        regex match
+    :type regex: Regex
+
+    :return: Success/Failure container
+    :rtype: AnyType
+
+    Example
+        >>> apply_regex(
+        ...     'abcdef',
+        ...     Regex(**{'expression': '(?<=abc)def'})
+        ... ).unwrap()
+        'def'
+        >>> apply_regex(
+        ...     'Isaac Newton, physicist',
+        ...     Regex(**{'expression': r'(\w+)', 'group': 1}),
+        ... ).unwrap()
+        'Newton'
+        >>> apply_regex(
+        ...     'Isaac Newton, physicist',
+        ...     Regex(**{'expression': r'(\w+)', 'group': [1, 2]}),
+        ... ).unwrap()
+        ['Newton', 'physicist']
+        >>> apply_regex(None, Regex(**{'expression': 'a+'})).unwrap()
+        >>> apply_regex('Open-source matters', None).unwrap()
+        'Open-source matters'
+    """
+    pattern = regex.expression
+    groups = re.finditer(pattern, value_to_match)
+    matches = [gr.group(0) for gr in groups]
+    num_group = regex.group
+    if isinstance(num_group, list):
+        if not num_group:
+            return matches
+        return [matches[ind] for ind in num_group]
+
+    try:
+        return matches[num_group]
+    except IndexError:
+        return value_to_match
+
+
 @safe
 def apply_regex(  # noqa: WPS212, WPS234
     value_to_match: Optional[AnyType],
@@ -264,6 +375,38 @@ def apply_casting(
             ),
         ),
     )
+
+
+def unsafe_apply_default(
+    mapped_value: Optional[AnyType] = None,
+    default: Optional[AnyType] = None,
+) -> Optional[AnyType]:
+    """Apply default value if exists and if mapped value is None.
+
+    :param mapped_value: If this value is *None* the default value is returned
+    :type mapped_value: Optional[AnyType]
+
+    :param default: :term:`default` value to return if mapped value is None
+    :type default: Optional[AnyType]
+
+    :return: Success/Failure containers
+    :rtype: AnyType
+
+    If default *is not* none and mapped_value *is* None then return default
+    else if mapped_value is not in accepted ValueTypes then throw an error
+    else return mapped value
+
+    Example
+        >>> apply_default('test', None).unwrap() == 'test'
+        True
+        >>> apply_default('nope', 'test').unwrap() == 'nope'
+        True
+    """
+    if default is not None:
+        if mapped_value is None:
+            return default
+
+    return mapped_value
 
 
 @safe

@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 from returns.result import Failure, ResultE, Success, safe
 
@@ -21,6 +21,24 @@ def set_value_in_dict(
         collection = collection[key]
 
     collection[path[-1]] = new_value
+
+
+def unsafe_fetch_data_by_keys(
+    collection: Union[Dict[str, AnyType], List[AnyType]],
+    path: List[Union[str, int]],
+) -> Optional[AnyType]:
+    """Find data in collection by following a list of path."""
+    if not path:
+        return None
+
+    try:
+        for key in path:
+            # this will return a Failure[KeyError] if not found
+            collection = collection[key]  # type: ignore
+    except KeyError:
+        return None
+
+    return collection
 
 
 @safe
