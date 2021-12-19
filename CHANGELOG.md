@@ -7,6 +7,14 @@
 | otherwise | patch |
 
 
+## Latest Changes
+
+
+### Internal
+
+* CI - Github workflow tests now targets `main` branch instead of `master`
+
+
 ## Version 1.0.0 Release: Kaiba
 
 Kaiba is a data transformation tool written in Python that uses a DTL(Data Transformation Language) expressed in normal JSON to govern output structure, data fetching and data transformation.
