@@ -53,7 +53,8 @@ def handle_data_fetcher(
     if produced_value and cfg.regex:
         produced_value = unsafe_apply_regex(produced_value, regex=cfg.regex)
 
-    produced_value = apply_slicing(produced_value, cfg.slicing)
+    if produced_value and cfg.slicing:
+        produced_value = apply_slicing(produced_value, cfg.slicing)
 
     produced_value = unsafe_apply_if_statements(
         produced_value,
@@ -65,35 +66,11 @@ def handle_data_fetcher(
         cfg.default,
     )
 
+    # just return the modals so tests will still work.
     if produced_value:
         return Success(produced_value)
 
-    return Failure('Failed to produce a value')
-
-
-    # return produced_value
-
-
-    return flow(
-        collection,
-        partial(fetch_data_by_keys, path=cfg.path),
-        fix(lambda _: None),  # type: ignore
-        bind(
-            partial(
-                apply_regex, regex=cfg.regex,
-            ),
-        ),
-        fix(lambda _: None),  # type: ignore
-        map_(partial(
-            apply_slicing, slicing=cfg.slicing,
-        )),
-        bind(partial(
-            apply_if_statements, statements=cfg.if_statements,
-        )),
-        rescue(  # type: ignore
-            lambda _: apply_default(cfg.default),
-        ),
-    )
+    return Failure(ValueError('Failed to produce a value'))
 
 
 def handle_attribute(

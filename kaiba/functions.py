@@ -204,7 +204,7 @@ def apply_separator(
 
 
 def apply_slicing(
-    value_to_slice: Optional[Any],
+    value_to_slice: Any,
     slicing: Slicing,
 ) -> Optional[AnyType]:
     """Slice value from index to index.
