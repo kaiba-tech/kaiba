@@ -6,7 +6,7 @@ from returns.pipeline import flow
 from returns.pointfree import bind
 from returns.result import Failure, ResultE, safe
 
-from kaiba.casting import get_casting_function
+from kaiba.casting import get_casting_function, unsafe_get_casting_function
 from kaiba.models.base import AnyType
 from kaiba.models.casting import Casting
 from kaiba.models.if_statement import Conditions, IfStatement
@@ -166,6 +166,38 @@ def _apply_statement(
         return statement.then
 
     return statement.otherwise or if_value
+
+
+def unsafe_apply_separator(
+    mapped_values: List[AnyType],
+    separator: str,
+) -> AnyType:
+    """Apply separator between the values of a List[Any].
+
+    :param mapped_values: The list of values to join with the separator
+    :type mapped_values: List[AnyType]
+
+    :param separator: :term:`separator` value to join mapped_values list with
+    :type separator: str
+
+    :return: Success/Failure containers
+    :rtype: AnyType
+
+    Example
+        >>> from returns.pipeline import is_successful
+        >>> apply_separator(['a', 'b', 'c'], ' ').unwrap()
+        'a b c'
+        >>> apply_separator([1, 'b', True], ' ').unwrap()
+        '1 b True'
+        >>> is_successful(apply_separator([], ' '))
+        False
+
+    """
+
+    if len(mapped_values) == 1:
+        return mapped_values[0]
+
+    return separator.join([str(mapped) for mapped in mapped_values])
 
 
 @safe
@@ -340,6 +372,32 @@ def apply_regex(  # noqa: WPS212, WPS234
             return matches
         return [matches[ind] for ind in num_group]  # typing: ignore
     return matches[num_group]
+
+
+def unsafe_apply_casting(
+    value_to_cast: AnyType,
+    casting: Casting,
+) -> AnyType:
+    """Casting one type of code to another.
+
+    :param casting: :term:`casting` object
+    :type casting: dict
+
+    :param value_to_cast: The value to cast to casting['to']
+    :type value_to_cast: AnyType
+
+    :return: Success/Failure containers
+    :rtype: AnyType
+
+    Example
+        >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
+        123
+        >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
+        Decimal('123.12')
+    """
+    function = unsafe_get_casting_function(casting.to)
+
+    return function(value_to_cast, casting.original_format).unwrap()
 
 
 def apply_casting(

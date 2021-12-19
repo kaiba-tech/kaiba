@@ -14,6 +14,16 @@ from kaiba.models.base import AnyType
 from kaiba.models.casting import CastToOptions
 
 
+def unsafe_get_casting_function(cast_to: CastToOptions) -> Callable:
+    """Return casting function depending on name."""
+    if cast_to == CastToOptions.INTEGER:
+        return CastToInteger()
+
+    elif cast_to == CastToOptions.DECIMAL:
+        return CastToDecimal()
+
+    return CastToDate()
+
 @safe
 def get_casting_function(cast_to: CastToOptions) -> Callable:
     """Return casting function depending on name."""
