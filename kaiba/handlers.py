@@ -5,13 +5,11 @@ from returns.result import Failure, ResultE, Success
 from kaiba.collection_handlers import fetch_data_by_keys, unsafe_fetch_data_by_keys
 from kaiba.functions import (
     apply_casting,
-    apply_default,
     apply_if_statements,
     apply_regex,
     apply_separator,
     apply_slicing,
     unsafe_apply_casting,
-    unsafe_apply_default,
     unsafe_apply_if_statements,
     unsafe_apply_regex,
     unsafe_apply_separator,
@@ -60,16 +58,14 @@ def handle_data_fetcher(
         cfg.if_statements,
     )
 
-    produced_value = unsafe_apply_default(
-        produced_value,
-        cfg.default,
-    )
+    if produced_value is None:
 
-    # just return the modals so tests will still work.
-    if produced_value:
-        return Success(produced_value)
+        if cfg.default is not None:
+            return Success(cfg.default)
 
-    return Failure(ValueError('Failed to produce a value'))
+        return Failure(ValueError('Failed to produce a value'))
+
+    return Success(produced_value)
 
 
 def unsafe_handle_data_fetcher(
@@ -111,10 +107,10 @@ def unsafe_handle_data_fetcher(
         cfg.if_statements,
     )
 
-    return unsafe_apply_default(
-        produced_value,
-        cfg.default,
-    )
+    if produced_value is None:
+        return cfg.default
+
+    return produced_value
 
 
 def handle_attribute(
@@ -157,10 +153,12 @@ def handle_attribute(
     if attribute and cfg.casting:
         attribute = unsafe_apply_casting(attribute, cfg.casting)
 
-    attribute = unsafe_apply_default(attribute, default=cfg.default)
 
-    # just return the modals so tests will still work.
-    if attribute:
-        return Success(attribute)
+    if attribute is None:
 
-    return Failure(ValueError('Failed to produce a value'))
+        if cfg.default is not None:
+            return Success(cfg.default)
+
+        return Failure(ValueError('Failed to produce a value'))
+
+    return Success(attribute)

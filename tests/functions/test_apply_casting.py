@@ -20,4 +20,4 @@ def test_string_fails_when_month_is_not_integer():
             }),
         )
 
-    assert str(ve.value) == expected
+    assert str(ve.value) == expected  # noqa: WPS441
