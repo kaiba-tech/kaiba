@@ -2,9 +2,10 @@ import re
 from decimal import Decimal
 from typing import Any, List, Optional, Union
 
-from returns.pipeline import flow
+from returns.pipeline import flow, is_successful
 from returns.pointfree import bind
 from returns.result import Failure, ResultE, safe
+from returns.functions import raise_exception
 
 from kaiba.casting import get_casting_function, unsafe_get_casting_function
 from kaiba.models.base import AnyType
@@ -374,10 +375,10 @@ def apply_regex(  # noqa: WPS212, WPS234
     return matches[num_group]
 
 
-def unsafe_apply_casting(
+def apply_casting(
     value_to_cast: AnyType,
     casting: Casting,
-) -> AnyType:
+) -> Union[AnyType, None]:
     """Casting one type of code to another.
 
     :param casting: :term:`casting` object
@@ -397,42 +398,12 @@ def unsafe_apply_casting(
     """
     function = unsafe_get_casting_function(casting.to)
 
-    return function(value_to_cast, casting.original_format).unwrap()
+    casted_value = function(value_to_cast, casting.original_format)
 
-
-def apply_casting(
-    value_to_cast: Optional[AnyType],
-    casting: Casting,
-) -> ResultE[AnyType]:
-    """Casting one type of code to another.
-
-    :param casting: :term:`casting` object
-    :type casting: dict
-
-    :param value_to_cast: The value to cast to casting['to']
-    :type value_to_cast: AnyType
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    Example
-        >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
-        123
-        >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
-        Decimal('123.12')
-    """
-    if value_to_cast is None:
-        return Failure(ValueError('value_to_cast is empty'))
-
-    return flow(
-        casting.to,
-        get_casting_function,
-        bind(  # type: ignore
-            lambda function: function(  # type: ignore
-                value_to_cast, casting.original_format,
-            ),
-        ),
-    )
+    if is_successful(casted_value):
+        return casted_value
+    # add if require_success reraise
+    raise casted_value.failure()
 
 
 def unsafe_apply_default(

@@ -1,9 +1,6 @@
 from typing import Any, Dict, List, Optional, Union
 
-from returns.curry import partial
-from returns.pipeline import flow, is_successful
-from returns.pointfree import bind, fix, map_, rescue
-from returns.result import Failure, ResultE, Success, safe
+from returns.result import Failure, ResultE, Success
 
 from kaiba.collection_handlers import fetch_data_by_keys, unsafe_fetch_data_by_keys
 from kaiba.functions import (
