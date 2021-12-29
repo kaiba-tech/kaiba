@@ -59,7 +59,7 @@ def test_regex_is_applied_to_attribute():
 
 
 def test_regex_is_not_applied_to_attribute():
-    """Test that we don't lose data when expression by pattern fails."""
+    """Test that we _do_ lose data when expression by pattern fails."""
     input_data: dict = {'game': '1. d4 d5'}
     config = Attribute(**{
         'name': 'moves',
@@ -75,7 +75,7 @@ def test_regex_is_not_applied_to_attribute():
     })
     regex = handle_attribute(input_data, config)
     assert isinstance(regex.failure(), ValueError) is True
-    assert regex.failure().args == ('Default value should not be `None`',)
+    assert regex.failure().args == ('Failed to produce a value',)
 
 
 def test_all():

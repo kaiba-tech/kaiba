@@ -317,7 +317,7 @@ def unsafe_apply_regex(  # noqa: WPS212, WPS234
     try:
         return matches[num_group]
     except IndexError:
-        return value_to_match
+        return None
 
 
 @safe

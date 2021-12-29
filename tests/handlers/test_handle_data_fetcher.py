@@ -117,4 +117,4 @@ def test_default_value_not_none():
         DataFetcher(**{'path': [], 'default': None}),
     )
     assert not is_successful(failure)
-    assert 'Default value should not be `None`' in str(failure.failure())
+    assert str(failure.failure()) == 'Failed to produce a value'
