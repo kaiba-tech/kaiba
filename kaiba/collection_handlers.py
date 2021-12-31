@@ -22,7 +22,7 @@ def set_value_in_dict(
     collection[path[-1]] = new_value
 
 
-def unsafe_fetch_data_by_keys(
+def fetch_data_by_keys(
     collection: Union[Dict[str, AnyType], List[AnyType]],
     path: List[Union[str, int]],
 ) -> Optional[AnyType]:
@@ -36,22 +36,6 @@ def unsafe_fetch_data_by_keys(
             collection = collection[key]  # type: ignore
     except KeyError:
         return None
-
-    return collection
-
-
-@safe
-def fetch_data_by_keys(
-    collection: Union[Dict[str, AnyType], List[AnyType]],
-    path: List[Union[str, int]],
-) -> AnyType:
-    """Find data in collection by following a list of path."""
-    if not path:
-        raise ValueError('path list empty')
-
-    for key in path:
-        # this will return a Failure[KeyError] if not found
-        collection = collection[key]  # type: ignore
 
     return collection
 
