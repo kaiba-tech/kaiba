@@ -169,10 +169,10 @@ def _apply_statement(
     return statement.otherwise or if_value
 
 
-def unsafe_apply_separator(
+def apply_separator(
     mapped_values: List[AnyType],
     separator: str,
-) -> AnyType:
+) -> Union[AnyType, None]:
     """Apply separator between the values of a List[Any].
 
     :param mapped_values: The list of values to join with the separator
@@ -195,6 +195,9 @@ def unsafe_apply_separator(
 
     """
 
+    if not mapped_values:
+        return None
+
     if len(mapped_values) == 1:
         return mapped_values[0]
 
@@ -202,7 +205,7 @@ def unsafe_apply_separator(
 
 
 @safe
-def apply_separator(
+def old_apply_separator(
     mapped_values: List[AnyType],
     separator: str,
 ) -> AnyType:
