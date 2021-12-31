@@ -8,7 +8,7 @@ def test_regexp_get_empty_list_grup():
         'Hard work',
         Regex(**{'expression': 'r', 'group': []}),
     )
-    assert regexp.unwrap() == ['r', 'r']
+    assert regexp == ['r', 'r']
 
 
 def test_regexp_on_index_out_of_range():
@@ -17,10 +17,4 @@ def test_regexp_on_index_out_of_range():
         'Hard work',
         Regex(**{'expression': 'r', 'group': [1, 2, 3]}),
     )
-    assert isinstance(regexp.failure(), IndexError) is True
-    assert regexp.failure().args == ('list index out of range',)
-
-
-def test_no_value_is_ok():
-    """When value is None we get a Success(None)."""
-    assert apply_regex(None, Regex(**{'expression': 'a'})).unwrap() is None
+    assert regexp is None

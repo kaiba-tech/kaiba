@@ -270,7 +270,7 @@ def apply_slicing(
     return value_to_slice[slicing.slice_from:slicing.slice_to]
 
 
-def unsafe_apply_regex(  # noqa: WPS212, WPS234
+def apply_regex(  # noqa: WPS212, WPS234
     value_to_match: AnyType,
     regex: Regex,
 ) -> Union[List[AnyType], AnyType, None]:
@@ -313,8 +313,10 @@ def unsafe_apply_regex(  # noqa: WPS212, WPS234
     if isinstance(num_group, list):
         if not num_group:
             return matches
-        return [matches[ind] for ind in num_group]
-
+        try:
+            return [matches[ind] for ind in num_group]
+        except IndexError:
+            return None
     try:
         return matches[num_group]
     except IndexError:
@@ -322,7 +324,7 @@ def unsafe_apply_regex(  # noqa: WPS212, WPS234
 
 
 @safe
-def apply_regex(  # noqa: WPS212, WPS234
+def old_apply_regex(  # noqa: WPS212, WPS234
     value_to_match: Optional[AnyType],
     regex: Regex,
 ) -> Union[List[AnyType], AnyType, None]:
@@ -379,7 +381,7 @@ def apply_casting(
     value_to_cast: AnyType,
     casting: Casting,
 ) -> Union[AnyType, None]:
-    """Casting one type of code to another.
+    """Casting one type of code to another.dynamax
 
     :param casting: :term:`casting` object
     :type casting: dict
