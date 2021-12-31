@@ -1,6 +1,4 @@
-from typing import Any, Dict, List, Optional, Union
-
-from returns.result import Failure, ResultE, Success
+from typing import Any, Dict, List, Union
 
 from kaiba.collection_handlers import fetch_data_by_keys
 from kaiba.functions import (
@@ -13,55 +11,6 @@ from kaiba.functions import (
 from kaiba.models.attribute import Attribute
 from kaiba.models.base import AnyType
 from kaiba.models.data_fetcher import DataFetcher
-
-
-def old_handle_data_fetcher(
-    collection: Union[Dict[str, Any], List[Any]],
-    cfg: DataFetcher,
-) -> AnyType:
-    """Find a data at path or produce a value.
-
-    return value can be:
-    - value found at path
-    - value found but sliced
-    - value found applied to regular expression
-    - conditional value depending on if statements
-    - default value if all the above still produces `None`
-
-    Flow description:
-
-    find data from path or None ->
-    apply regular expression ->
-    apply slicing ->
-    apply if statements ->
-    return default value if Failure else mapped value
-    """
-
-    produced_value = None
-
-    produced_value = fetch_data_by_keys(
-        collection, path=cfg.path,
-    )
-
-    if produced_value and cfg.regex:
-        produced_value = apply_regex(produced_value, regex=cfg.regex)
-
-    if produced_value and cfg.slicing:
-        produced_value = apply_slicing(produced_value, cfg.slicing)
-
-    produced_value = apply_if_statements(
-        produced_value,
-        cfg.if_statements,
-    )
-
-    if produced_value is None:
-
-        if cfg.default is not None:
-            return Success(cfg.default)
-
-        return Failure(ValueError('Failed to produce a value'))
-
-    return Success(produced_value)
 
 
 def handle_data_fetcher(
@@ -123,7 +72,6 @@ def handle_attribute(
 
     Return Result
     """
-
     fetched_values = [
         fetched
         for fetched in [  # noqa: WPS361
