@@ -2,27 +2,23 @@ from typing import Any, Dict, List, Optional, Union
 
 from returns.result import Failure, ResultE, Success
 
-from kaiba.collection_handlers import fetch_data_by_keys, unsafe_fetch_data_by_keys
+from kaiba.collection_handlers import fetch_data_by_keys
 from kaiba.functions import (
     apply_casting,
     apply_if_statements,
     apply_regex,
     apply_separator,
     apply_slicing,
-    unsafe_apply_casting,
-    unsafe_apply_if_statements,
-    unsafe_apply_regex,
-    unsafe_apply_separator,
 )
 from kaiba.models.attribute import Attribute
 from kaiba.models.base import AnyType
 from kaiba.models.data_fetcher import DataFetcher
 
 
-def handle_data_fetcher(
+def old_handle_data_fetcher(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: DataFetcher,
-) -> ResultE[AnyType]:
+) -> AnyType:
     """Find a data at path or produce a value.
 
     return value can be:
@@ -43,17 +39,17 @@ def handle_data_fetcher(
 
     produced_value = None
 
-    produced_value = unsafe_fetch_data_by_keys(
+    produced_value = fetch_data_by_keys(
         collection, path=cfg.path,
     )
 
     if produced_value and cfg.regex:
-        produced_value = unsafe_apply_regex(produced_value, regex=cfg.regex)
+        produced_value = apply_regex(produced_value, regex=cfg.regex)
 
     if produced_value and cfg.slicing:
         produced_value = apply_slicing(produced_value, cfg.slicing)
 
-    produced_value = unsafe_apply_if_statements(
+    produced_value = apply_if_statements(
         produced_value,
         cfg.if_statements,
     )
@@ -68,10 +64,10 @@ def handle_data_fetcher(
     return Success(produced_value)
 
 
-def unsafe_handle_data_fetcher(
+def handle_data_fetcher(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: DataFetcher,
-) -> Optional[AnyType]:
+) -> Union[AnyType, None]:
     """Find a data at path or produce a value.
 
     return value can be:
@@ -89,20 +85,17 @@ def unsafe_handle_data_fetcher(
     apply if statements ->
     return default value if Failure else mapped value
     """
-
-    produced_value = None
-
-    produced_value = unsafe_fetch_data_by_keys(
+    produced_value = fetch_data_by_keys(
         collection, path=cfg.path,
     )
 
     if produced_value and cfg.regex:
-        produced_value = unsafe_apply_regex(produced_value, regex=cfg.regex)
+        produced_value = apply_regex(produced_value, regex=cfg.regex)
 
     if produced_value and cfg.slicing:
         produced_value = apply_slicing(produced_value, cfg.slicing)
 
-    produced_value = unsafe_apply_if_statements(
+    produced_value = apply_if_statements(
         produced_value,
         cfg.if_statements,
     )
@@ -143,15 +136,15 @@ def handle_attribute(
     attribute = None
 
     if fetched_values:
-        attribute = unsafe_apply_separator(
+        attribute = apply_separator(
             fetched_values,
             separator=cfg.separator,
         )
 
-    attribute = unsafe_apply_if_statements(attribute, cfg.if_statements)
+    attribute = apply_if_statements(attribute, cfg.if_statements)
 
     if attribute and cfg.casting:
-        attribute = unsafe_apply_casting(attribute, cfg.casting)
+        attribute = apply_casting(attribute, cfg.casting)
 
 
     if attribute is None:
@@ -161,4 +154,4 @@ def handle_attribute(
 
         return Failure(ValueError('Failed to produce a value'))
 
-    return Success(attribute)
+    return attribute

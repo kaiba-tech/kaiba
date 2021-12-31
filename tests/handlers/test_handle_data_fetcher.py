@@ -13,7 +13,7 @@ def test_get_string_value_from_key():
     assert handle_data_fetcher(
         input_data,
         config,
-    ) == Success('val1')
+    ) == 'val1'
 
 
 def test_get_array_value_from_key():
@@ -24,7 +24,7 @@ def test_get_array_value_from_key():
     assert handle_data_fetcher(
         input_data,
         config,
-    ) == Success(['array'])
+    ) == ['array']
 
 
 def test_get_object_value_from_key():
@@ -35,7 +35,7 @@ def test_get_object_value_from_key():
     assert handle_data_fetcher(
         input_data,
         config,
-    ) == Success({'obj': 'val1'})
+    ) == {'obj': 'val1'}
 
 
 def test_default_value_is_used():
@@ -45,7 +45,7 @@ def test_default_value_is_used():
 
     assert handle_data_fetcher(
         input_data, config,
-    ).unwrap() == 'default'
+    ) == 'default'
 
 
 def test_regex_is_applied():
@@ -60,7 +60,7 @@ def test_regex_is_applied():
     assert handle_data_fetcher(
         input_data,
         config,
-    ).unwrap() == 'Rxe8+ Rxe8 15. h3'
+    ) == 'Rxe8+ Rxe8 15. h3'
 
 
 def test_regex_is_applied_on_group_as_list():
@@ -76,7 +76,7 @@ def test_regex_is_applied_on_group_as_list():
     assert handle_data_fetcher(
         input_data,
         config,
-    ).unwrap() == ['e4', 'e5', 'e8']
+    ) == ['e4', 'e5', 'e8']
 
 
 def test_slicing_is_applied():
@@ -91,7 +91,7 @@ def test_slicing_is_applied():
     })
     assert handle_data_fetcher(
         input_data, config,
-    ).unwrap() == 'l'
+    ) == 'l'
 
 
 def test_if_statements_are_applied():
@@ -107,14 +107,4 @@ def test_if_statements_are_applied():
     })
     assert handle_data_fetcher(
         input_data, config,
-    ).unwrap() == 'otherval'
-
-
-def test_default_value_not_none():
-    """Test that providing bad data returns Failure instance."""
-    failure = handle_data_fetcher(
-        {'fail': 'failure'},
-        DataFetcher(**{'path': [], 'default': None}),
-    )
-    assert not is_successful(failure)
-    assert str(failure.failure()) == 'Failed to produce a value'
+    ) == 'otherval'
