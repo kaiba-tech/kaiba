@@ -17,7 +17,7 @@ from kaiba.models.slicing import Slicing
 ValueTypes = (str, int, float, bool, Decimal)
 
 
-def unsafe_apply_if_statements(
+def apply_if_statements(
     if_value: Optional[AnyType],
     statements: List[IfStatement],
 ) -> Optional[AnyType]:
@@ -78,7 +78,7 @@ def unsafe_apply_if_statements(
 
 
 @safe
-def apply_if_statements(
+def old_apply_if_statements(
     if_value: Optional[AnyType],
     statements: List[IfStatement],
 ) -> Optional[AnyType]:
