@@ -68,43 +68,51 @@ def fetch_list_by_keys(
 def iterable_data_handler(
     raw_data: dict,
     iterators: List[Iterator],
-) -> ResultE[list]:
+) -> list:
     """Iterate and create all combinations from list of iterators."""
     if not iterators:
-        return Failure(ValueError('No iterators'))
+        raise ValueError('No iterators')
 
     iterable, rest = iterators[0], iterators[1:]
 
     if not rest:
+        print('mjau')
         return create_iterable(raw_data, iterable)
 
     my_list: list = []
 
-    for iterable_list in create_iterable(raw_data, iterable).unwrap():
+    for iterable_list in create_iterable(raw_data, iterable):
 
-        iterable_data_handler(iterable_list, rest).map(
-            my_list.extend,
-        )
+        try:
+            my_list.extend(iterable_data_handler(iterable_list, rest))
+        except Exception:  # noqa: S110
+            pass  # noqa: WPS420
 
-    return Success(my_list)
+    return my_list
 
 
 def create_iterable(
     input_data: dict,
-    iterable: Iterator,
-) -> ResultE[list]:
-    """Return set of set of data per entry in list at iterable[path]."""
-    return fetch_list_by_keys(
-        input_data,
-        iterable.path,
-    ).map(
-        lambda collections: [
-            {
-                **input_data,
-                **{iterable.alias: collection},
-            }
-            for collection in collections
-        ],
-    ).fix(
-        lambda _: [input_data],
-    )
+    iterator: Iterator,
+) -> list:
+    """Return set of set of data per entry in list at iterator[path]."""
+    iterator_items = []
+
+    try:
+        iterator_items = fetch_list_by_keys(
+            input_data,
+            iterator.path,
+        )
+    except ValueError:
+        return [input_data]
+    except KeyError:
+        return [input_data]
+
+    print('got here')
+    return [
+        {
+            **input_data,
+            **{iterator.alias: collection},
+        }
+        for collection in iterator_items
+    ]
