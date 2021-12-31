@@ -81,33 +81,6 @@ def fetch_list_by_keys(
     raise ValueError('Non list data found: ', str(collection))
 
 
-
-@safe
-def old_fetch_list_by_keys(
-    collection: Dict[str, AnyType],
-    path: List[Union[str, int]],
-) -> list:
-    """Find data that *must* be a list else it fails.
-
-    Example
-        >>> fetch_list_by_keys(
-        ...     {'object': {'some_list': ['1']}}, ['object', 'some_list'],
-        ... ).unwrap()
-        ['1']
-    """
-    if not path:
-        raise ValueError('path list empty')
-
-    for key in path:
-        # this will return a Failure[KeyError] if not found
-        collection = collection[key]  # type: ignore
-
-    if isinstance(collection, list):  # type: ignore
-        return collection  # type: ignore
-
-    raise ValueError('Non list data found: ', str(collection))
-
-
 def iterable_data_handler(
     raw_data: dict,
     iterators: List[Iterator],

@@ -1,7 +1,5 @@
 import pytest
 
-from returns.pipeline import is_successful
-
 from kaiba.collection_handlers import fetch_list_by_keys
 
 
