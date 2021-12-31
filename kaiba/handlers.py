@@ -109,7 +109,7 @@ def handle_data_fetcher(
 def handle_attribute(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: Attribute,
-) -> ResultE[AnyType]:
+) -> AnyType:
     """Handle one attribute with data fetchers, ifs, casting and default value.
 
     flow description:
@@ -127,7 +127,7 @@ def handle_attribute(
     fetched_values = [
         fetched
         for fetched in [  # noqa: WPS361
-            unsafe_handle_data_fetcher(collection, data_fetcher)
+            handle_data_fetcher(collection, data_fetcher)
             for data_fetcher in cfg.data_fetchers
         ]
         if fetched is not None
@@ -146,12 +146,11 @@ def handle_attribute(
     if attribute and cfg.casting:
         attribute = apply_casting(attribute, cfg.casting)
 
-
     if attribute is None:
 
         if cfg.default is not None:
-            return Success(cfg.default)
+            return cfg.default
 
-        return Failure(ValueError('Failed to produce a value'))
+        raise ValueError('Failed to produce a value')
 
     return attribute
