@@ -2,12 +2,9 @@ import re
 from decimal import Decimal
 from typing import Any, List, Optional, Union
 
-from returns.pipeline import flow, is_successful
-from returns.pointfree import bind
-from returns.result import Failure, ResultE, safe
-from returns.functions import raise_exception
+from returns.pipeline import is_successful
 
-from kaiba.casting import get_casting_function, unsafe_get_casting_function
+from kaiba.casting import get_casting_function
 from kaiba.models.base import AnyType
 from kaiba.models.casting import Casting
 from kaiba.models.if_statement import Conditions, IfStatement
@@ -77,70 +74,6 @@ def apply_if_statements(
     return if_value
 
 
-@safe
-def old_apply_if_statements(
-    if_value: Optional[AnyType],
-    statements: List[IfStatement],
-) -> Optional[AnyType]:
-    """Apply if statements to a value.
-
-    :param if_value: The value to use when evaluating if statements
-    :type if_value: AnyType
-
-    :param statements: :term:`statements` collection of if operations
-    :type statements: List[Dict[str, Any]]
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    one if object looks like this
-
-    .. code-block:: json
-
-        {
-            "condition": "is",
-            "target": "foo",
-            "then": "bar",
-            "otherwise": "no foo" - optional
-        }
-
-    The if statements are chained so that the next works on the output of the
-    previous. If no "otherwise" is provided then the original value or value
-    from the previous operation will be returned.
-
-    Example
-        >>> apply_if_statements(
-        ...     '1', [
-        ...         IfStatement(
-        ...             **{'condition': 'is', 'target': '1', 'then': '2'}
-        ...         )
-        ...     ],
-        ... ).unwrap() == '2'
-        True
-        >>> apply_if_statements(
-        ...     'a',
-        ...     [IfStatement(**{
-        ...         'condition': 'is',
-        ...         'target': '1',
-        ...         'then': '2',
-        ...         'otherwise': '3'
-        ...     })],
-        ... ).unwrap() == '3'
-        True
-
-    """
-    for statement in statements:
-
-        if_value = _apply_statement(
-            if_value, statement,
-        )
-
-    if if_value is None:
-        raise ValueError('If statement failed or produced `None`')
-
-    return if_value
-
-
 def _apply_statement(
     if_value: Optional[AnyType],
     statement: IfStatement,
@@ -185,53 +118,16 @@ def apply_separator(
     :rtype: AnyType
 
     Example
-        >>> from returns.pipeline import is_successful
-        >>> apply_separator(['a', 'b', 'c'], ' ').unwrap()
+        >>> apply_separator(['a', 'b', 'c'], ' ')
         'a b c'
-        >>> apply_separator([1, 'b', True], ' ').unwrap()
+        >>> apply_separator([1, 'b', True], ' ')
         '1 b True'
-        >>> is_successful(apply_separator([], ' '))
-        False
-
+        >>> apply_separator([], ' ') is None
+        True
     """
 
     if not mapped_values:
         return None
-
-    if len(mapped_values) == 1:
-        return mapped_values[0]
-
-    return separator.join([str(mapped) for mapped in mapped_values])
-
-
-@safe
-def old_apply_separator(
-    mapped_values: List[AnyType],
-    separator: str,
-) -> AnyType:
-    """Apply separator between the values of a List[Any].
-
-    :param mapped_values: The list of values to join with the separator
-    :type mapped_values: List[AnyType]
-
-    :param separator: :term:`separator` value to join mapped_values list with
-    :type separator: str
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    Example
-        >>> from returns.pipeline import is_successful
-        >>> apply_separator(['a', 'b', 'c'], ' ').unwrap()
-        'a b c'
-        >>> apply_separator([1, 'b', True], ' ').unwrap()
-        '1 b True'
-        >>> is_successful(apply_separator([], ' '))
-        False
-
-    """
-    if not mapped_values:
-        raise ValueError('mapped_values is empty')
 
     if len(mapped_values) == 1:
         return mapped_values[0]
@@ -326,60 +222,6 @@ def apply_regex(  # noqa: WPS212, WPS234
         return None
 
 
-@safe
-def old_apply_regex(  # noqa: WPS212, WPS234
-    value_to_match: Optional[AnyType],
-    regex: Regex,
-) -> Union[List[AnyType], AnyType, None]:
-    r"""Match value by a certain regex pattern.
-
-    :param value_to_match: The value to match
-    :type value_to_match: AnyType
-
-    :param regex: :term: `matching` object which has parameters for
-        regex match
-    :type regex: Regex
-
-    :return: Success/Failure container
-    :rtype: AnyType
-
-    Example
-        >>> apply_regex(
-        ...     'abcdef',
-        ...     Regex(**{'expression': '(?<=abc)def'})
-        ... ).unwrap()
-        'def'
-        >>> apply_regex(
-        ...     'Isaac Newton, physicist',
-        ...     Regex(**{'expression': r'(\w+)', 'group': 1}),
-        ... ).unwrap()
-        'Newton'
-        >>> apply_regex(
-        ...     'Isaac Newton, physicist',
-        ...     Regex(**{'expression': r'(\w+)', 'group': [1, 2]}),
-        ... ).unwrap()
-        ['Newton', 'physicist']
-        >>> apply_regex(None, Regex(**{'expression': 'a+'})).unwrap()
-        >>> apply_regex('Open-source matters', None).unwrap()
-        'Open-source matters'
-    """
-    if value_to_match is None:
-        return value_to_match
-
-    if not regex or not regex.expression:
-        return value_to_match
-
-    pattern = regex.expression
-    groups = re.finditer(pattern, value_to_match)
-    matches: list = [gr.group(0) for gr in groups]
-    num_group: Union[int, List[int]] = regex.group
-    if isinstance(num_group, list):
-        if not num_group:
-            return matches
-        return [matches[ind] for ind in num_group]  # typing: ignore
-    return matches[num_group]
-
-
 def apply_casting(
     value_to_cast: AnyType,
     casting: Casting,
@@ -401,7 +243,7 @@ def apply_casting(
         >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
         Decimal('123.12')
     """
-    function = unsafe_get_casting_function(casting.to)
+    function = get_casting_function(casting.to)
 
     casted_value = function(value_to_cast, casting.original_format)
 
