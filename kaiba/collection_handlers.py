@@ -6,8 +6,27 @@ from kaiba.models.base import AnyType
 from kaiba.models.iterator import Iterator
 
 
-@safe
 def set_value_in_dict(
+    new_value: AnyType,
+    collection: Dict[str, Any],
+    path: List[str],
+) -> None:
+    """Set value in a dict(pass by ref) by path."""
+    if not path:
+        raise ValueError('path list empty')
+
+
+    for key in path[:-1]:
+        # this will return a Failure[KeyError] if not found
+        collection = collection[key]
+
+    collection[path[-1]] = new_value
+
+
+
+
+@safe
+def old_set_value_in_dict(
     new_value: AnyType,
     collection: Dict[str, Any],
     path: List[str],
