@@ -15,26 +15,6 @@ def set_value_in_dict(
     if not path:
         raise ValueError('path list empty')
 
-
-    for key in path[:-1]:
-        # this will return a Failure[KeyError] if not found
-        collection = collection[key]
-
-    collection[path[-1]] = new_value
-
-
-
-
-@safe
-def old_set_value_in_dict(
-    new_value: AnyType,
-    collection: Dict[str, Any],
-    path: List[str],
-) -> None:
-    """Set value in a dict(pass by ref) by path."""
-    if not path:
-        raise ValueError('path list empty')
-
     for key in path[:-1]:
         # this will return a Failure[KeyError] if not found
         collection = collection[key]
@@ -76,8 +56,34 @@ def fetch_data_by_keys(
     return collection
 
 
-@safe
 def fetch_list_by_keys(
+    collection: Dict[str, AnyType],
+    path: List[Union[str, int]],
+) -> list:
+    """Find data that *must* be a list else it fails.
+
+    Example
+        >>> fetch_list_by_keys(
+        ...     {'object': {'some_list': ['1']}}, ['object', 'some_list'],
+        ... )
+        ['1']
+    """
+    if not path:
+        raise ValueError('path list empty')
+
+    for key in path:
+        # this will raise a KeyError if not found
+        collection = collection[key]  # type: ignore
+
+    if isinstance(collection, list):  # type: ignore
+        return collection  # type: ignore
+
+    raise ValueError('Non list data found: ', str(collection))
+
+
+
+@safe
+def old_fetch_list_by_keys(
     collection: Dict[str, AnyType],
     path: List[Union[str, int]],
 ) -> list:
