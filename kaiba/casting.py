@@ -25,8 +25,6 @@ def get_casting_function(cast_to: CastToOptions) -> Callable:
     return CastToDate()
 
 
-@final
-@dataclass(frozen=True, slots=True)
 class CastToDecimal(object):
     """Cast input to decimal."""
 
@@ -34,7 +32,6 @@ class CastToDecimal(object):
     _decimal_with_period_after_commas = re.compile(r'^-?(\d+\,)*\d+\.\d+$')
     _decimal_with_comma_after_periods = re.compile(r'^-?(\d+\.)*\d+\,\d+$')
 
-    @safe
     def __call__(
         self,
         value_to_cast: AnyType,
@@ -71,6 +68,27 @@ class CastToDecimal(object):
 @final
 @dataclass(frozen=True, slots=True)
 class CastToInteger(object):
+    """Cast input to integer."""
+
+    _cast_to_decimal = CastToDecimal()
+
+    def __call__(
+        self,
+        value_to_cast: AnyType,
+        original_format: Optional[str] = None,
+    ) -> int:
+        """Make this object callable."""
+
+        return int(
+            quantize_decimal(
+                self._cast_to_decimal(value_to_cast),
+            ),
+        )
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class OldCastToInteger(object):
     """Cast input to integer."""
 
     _cast_to_decimal = CastToDecimal()
