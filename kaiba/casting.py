@@ -78,32 +78,10 @@ class CastToInteger(object):
         original_format: Optional[str] = None,
     ) -> int:
         """Make this object callable."""
-
         return int(
             quantize_decimal(
                 self._cast_to_decimal(value_to_cast),
             ),
-        )
-
-
-@final
-@dataclass(frozen=True, slots=True)
-class OldCastToInteger(object):
-    """Cast input to integer."""
-
-    _cast_to_decimal = CastToDecimal()
-
-    def __call__(
-        self,
-        value_to_cast: AnyType,
-        original_format: Optional[str] = None,
-    ) -> ResultE[int]:
-        """Make this object callable."""
-        return flow(
-            value_to_cast,
-            self._cast_to_decimal,
-            map_(quantize_decimal),
-            map_(int),
         )
 
 
@@ -128,7 +106,6 @@ class CastToDate(object):
 
     _error_message = 'Unable to cast ({value}) to ISO date. Exc({failure})'
 
-    # @pipeline(ResultE)
     def __call__(
         self,
         value_to_cast: AnyType,
