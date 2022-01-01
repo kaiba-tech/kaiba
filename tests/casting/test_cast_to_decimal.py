@@ -1,8 +1,6 @@
 from decimal import Decimal
 
 import pytest
-
-from returns.pipeline import is_successful
 from typing_extensions import Final
 
 from kaiba.casting import CastToDecimal
