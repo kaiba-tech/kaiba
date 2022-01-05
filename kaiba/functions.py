@@ -125,7 +125,6 @@ def apply_separator(
         >>> apply_separator([], ' ') is None
         True
     """
-
     if not mapped_values:
         return None
 
@@ -169,7 +168,7 @@ def apply_slicing(
     return value_to_slice[slicing.slice_from:slicing.slice_to]
 
 
-def apply_regex(  # noqa: WPS212, WPS234
+def apply_regex(  # noqa: WPS212, WPS234, C901
     value_to_match: AnyType,
     regex: Regex,
 ) -> Union[List[AnyType], AnyType, None]:
@@ -226,7 +225,7 @@ def apply_casting(
     value_to_cast: AnyType,
     casting: Casting,
 ) -> Union[AnyType, None]:
-    """Casting one type of code to another.dynamax
+    """Casting one type of code to another.
 
     :param casting: :term:`casting` object
     :type casting: dict
