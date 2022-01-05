@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from returns.pipeline import is_successful
+import pytest
 from typing_extensions import Final
 
 from kaiba.casting import CastToDecimal
@@ -12,42 +12,42 @@ def test_string_with_one_period():
     """Test normal decimal value with one period."""
     assert CastToDecimal()(
         '1234567.89',
-    ).unwrap() == target
+    ) == target
 
 
 def test_string_with_one_comma():
     """Test normal decimal value with one comma."""
     assert CastToDecimal()(
         '1234567,89',
-    ).unwrap() == target
+    ) == target
 
 
 def test_string_with_period_and_space():
     """Test space separated decimal number with 1 period."""
     assert CastToDecimal()(
         '1 234 567.89',
-    ).unwrap() == target
+    ) == target
 
 
 def test_string_with_commas_and_period():
     """Test comma as thousands separator with period as decimal."""
     assert CastToDecimal()(
         '1,234,567.89',
-    ).unwrap() == target
+    ) == target
 
 
 def test_string_with_periods_and_comma():
     """Test period as thousands separator with comma as decimal."""
     assert CastToDecimal()(
         '1.234.567,89',
-    ).unwrap() == target
+    ) == target
 
 
 def test_string_with_no_period_nor_comma():
     """Test an integer number will nicely become a decimal."""
-    test = CastToDecimal()('123456789')
-    assert is_successful(test)
-    assert test.unwrap() == Decimal('123456789')
+    number_string = '123456789'
+    test = CastToDecimal()(number_string)
+    assert test == Decimal(number_string)
 
 
 def test_with_integer_containing_decimals_format():
@@ -56,29 +56,19 @@ def test_with_integer_containing_decimals_format():
         '123456789',
         'integer_containing_decimals',
     )
-    assert test.unwrap() == target
+    assert test == target
 
 
 def test_abc_fails():
     """Test that string with letters in fails."""
-    test = CastToDecimal()('abc')
-    assert not is_successful(test)
-    assert isinstance(test.failure(), ValueError)
-    assert 'Illegal characters in value' in str(test.failure())
+    with pytest.raises(ValueError) as ve:
+        CastToDecimal()('abc')
 
-
-def test_abc_with_decimal_argument_fails():
-    """Test that string with letters in fails when we supply 'decimal'."""
-    test = CastToDecimal()(
-        'abc', 'integer_containing_decimals',
-    )
-    assert not is_successful(test)
-    assert isinstance(test.failure(), ValueError)
-    assert 'Illegal characters in value' in str(test.failure())
+    assert str(ve.value) == "Illegal characters in value 'abc'"  # noqa: WPS441
 
 
 def test_precision_is_maintained():
     """Test high precision decimal value with one period."""
     assert CastToDecimal()(
         '1234567.89123456789',
-    ).unwrap() == Decimal('1234567.89123456789')
+    ) == Decimal('1234567.89123456789')
