@@ -2,11 +2,9 @@ import re
 from decimal import Decimal
 from typing import Any, List, Optional, Union
 
-from returns.pipeline import flow
-from returns.pointfree import bind
-from returns.result import Failure, ResultE, safe
+from returns.pipeline import is_successful
 
-from kaiba.casting import get_casting_function, unsafe_get_casting_function
+from kaiba.casting import get_casting_function
 from kaiba.models.base import AnyType
 from kaiba.models.casting import Casting
 from kaiba.models.if_statement import Conditions, IfStatement
@@ -16,67 +14,6 @@ from kaiba.models.slicing import Slicing
 ValueTypes = (str, int, float, bool, Decimal)
 
 
-def unsafe_apply_if_statements(
-    if_value: Optional[AnyType],
-    statements: List[IfStatement],
-) -> Optional[AnyType]:
-    """Apply if statements to a value.
-
-    :param if_value: The value to use when evaluating if statements
-    :type if_value: AnyType
-
-    :param statements: :term:`statements` collection of if operations
-    :type statements: List[Dict[str, Any]]
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    one if object looks like this
-
-    .. code-block:: json
-
-        {
-            "condition": "is",
-            "target": "foo",
-            "then": "bar",
-            "otherwise": "no foo" - optional
-        }
-
-    The if statements are chained so that the next works on the output of the
-    previous. If no "otherwise" is provided then the original value or value
-    from the previous operation will be returned.
-
-    Example
-        >>> apply_if_statements(
-        ...     '1', [
-        ...         IfStatement(
-        ...             **{'condition': 'is', 'target': '1', 'then': '2'}
-        ...         )
-        ...     ],
-        ... ).unwrap() == '2'
-        True
-        >>> apply_if_statements(
-        ...     'a',
-        ...     [IfStatement(**{
-        ...         'condition': 'is',
-        ...         'target': '1',
-        ...         'then': '2',
-        ...         'otherwise': '3'
-        ...     })],
-        ... ).unwrap() == '3'
-        True
-
-    """
-    for statement in statements:
-
-        if_value = _apply_statement(
-            if_value, statement,
-        )
-
-    return if_value
-
-
-@safe
 def apply_if_statements(
     if_value: Optional[AnyType],
     statements: List[IfStatement],
@@ -134,9 +71,6 @@ def apply_if_statements(
             if_value, statement,
         )
 
-    if if_value is None:
-        raise ValueError('If statement failed or produced `None`')
-
     return if_value
 
 
@@ -168,43 +102,10 @@ def _apply_statement(
     return statement.otherwise or if_value
 
 
-def unsafe_apply_separator(
-    mapped_values: List[AnyType],
-    separator: str,
-) -> AnyType:
-    """Apply separator between the values of a List[Any].
-
-    :param mapped_values: The list of values to join with the separator
-    :type mapped_values: List[AnyType]
-
-    :param separator: :term:`separator` value to join mapped_values list with
-    :type separator: str
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    Example
-        >>> from returns.pipeline import is_successful
-        >>> apply_separator(['a', 'b', 'c'], ' ').unwrap()
-        'a b c'
-        >>> apply_separator([1, 'b', True], ' ').unwrap()
-        '1 b True'
-        >>> is_successful(apply_separator([], ' '))
-        False
-
-    """
-
-    if len(mapped_values) == 1:
-        return mapped_values[0]
-
-    return separator.join([str(mapped) for mapped in mapped_values])
-
-
-@safe
 def apply_separator(
     mapped_values: List[AnyType],
     separator: str,
-) -> AnyType:
+) -> Union[AnyType, None]:
     """Apply separator between the values of a List[Any].
 
     :param mapped_values: The list of values to join with the separator
@@ -217,17 +118,15 @@ def apply_separator(
     :rtype: AnyType
 
     Example
-        >>> from returns.pipeline import is_successful
-        >>> apply_separator(['a', 'b', 'c'], ' ').unwrap()
+        >>> apply_separator(['a', 'b', 'c'], ' ')
         'a b c'
-        >>> apply_separator([1, 'b', True], ' ').unwrap()
+        >>> apply_separator([1, 'b', True], ' ')
         '1 b True'
-        >>> is_successful(apply_separator([], ' '))
-        False
-
+        >>> apply_separator([], ' ') is None
+        True
     """
     if not mapped_values:
-        raise ValueError('mapped_values is empty')
+        return None
 
     if len(mapped_values) == 1:
         return mapped_values[0]
@@ -269,7 +168,7 @@ def apply_slicing(
     return value_to_slice[slicing.slice_from:slicing.slice_to]
 
 
-def unsafe_apply_regex(  # noqa: WPS212, WPS234
+def apply_regex(  # noqa: WPS212, WPS234, C901
     value_to_match: AnyType,
     regex: Regex,
 ) -> Union[List[AnyType], AnyType, None]:
@@ -312,72 +211,20 @@ def unsafe_apply_regex(  # noqa: WPS212, WPS234
     if isinstance(num_group, list):
         if not num_group:
             return matches
-        return [matches[ind] for ind in num_group]
-
+        try:
+            return [matches[ind] for ind in num_group]
+        except IndexError:
+            return None
     try:
         return matches[num_group]
     except IndexError:
         return None
 
 
-@safe
-def apply_regex(  # noqa: WPS212, WPS234
-    value_to_match: Optional[AnyType],
-    regex: Regex,
-) -> Union[List[AnyType], AnyType, None]:
-    r"""Match value by a certain regex pattern.
-
-    :param value_to_match: The value to match
-    :type value_to_match: AnyType
-
-    :param regex: :term: `matching` object which has parameters for
-        regex match
-    :type regex: Regex
-
-    :return: Success/Failure container
-    :rtype: AnyType
-
-    Example
-        >>> apply_regex(
-        ...     'abcdef',
-        ...     Regex(**{'expression': '(?<=abc)def'})
-        ... ).unwrap()
-        'def'
-        >>> apply_regex(
-        ...     'Isaac Newton, physicist',
-        ...     Regex(**{'expression': r'(\w+)', 'group': 1}),
-        ... ).unwrap()
-        'Newton'
-        >>> apply_regex(
-        ...     'Isaac Newton, physicist',
-        ...     Regex(**{'expression': r'(\w+)', 'group': [1, 2]}),
-        ... ).unwrap()
-        ['Newton', 'physicist']
-        >>> apply_regex(None, Regex(**{'expression': 'a+'})).unwrap()
-        >>> apply_regex('Open-source matters', None).unwrap()
-        'Open-source matters'
-    """
-    if value_to_match is None:
-        return value_to_match
-
-    if not regex or not regex.expression:
-        return value_to_match
-
-    pattern = regex.expression
-    groups = re.finditer(pattern, value_to_match)
-    matches: list = [gr.group(0) for gr in groups]
-    num_group: Union[int, List[int]] = regex.group
-    if isinstance(num_group, list):
-        if not num_group:
-            return matches
-        return [matches[ind] for ind in num_group]  # typing: ignore
-    return matches[num_group]
-
-
-def unsafe_apply_casting(
+def apply_casting(
     value_to_cast: AnyType,
     casting: Casting,
-) -> AnyType:
+) -> Union[AnyType, None]:
     """Casting one type of code to another.
 
     :param casting: :term:`casting` object
@@ -395,112 +242,11 @@ def unsafe_apply_casting(
         >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
         Decimal('123.12')
     """
-    function = unsafe_get_casting_function(casting.to)
+    function = get_casting_function(casting.to)
 
-    return function(value_to_cast, casting.original_format).unwrap()
+    casted_value = function(value_to_cast, casting.original_format)
 
-
-def apply_casting(
-    value_to_cast: Optional[AnyType],
-    casting: Casting,
-) -> ResultE[AnyType]:
-    """Casting one type of code to another.
-
-    :param casting: :term:`casting` object
-    :type casting: dict
-
-    :param value_to_cast: The value to cast to casting['to']
-    :type value_to_cast: AnyType
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    Example
-        >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
-        123
-        >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
-        Decimal('123.12')
-    """
-    if value_to_cast is None:
-        return Failure(ValueError('value_to_cast is empty'))
-
-    return flow(
-        casting.to,
-        get_casting_function,
-        bind(  # type: ignore
-            lambda function: function(  # type: ignore
-                value_to_cast, casting.original_format,
-            ),
-        ),
-    )
-
-
-def unsafe_apply_default(
-    mapped_value: Optional[AnyType] = None,
-    default: Optional[AnyType] = None,
-) -> Optional[AnyType]:
-    """Apply default value if exists and if mapped value is None.
-
-    :param mapped_value: If this value is *None* the default value is returned
-    :type mapped_value: Optional[AnyType]
-
-    :param default: :term:`default` value to return if mapped value is None
-    :type default: Optional[AnyType]
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    If default *is not* none and mapped_value *is* None then return default
-    else if mapped_value is not in accepted ValueTypes then throw an error
-    else return mapped value
-
-    Example
-        >>> apply_default('test', None).unwrap() == 'test'
-        True
-        >>> apply_default('nope', 'test').unwrap() == 'nope'
-        True
-    """
-    if default is not None:
-        if mapped_value is None:
-            return default
-
-    return mapped_value
-
-
-@safe
-def apply_default(
-    mapped_value: Optional[AnyType] = None,
-    default: Optional[AnyType] = None,
-) -> AnyType:
-    """Apply default value if exists and if mapped value is None.
-
-    :param mapped_value: If this value is *None* the default value is returned
-    :type mapped_value: Optional[AnyType]
-
-    :param default: :term:`default` value to return if mapped value is None
-    :type default: Optional[AnyType]
-
-    :return: Success/Failure containers
-    :rtype: AnyType
-
-    If default *is not* none and mapped_value *is* None then return default
-    else if mapped_value is not in accepted ValueTypes then throw an error
-    else return mapped value
-
-    Example
-        >>> apply_default('test', None).unwrap() == 'test'
-        True
-        >>> apply_default('nope', 'test').unwrap() == 'nope'
-        True
-    """
-    if default is not None:
-        if mapped_value is None:
-            return default
-
-    if mapped_value is None:
-        raise ValueError('Default value should not be `None`')
-
-    if not isinstance(mapped_value, ValueTypes):
-        raise ValueError('Unable to give default value')
-
-    return mapped_value
+    if is_successful(casted_value):
+        return casted_value
+    # add if require_success reraise
+    raise casted_value.failure()
