@@ -8,7 +8,7 @@ def test_string_fails_when_month_is_not_integer():
     """Test threws ValueError when month out of range."""
     expected = '{0}{1}'.format(
         'Unable to cast (19.MM.12) to ISO date. ',
-        "Exc(invalid literal for int() with base 10: '.M')",
+        "Error: invalid literal for int() with base 10: '.M'",
     )
 
     with pytest.raises(ValueError) as ve:
