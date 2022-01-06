@@ -2,8 +2,6 @@ import re
 from decimal import Decimal
 from typing import Any, List, Optional, Union
 
-from returns.pipeline import is_successful
-
 from kaiba.casting import get_casting_function
 from kaiba.models.base import AnyType
 from kaiba.models.casting import Casting
@@ -46,24 +44,24 @@ def apply_if_statements(
 
     Example
         >>> apply_if_statements(
-        ...     '1', [
-        ...         IfStatement(
-        ...             **{'condition': 'is', 'target': '1', 'then': '2'}
-        ...         )
+        ...     '1',
+        ...     [
+        ...         IfStatement(condition='is', target='1', then='2'),
         ...     ],
-        ... ).unwrap() == '2'
-        True
+        ... )
+        '2'
         >>> apply_if_statements(
         ...     'a',
-        ...     [IfStatement(**{
-        ...         'condition': 'is',
-        ...         'target': '1',
-        ...         'then': '2',
-        ...         'otherwise': '3'
-        ...     })],
-        ... ).unwrap() == '3'
-        True
-
+        ...     [
+        ...         IfStatement(
+        ...             condition='is',
+        ...             target='1',
+        ...             then='2',
+        ...             otherwise='3',
+        ...         )
+        ...     ],
+        ... )
+        '3'
     """
     for statement in statements:
 
@@ -188,21 +186,18 @@ def apply_regex(  # noqa: WPS212, WPS234, C901
         >>> apply_regex(
         ...     'abcdef',
         ...     Regex(**{'expression': '(?<=abc)def'})
-        ... ).unwrap()
+        ... )
         'def'
         >>> apply_regex(
         ...     'Isaac Newton, physicist',
         ...     Regex(**{'expression': r'(\w+)', 'group': 1}),
-        ... ).unwrap()
+        ... )
         'Newton'
         >>> apply_regex(
         ...     'Isaac Newton, physicist',
         ...     Regex(**{'expression': r'(\w+)', 'group': [1, 2]}),
-        ... ).unwrap()
+        ... )
         ['Newton', 'physicist']
-        >>> apply_regex(None, Regex(**{'expression': 'a+'})).unwrap()
-        >>> apply_regex('Open-source matters', None).unwrap()
-        'Open-source matters'
     """
     pattern = regex.expression
     groups = re.finditer(pattern, value_to_match)
@@ -237,16 +232,11 @@ def apply_casting(
     :rtype: AnyType
 
     Example
-        >>> apply_casting('123', Casting(**{'to': 'integer'})).unwrap()
+        >>> apply_casting('123', Casting(**{'to': 'integer'}))
         123
-        >>> apply_casting('123.12', Casting(**{'to': 'decimal'})).unwrap()
+        >>> apply_casting('123.12', Casting(**{'to': 'decimal'}))
         Decimal('123.12')
     """
     function = get_casting_function(casting.to)
 
-    casted_value = function(value_to_cast, casting.original_format)
-
-    if is_successful(casted_value):
-        return casted_value
-    # add if require_success reraise
-    raise casted_value.failure()
+    return function(value_to_cast, casting.original_format)
