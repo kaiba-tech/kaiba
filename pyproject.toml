@@ -32,7 +32,7 @@ returns = "^0.14.0"
 pydantic = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
-mypy = "^0.910"
+mypy = "^0.961"
 wemake-python-styleguide = "^0.16.0"
 pre-commit = "^2.16.0"
 simplejson = "^3.17.6"
