@@ -31,13 +31,13 @@ pycountry = "^20.7.3"
 returns = "^0.14.0"
 pydantic = "^1.8.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 mypy = "^0.910"
 wemake-python-styleguide = "^0.16.0"
 pre-commit = "^2.16.0"
 simplejson = "^3.17.6"
 
-safety = "^1.10.3"
+safety = "^2.3.5"
 
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
