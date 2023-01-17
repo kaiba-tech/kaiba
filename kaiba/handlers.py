@@ -1,14 +1,8 @@
 from typing import Any, Dict, List, Union
 
-from returns.curry import partial
-from returns.pipeline import flow, is_successful
-from returns.pointfree import bind, fix, map_, rescue
-from returns.result import ResultE, safe
-
 from kaiba.collection_handlers import fetch_data_by_keys
 from kaiba.functions import (
     apply_casting,
-    apply_default,
     apply_if_statements,
     apply_regex,
     apply_separator,
@@ -22,7 +16,7 @@ from kaiba.models.data_fetcher import DataFetcher
 def handle_data_fetcher(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: DataFetcher,
-) -> ResultE[AnyType]:
+) -> Union[AnyType, None]:
     """Find a data at path or produce a value.
 
     return value can be:
@@ -40,32 +34,31 @@ def handle_data_fetcher(
     apply if statements ->
     return default value if Failure else mapped value
     """
-    return flow(
-        collection,
-        partial(fetch_data_by_keys, path=cfg.path),
-        fix(lambda _: None),  # type: ignore
-        bind(
-            partial(
-                apply_regex, regex=cfg.regex,
-            ),
-        ),
-        fix(lambda _: None),  # type: ignore
-        map_(partial(
-            apply_slicing, slicing=cfg.slicing,
-        )),
-        bind(partial(
-            apply_if_statements, statements=cfg.if_statements,
-        )),
-        rescue(  # type: ignore
-            lambda _: apply_default(cfg.default),
-        ),
+    produced_value = fetch_data_by_keys(
+        collection, path=cfg.path,
     )
+
+    if produced_value and cfg.regex:
+        produced_value = apply_regex(produced_value, regex=cfg.regex)
+
+    if produced_value and cfg.slicing:
+        produced_value = apply_slicing(produced_value, cfg.slicing)
+
+    produced_value = apply_if_statements(
+        produced_value,
+        cfg.if_statements,
+    )
+
+    if produced_value is None:
+        return cfg.default
+
+    return produced_value
 
 
 def handle_attribute(
     collection: Union[Dict[str, Any], List[Any]],
     cfg: Attribute,
-) -> ResultE[AnyType]:
+) -> AnyType:
     """Handle one attribute with data fetchers, ifs, casting and default value.
 
     flow description:
@@ -80,28 +73,32 @@ def handle_attribute(
     Return Result
     """
     fetched_values = [
-        fetched.unwrap()
-        for fetched in  # noqa: WPS361
-        [
+        fetched
+        for fetched in [  # noqa: WPS361
             handle_data_fetcher(collection, data_fetcher)
             for data_fetcher in cfg.data_fetchers
         ]
-        if is_successful(fetched)
+        if fetched is not None
     ]
 
-    # partially declare if statement and casting functions
-    ifs = partial(apply_if_statements, statements=cfg.if_statements)
+    attribute = None
 
-    cast = safe(lambda the_value: the_value)
-    if cfg.casting:
-        cast = partial(apply_casting, casting=cfg.casting)
+    if fetched_values:
+        attribute = apply_separator(
+            fetched_values,
+            separator=cfg.separator,
+        )
 
-    return flow(
-        apply_separator(fetched_values, separator=cfg.separator),
-        fix(lambda _: None),  # type: ignore
-        bind(ifs),
-        bind(cast),
-        rescue(
-            lambda _: apply_default(default=cfg.default),
-        ),
-    )
+    attribute = apply_if_statements(attribute, cfg.if_statements)
+
+    if attribute and cfg.casting:
+        attribute = apply_casting(attribute, cfg.casting)
+
+    if attribute is None:
+
+        if cfg.default is not None:
+            return cfg.default
+
+        raise ValueError('Failed to produce a value')
+
+    return attribute

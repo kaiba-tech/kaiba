@@ -1,5 +1,7 @@
 import decimal
 
+import pytest
+
 from kaiba.handlers import handle_attribute
 from kaiba.models.attribute import Attribute
 
@@ -17,7 +19,7 @@ def test_get_key_in_dict():
     assert handle_attribute(
         input_data,
         config,
-    ).unwrap() == 'val1'
+    ) == 'val1'
 
 
 def test_casting_to_decimal():
@@ -34,7 +36,7 @@ def test_casting_to_decimal():
     assert handle_attribute(
         input_data,
         config,
-    ).unwrap() == decimal.Decimal('1123123.12')
+    ) == decimal.Decimal('1123123.12')
 
 
 def test_regex_is_applied_to_attribute():
@@ -55,11 +57,11 @@ def test_regex_is_applied_to_attribute():
     assert handle_attribute(
         input_data,
         config,
-    ).unwrap() == 'Rxe8'
+    ) == 'Rxe8'
 
 
 def test_regex_is_not_applied_to_attribute():
-    """Test that we don't lose data when expression by pattern fails."""
+    """Test that we _do_ lose data when expression by pattern fails."""
     input_data: dict = {'game': '1. d4 d5'}
     config = Attribute(**{
         'name': 'moves',
@@ -73,10 +75,11 @@ def test_regex_is_not_applied_to_attribute():
             },
         ],
     })
-    regex = handle_attribute(input_data, config)
-    assert isinstance(regex.failure(), ValueError) is True
-    assert regex.failure().args == ('Default value should not be `None`',)
 
+    with pytest.raises(ValueError) as ve:
+        handle_attribute(input_data, config)
+
+    assert str(ve.value) == 'Failed to produce a value'
 
 def test_all():
     """Test a full attribute schema."""
@@ -120,4 +123,4 @@ def test_all():
     assert handle_attribute(
         input_data,
         config,
-    ).unwrap() == 'default2'
+    ) == 'default2'

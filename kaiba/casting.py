@@ -1,12 +1,9 @@
 import datetime
 import decimal
 import re
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from attr import dataclass
-from returns.pipeline import flow
-from returns.pointfree import alt, bind, map_, rescue
-from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
 from kaiba.constants import COMMA, EMPTY, INTEGER_CONTAINING_DECIMALS, PERIOD
@@ -14,7 +11,6 @@ from kaiba.models.base import AnyType
 from kaiba.models.casting import CastToOptions
 
 
-@safe
 def get_casting_function(cast_to: CastToOptions) -> Callable:
     """Return casting function depending on name."""
     if cast_to == CastToOptions.INTEGER:
@@ -26,8 +22,6 @@ def get_casting_function(cast_to: CastToOptions) -> Callable:
     return CastToDate()
 
 
-@final
-@dataclass(frozen=True, slots=True)
 class CastToDecimal(object):
     """Cast input to decimal."""
 
@@ -35,7 +29,6 @@ class CastToDecimal(object):
     _decimal_with_period_after_commas = re.compile(r'^-?(\d+\,)*\d+\.\d+$')
     _decimal_with_comma_after_periods = re.compile(r'^-?(\d+\.)*\d+\,\d+$')
 
-    @safe
     def __call__(
         self,
         value_to_cast: AnyType,
@@ -80,13 +73,12 @@ class CastToInteger(object):
         self,
         value_to_cast: AnyType,
         original_format: Optional[str] = None,
-    ) -> ResultE[int]:
+    ) -> int:
         """Make this object callable."""
-        return flow(
-            value_to_cast,
-            self._cast_to_decimal,
-            map_(quantize_decimal),
-            map_(int),
+        return int(
+            quantize_decimal(
+                self._cast_to_decimal(value_to_cast),
+            ),
         )
 
 
@@ -109,14 +101,13 @@ class CastToDate(object):
     _yyyymmdd_pattern = re.compile(r'^yyyy[^\w]?mm[^\w]?dd$')
     _iso_pattern = re.compile(r'^\d{4}-\d{2}-\d{2}')
 
-    _error_message = 'Unable to cast ({value}) to ISO date. Exc({failure})'
+    _error_message = 'Unable to cast ({value}) to ISO date. Error: {error}'
 
-    # @pipeline(ResultE)
-    def __call__(
+    def __call__(  # noqa: C901 -- too complex
         self,
         value_to_cast: AnyType,
         original_format: str,
-    ) -> ResultE[str]:
+    ) -> str:
         r"""
         purpose: Convert string date into ISO format date.
 
@@ -134,43 +125,54 @@ class CastToDate(object):
                     () = grouper, groups up stuff for use in replace.
         """
         date_value = str(value_to_cast)
-        return flow(
+        if self._value_is_iso(date_value):
+            return date_value
+
+        casted_value = self._cast_with_millennia(
             date_value,
-            self._value_is_iso,
-            rescue(  # type: ignore
-                lambda _: self._cast_with_millennia(
-                    date_value,
-                    original_format=original_format,
-                ),
-            ),
-            rescue(  # type: ignore
-                lambda _: self._cast_with_no_millennia(
-                    date_value,
-                    original_format=original_format,
-                ),
-            ),
-            bind(self._validate_date),
-            alt(  # type: ignore
-                lambda failure: ValueError(
-                    self._error_message.format(
-                        value=date_value,
-                        failure=failure,
-                    ),
-                ),
-            ),
+            original_format=original_format,
         )
 
-    @safe
-    def _value_is_iso(self, value_to_cast: str) -> str:
-        if self._iso_pattern.match(value_to_cast):
-            return value_to_cast
-        raise ValueError('Unable to cast to ISO date')
+        if casted_value is None:
+            try:
+                casted_value = self._cast_with_no_millennia(
+                    date_value,
+                    original_format=original_format,
+                )
+            except Exception as exc1:
+                raise ValueError(
+                    self._error_message.format(
+                        value=date_value,
+                        error=str(exc1),
+                    ),
+                )
+
+        if casted_value is None:
+            raise ValueError(
+                self._error_message.format(
+                    value=date_value,
+                    error='Casting failed.',
+                ),
+            )
+
+        try:
+            return self._validate_date(casted_value)
+        except Exception as exc:
+            raise ValueError(
+                self._error_message.format(
+                    value=date_value,
+                    error=str(exc),
+                ),
+            )
+
+    def _value_is_iso(self, value_to_cast: str) -> bool:
+        return self._iso_pattern.match(value_to_cast) is not None
 
     def _cast_with_millennia(
         self,
         value_to_cast: str,
         original_format: str,
-    ) -> ResultE[str]:
+    ) -> Union[str, None]:
         # mm[.]dd[.]yyyy any separator
         if self._mmddyyyy_pattern.match(original_format):
             return self._apply_regex_sub(
@@ -195,19 +197,13 @@ class CastToDate(object):
                 value_to_cast,
             )
 
-        return Failure(
-            ValueError(
-                'Unable to case to milennia format: {value}'.format(
-                    value=value_to_cast,
-                ),
-            ),
-        )
+        return None
 
     def _cast_with_no_millennia(
         self,
         value_to_cast: str,
         original_format: str,
-    ) -> ResultE[str]:
+    ) -> Union[str, None]:
         no_millenia_patterns = {
             self._yymmdd_pattern: (
                 r'(\d{2})[^\w]?(\d{2})[^\w]?(\d{2})',
@@ -225,21 +221,14 @@ class CastToDate(object):
         for no_millenia_pattern in no_millenia_patterns:  # noqa: WPS528
             if no_millenia_pattern.match(original_format):
                 pattern, arrangement = no_millenia_patterns[no_millenia_pattern]
-                return self._apply_regex_sub(
-                    pattern, arrangement, value_to_cast,
-                ).bind(
-                    self._convert_ddmmyy_to_iso_date,
+                return self._convert_ddmmyy_to_iso_date(
+                    self._apply_regex_sub(
+                        pattern, arrangement, value_to_cast,
+                    ),
                 )
 
-        return Failure(
-            ValueError(
-                'Unable to cast to no millennia format: {value}'.format(
-                    value=value_to_cast,
-                ),
-            ),
-        )
+        return None
 
-    @safe
     def _validate_date(self, date_string: str) -> str:
         return datetime.date(
             *map(
@@ -248,7 +237,6 @@ class CastToDate(object):
             ),
         ).isoformat()
 
-    @safe
     def _apply_regex_sub(
         self,
         pattern: str,
@@ -257,7 +245,7 @@ class CastToDate(object):
     ) -> str:
         return re.sub(pattern, arrangement, input_string)
 
-    @safe  # noqa: WPS210, Hard to reduce variables
+    # noqa: WPS210, Hard to reduce variables
     def _convert_ddmmyy_to_iso_date(  # noqa: WPS210
         self,
         date_string: str,

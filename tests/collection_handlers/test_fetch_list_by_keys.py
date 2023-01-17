@@ -1,25 +1,33 @@
-from returns.pipeline import is_successful
+import pytest
 
 from kaiba.collection_handlers import fetch_list_by_keys
 
 
 def test():
     """Test that we can fetch key in dict."""
-    test = [{'key': ['val1']}, ['key']]
-    assert fetch_list_by_keys(*test).unwrap() == ['val1']
+    assert fetch_list_by_keys(
+        {'key': ['val1']},
+        ['key'],
+    ) == ['val1']
 
 
 def test_no_path_raises_value_error():
     """Test that we get an error when we dont send a path."""
-    test = [{'key', 'val1'}, []]
-    t_result = fetch_list_by_keys(*test)
-    assert not is_successful(t_result)
-    assert 'path list empty' in str(t_result.failure())
+    with pytest.raises(ValueError) as ve:
+        fetch_list_by_keys(
+            {'key': 'val1'},
+            [],
+        )
+
+    assert 'path list empty' in str(ve.value)  # noqa: WPS441
 
 
 def test_that_found_value_must_be_list():
     """Test that the value we find must be a list, expect error."""
-    test = [{'key': 'val1'}, ['key']]
-    t_result = fetch_list_by_keys(*test)
-    assert not is_successful(t_result)
-    assert 'Non list data found' in str(t_result.failure())
+    with pytest.raises(ValueError) as ve:
+        fetch_list_by_keys(
+            {'key': 'val1'},
+            ['key'],
+        )
+
+    assert 'Non list data found' in str(ve.value)
