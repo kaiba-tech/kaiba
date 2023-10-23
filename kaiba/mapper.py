@@ -35,7 +35,7 @@ def map_data(
 
     if not is_successful(iterate_data):
 
-        return map_object(  # type: ignore
+        return map_object(
             input_data,
             configuration,
         ).map(

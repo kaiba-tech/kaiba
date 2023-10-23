@@ -258,8 +258,8 @@ def apply_casting(
     return flow(
         casting.to,
         get_casting_function,
-        bind(  # type: ignore
-            lambda function: function(  # type: ignore
+        bind(
+            lambda function: function(
                 value_to_cast, casting.original_format,
             ),
         ),
