@@ -5,7 +5,7 @@ from typing import Callable, Optional
 
 from attr import dataclass
 from returns.pipeline import flow
-from returns.pointfree import alt, bind, map_, rescue
+from returns.pointfree import alt, bind, lash, map_
 from returns.result import Failure, ResultE, safe
 from typing_extensions import final
 
@@ -137,13 +137,13 @@ class CastToDate(object):
         return flow(
             date_value,
             self._value_is_iso,
-            rescue(  # type: ignore
+            lash(  # type: ignore
                 lambda _: self._cast_with_millennia(
                     date_value,
                     original_format=original_format,
                 ),
             ),
-            rescue(  # type: ignore
+            lash(  # type: ignore
                 lambda _: self._cast_with_no_millennia(
                     date_value,
                     original_format=original_format,

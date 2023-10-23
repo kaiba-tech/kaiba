@@ -26,9 +26,9 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 pycountry = "^20.7.3"
-returns = "^0.14.0"
+returns = "^0.22.0"
 pydantic = "^1.8.2"
 
 [tool.poetry.group.dev.dependencies]

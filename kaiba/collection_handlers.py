@@ -105,6 +105,6 @@ def create_iterable(
             }
             for collection in collections
         ],
-    ).fix(
-        lambda _: [input_data],
+    ).lash(
+        lambda _: Success([input_data]),
     )

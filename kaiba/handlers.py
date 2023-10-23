@@ -2,8 +2,8 @@ from typing import Any, Dict, List, Union
 
 from returns.curry import partial
 from returns.pipeline import flow, is_successful
-from returns.pointfree import bind, fix, map_, rescue
-from returns.result import ResultE, safe
+from returns.pointfree import bind, lash, map_
+from returns.result import ResultE, Success, safe
 
 from kaiba.collection_handlers import fetch_data_by_keys
 from kaiba.functions import (
@@ -43,20 +43,20 @@ def handle_data_fetcher(
     return flow(
         collection,
         partial(fetch_data_by_keys, path=cfg.path),
-        fix(lambda _: None),  # type: ignore
+        lash(lambda _: Success(None)),  # type: ignore
         bind(
             partial(
                 apply_regex, regex=cfg.regex,
             ),
         ),
-        fix(lambda _: None),  # type: ignore
+        lash(lambda _: Success(None)),  # type: ignore
         map_(partial(
             apply_slicing, slicing=cfg.slicing,
         )),
         bind(partial(
             apply_if_statements, statements=cfg.if_statements,
         )),
-        rescue(  # type: ignore
+        lash(  # type: ignore
             lambda _: apply_default(cfg.default),
         ),
     )
@@ -98,10 +98,10 @@ def handle_attribute(
 
     return flow(
         apply_separator(fetched_values, separator=cfg.separator),
-        fix(lambda _: None),  # type: ignore
+        lash(lambda _: Success(None)),  # type: ignore
         bind(ifs),
         bind(cast),
-        rescue(
+        lash(
             lambda _: apply_default(default=cfg.default),
         ),
     )
