@@ -22,7 +22,7 @@ def test_invalid():
     errors = ve.value.errors()[0]  # noqa: WPS441
 
     assert errors['loc'] == ('path',)
-    assert errors['msg'] == 'field required'
+    assert errors['msg'] == 'Field required'
 
 
 def test_empty_path_is_error():
@@ -33,7 +33,7 @@ def test_empty_path_is_error():
     errors = ve.value.errors()[0]  # noqa: WPS441
 
     assert errors['loc'] == ('path',)
-    assert 'has at least 1 items' in errors['msg']
+    assert 'List should have at least 1 item' in errors['msg']
 
 
 def test_only_int_and_str_in_path():
@@ -43,5 +43,5 @@ def test_only_int_and_str_in_path():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 
-    assert errors['loc'] == ('path', 0)
-    assert errors['msg'] == 'str type expected'
+    assert errors['loc'] == ('path', 0, 'str')
+    assert errors['msg'] == 'Input should be a valid string'

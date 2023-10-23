@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import Optional
 
+from pydantic import ConfigDict
+
 from kaiba.models.base import KaibaBaseModel
 
 
@@ -18,22 +20,18 @@ class Casting(KaibaBaseModel):
 
     to: CastToOptions
     original_format: Optional[str] = None
-
-    class Config:
-        """Add json schema examples."""
-
-        schema_extra = {
-            'examples': [
-                {
-                    'to': 'integer',
-                },
-                {
-                    'to': 'date',
-                    'original_format': 'ddmmyy',
-                },
-                {
-                    'to': 'date',
-                    'original_format': 'yyyy.mm.dd',
-                },
-            ],
-        }
+    model_config = ConfigDict(json_schema_extra={
+        'examples': [
+            {
+                'to': 'integer',
+            },
+            {
+                'to': 'date',
+                'original_format': 'ddmmyy',
+            },
+            {
+                'to': 'date',
+                'original_format': 'yyyy.mm.dd',
+            },
+        ],
+    })

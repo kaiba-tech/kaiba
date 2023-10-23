@@ -20,7 +20,7 @@ def test_invalid_expression():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('expression',)
-    assert errors['msg'] == 'Invalid regular expression'
+    assert errors['msg'] == 'Input should be a valid regular expression'
 
 
 def test_invalid_group():
@@ -29,5 +29,5 @@ def test_invalid_group():
         Regex(expression='[1-9]', group='test')
 
     errors = ve.value.errors()[0]  # noqa: WPS441
-    assert errors['loc'] == ('group',)
-    assert errors['msg'] == 'value is not a valid integer'
+    assert errors['loc'] == ('group', 'int')
+    assert errors['msg'] == 'Input should be a valid integer'

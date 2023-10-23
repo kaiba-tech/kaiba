@@ -18,7 +18,7 @@ def test_invalid():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('from',)
-    assert errors['msg'] == 'field required'
+    assert errors['msg'] == 'Field required'
 
 
 def test_invalid_type():
@@ -28,4 +28,4 @@ def test_invalid_type():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('from',)
-    assert errors['msg'] == 'value is not a valid integer'
+    assert errors['msg'] == 'Input should be a valid integer'

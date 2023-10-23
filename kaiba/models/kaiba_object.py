@@ -1,5 +1,6 @@
 from typing import List
 
+from pydantic import ConfigDict
 from pydantic.types import StrictBool
 
 from kaiba.models.attribute import Attribute
@@ -17,23 +18,19 @@ class KaibaObject(KaibaBaseModel):
     attributes: List[Attribute] = []
     objects: List['KaibaObject'] = []  # noqa: WPS110
     branching_objects: List[BranchingObject] = []
-
-    class Config:
-        """Add json schema examples."""
-
-        schema_extra = {
-            'examples': [
-                {
-                    'name': 'object_name',
-                    'attributes': [
-                        {
-                            'name': 'an_attribute',
-                            'default': 'a value',
-                        },
-                    ],
-                },
-            ],
-        }
+    model_config = ConfigDict(json_schema_extra={
+        'examples': [
+            {
+                'name': 'object_name',
+                'attributes': [
+                    {
+                        'name': 'an_attribute',
+                        'default': 'a value',
+                    },
+                ],
+            },
+        ],
+    })
 
 
 KaibaObject.update_forward_refs()

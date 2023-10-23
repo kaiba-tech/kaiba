@@ -1,5 +1,6 @@
 from typing import List
 
+from pydantic import ConfigDict
 from pydantic.types import StrictBool
 
 from kaiba.models.attribute import Attribute
@@ -38,46 +39,42 @@ class BranchingObject(KaibaBaseModel):
     array: StrictBool = False
     iterators: List[Iterator] = []
     branching_attributes: List[List[Attribute]] = []
-
-    class Config:
-        """Add json schema examples."""
-
-        schema_extra = {
-            'examples': [
-                {
-                    'name': 'extra_fields',
-                    'array': True,
-                    'branching_attributes': [
-                        [
-                            {
-                                'name': 'field_name',
-                                'default': 'amount',
-                            },
-                            {
-                                'name': 'field_data',
-                                'data_fetchers': [
-                                    {
-                                        'path': ['path', 'to', 'amount'],
-                                    },
-                                ],
-                            },
-                        ],
-                        [
-                            {
-                                'name': 'field_name',
-                                'default': 'currency',
-                            },
-                            {
-                                'name': 'field_data',
-                                'data_fetchers': [
-                                    {
-                                        'path': ['path', 'to', 'currency'],
-                                    },
-                                ],
-                                'default': 'NOK',
-                            },
-                        ],
+    model_config = ConfigDict(json_schema_extra={
+        'examples': [
+            {
+                'name': 'extra_fields',
+                'array': True,
+                'branching_attributes': [
+                    [
+                        {
+                            'name': 'field_name',
+                            'default': 'amount',
+                        },
+                        {
+                            'name': 'field_data',
+                            'data_fetchers': [
+                                {
+                                    'path': ['path', 'to', 'amount'],
+                                },
+                            ],
+                        },
                     ],
-                },
-            ],
-        }
+                    [
+                        {
+                            'name': 'field_name',
+                            'default': 'currency',
+                        },
+                        {
+                            'name': 'field_data',
+                            'data_fetchers': [
+                                {
+                                    'path': ['path', 'to', 'currency'],
+                                },
+                            ],
+                            'default': 'NOK',
+                        },
+                    ],
+                ],
+            },
+        ],
+    })

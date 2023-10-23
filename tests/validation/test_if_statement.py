@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.models.if_statement import IfStatement
+from kaiba.models.if_statement import Conditions, IfStatement
 
 
 def test_validates():  # noqa: WPS218
@@ -27,12 +27,13 @@ def test_invalid_bad_condition_enum():  # noqa: WPS218
 
     condition = ve.value.errors()[0]  # noqa: WPS441
     assert condition['loc'] == ('condition',)
-    assert 'not a valid enumeration member' in condition['msg']
+    msg = condition['msg']
+    assert all(con.value in msg for con in Conditions)
 
     target = ve.value.errors()[1]  # noqa: WPS441
     assert target['loc'] == ('target',)
-    assert target['msg'] == 'field required'
+    assert target['msg'] == 'Field required'
 
     then = ve.value.errors()[2]  # noqa: WPS441
     assert then['loc'] == ('then',)
-    assert then['msg'] == 'field required'
+    assert then['msg'] == 'Field required'

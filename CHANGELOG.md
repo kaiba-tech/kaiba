@@ -9,6 +9,10 @@
 
 ## Latest Changes
 
+### Breaking
+
+* Upgrades to `pydantic` version 2. This is a breaking change because it changes the output of validation errors. 
+
 ### Upgrades
 
 * Bumps `returns` to `0.22`

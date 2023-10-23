@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Union
 
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 from pydantic.types import StrictBool, StrictInt, StrictStr
 
 AnyType = Union[StrictStr, StrictInt, StrictBool, Decimal, list, dict]
@@ -9,9 +9,6 @@ StrInt = Union[StrictStr, StrictInt]
 
 
 class KaibaBaseModel(BaseModel):
-    """Allows for iterating lists at given path."""
+    """Base model that forbids non defined attributes."""
 
-    class Config(object):
-        """Make sure any unexpected attributes in config cause error."""
-
-        extra = Extra.forbid
+    model_config = ConfigDict(extra='forbid')

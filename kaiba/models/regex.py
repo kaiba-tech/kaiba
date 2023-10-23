@@ -1,5 +1,6 @@
 from typing import List, Pattern, Union
 
+from pydantic import ConfigDict
 from pydantic.types import StrictInt
 
 from kaiba.models.base import KaibaBaseModel
@@ -10,18 +11,14 @@ class Regex(KaibaBaseModel):
 
     expression: Pattern
     group: Union[StrictInt, List[StrictInt]] = 0
-
-    class Config:
-        """Add json schema examples."""
-
-        schema_extra = {
-            'examples': [
-                {
-                    'expression': '[a-z]+',
-                },
-                {
-                    'expression': '([a-z])',
-                    'group': [0, 3, 4],
-                },
-            ],
-        }
+    model_config = ConfigDict(json_schema_extra={
+        'examples': [
+            {
+                'expression': '[a-z]+',
+            },
+            {
+                'expression': '([a-z])',
+                'group': [0, 3, 4],
+            },
+        ],
+    })
