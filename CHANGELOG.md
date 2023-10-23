@@ -9,6 +9,9 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* Bumps `returns` to `0.22`
 
 ### Internal
 
