@@ -11,4 +11,4 @@ def test_invalid():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('bob',)
-    assert errors['msg'] == 'extra fields not permitted'
+    assert errors['msg'] == 'Extra inputs are not permitted'
