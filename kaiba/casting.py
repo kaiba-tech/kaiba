@@ -137,20 +137,20 @@ class CastToDate(object):
         return flow(
             date_value,
             self._value_is_iso,
-            lash(  # type: ignore
+            lash(
                 lambda _: self._cast_with_millennia(
                     date_value,
                     original_format=original_format,
                 ),
             ),
-            lash(  # type: ignore
+            lash(
                 lambda _: self._cast_with_no_millennia(
                     date_value,
                     original_format=original_format,
                 ),
             ),
             bind(self._validate_date),
-            alt(  # type: ignore
+            alt(
                 lambda failure: ValueError(
                     self._error_message.format(
                         value=date_value,
