@@ -4,6 +4,7 @@ from kaiba.models.base import AnyType, KaibaBaseModel
 from kaiba.models.casting import Casting
 from kaiba.models.data_fetcher import DataFetcher
 from kaiba.models.if_statement import IfStatement
+from pydantic import ConfigDict
 
 
 class Attribute(KaibaBaseModel):
@@ -13,20 +14,16 @@ class Attribute(KaibaBaseModel):
     data_fetchers: List[DataFetcher] = []
     separator: str = ''
     if_statements: List[IfStatement] = []
-    casting: Optional[Casting]
+    casting: Optional[Casting] = None
     default: Optional[AnyType] = None
-
-    class Config:
-        """Add json schema examples."""
-
-        schema_extra = {
-            'examples': [
-                {
-                    'name': 'my_attribute',
-                    'data_fetchers': [{
-                        'path': ['abc', 0],
-                    }],
-                    'default': 'default_value',
-                },
-            ],
-        }
+    model_config = ConfigDict(json_schema_extra={
+        'examples': [
+            {
+                'name': 'my_attribute',
+                'data_fetchers': [{
+                    'path': ['abc', 0],
+                }],
+                'default': 'default_value',
+            },
+        ],
+    })
