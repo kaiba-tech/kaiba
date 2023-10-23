@@ -31,7 +31,7 @@ def test_empty_path_is_error():
         Iterator(alias='test', path=[])
 
     errors = ve.value.errors()[0]  # noqa: WPS441
-    print(errors)
+
     assert errors['loc'] == ('path',)
     assert 'List should have at least 1 item' in errors['msg']
 

@@ -1,10 +1,11 @@
 from typing import Any, List, Optional
 
+from pydantic import ConfigDict
+
 from kaiba.models.base import KaibaBaseModel, StrInt
 from kaiba.models.if_statement import IfStatement
 from kaiba.models.regex import Regex
 from kaiba.models.slicing import Slicing
-from pydantic import ConfigDict
 
 
 class DataFetcher(KaibaBaseModel):

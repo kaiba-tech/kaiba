@@ -1,11 +1,11 @@
 from typing import List
 
+from pydantic import ConfigDict
 from pydantic.types import StrictBool
 
 from kaiba.models.attribute import Attribute
 from kaiba.models.base import KaibaBaseModel
 from kaiba.models.iterator import Iterator
-from pydantic import ConfigDict
 
 
 class BranchingObject(KaibaBaseModel):

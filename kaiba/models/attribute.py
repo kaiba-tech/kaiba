@@ -1,10 +1,11 @@
 from typing import List, Optional
 
+from pydantic import ConfigDict
+
 from kaiba.models.base import AnyType, KaibaBaseModel
 from kaiba.models.casting import Casting
 from kaiba.models.data_fetcher import DataFetcher
 from kaiba.models.if_statement import IfStatement
-from pydantic import ConfigDict
 
 
 class Attribute(KaibaBaseModel):

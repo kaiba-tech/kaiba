@@ -1,8 +1,9 @@
 from enum import Enum
 from typing import Optional
 
-from kaiba.models.base import KaibaBaseModel
 from pydantic import ConfigDict
+
+from kaiba.models.base import KaibaBaseModel
 
 
 class CastToOptions(str, Enum):  # noqa: WPS600

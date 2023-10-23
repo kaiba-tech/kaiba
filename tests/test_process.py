@@ -49,8 +49,6 @@ def test_bad_config_gives_failure():
     with pytest.raises(ValidationError) as ve:
         process_raise(input_data, config)
 
-    print(ve)
-    print('bob', str(ve))
     assert ve.match('name')  # noqa: WPS441
     assert ve.match('Field required')  # noqa: WPS441
 

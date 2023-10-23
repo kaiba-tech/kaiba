@@ -23,7 +23,5 @@ def test_only_int_and_str_in_path():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
 
-    print(errors)
-
     assert errors['loc'] == ('path', 0, 'str')
     assert errors['msg'] == 'Input should be a valid string'

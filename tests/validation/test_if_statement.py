@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from kaiba.models.if_statement import IfStatement, Conditions
+from kaiba.models.if_statement import Conditions, IfStatement
 
 
 def test_validates():  # noqa: WPS218
@@ -28,7 +28,7 @@ def test_invalid_bad_condition_enum():  # noqa: WPS218
     condition = ve.value.errors()[0]  # noqa: WPS441
     assert condition['loc'] == ('condition',)
     msg = condition['msg']
-    assert all(c.value in msg for c in Conditions)
+    assert all(con.value in msg for con in Conditions)
 
     target = ve.value.errors()[1]  # noqa: WPS441
     assert target['loc'] == ('target',)

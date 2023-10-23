@@ -1,9 +1,9 @@
 from typing import List, Pattern, Union
 
+from pydantic import ConfigDict
 from pydantic.types import StrictInt
 
 from kaiba.models.base import KaibaBaseModel
-from pydantic import ConfigDict
 
 
 class Regex(KaibaBaseModel):
