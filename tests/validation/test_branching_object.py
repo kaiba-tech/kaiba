@@ -23,4 +23,4 @@ def test_invalid():
     errors = ve.value.errors()[0]  # noqa: WPS441
 
     assert errors['loc'] == ('name',)
-    assert errors['msg'] == 'field required'
+    assert errors['msg'] == 'Field required'

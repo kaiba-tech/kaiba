@@ -22,7 +22,7 @@ def test_invalid():
     errors = ve.value.errors()[0]  # noqa: WPS441
 
     assert errors['loc'] == ('path',)
-    assert errors['msg'] == 'field required'
+    assert errors['msg'] == 'Field required'
 
 
 def test_empty_path_is_error():

@@ -31,8 +31,8 @@ def test_invalid_bad_condition_enum():  # noqa: WPS218
 
     target = ve.value.errors()[1]  # noqa: WPS441
     assert target['loc'] == ('target',)
-    assert target['msg'] == 'field required'
+    assert target['msg'] == 'Field required'
 
     then = ve.value.errors()[2]  # noqa: WPS441
     assert then['loc'] == ('then',)
-    assert then['msg'] == 'field required'
+    assert then['msg'] == 'Field required'

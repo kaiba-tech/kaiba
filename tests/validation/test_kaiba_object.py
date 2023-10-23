@@ -25,7 +25,7 @@ def test_invalid_only_object():
     errors = ve.value.errors()[0]  # noqa: WPS441
 
     assert errors['loc'] == ('name',)
-    assert errors['msg'] == 'field required'
+    assert errors['msg'] == 'Field required'
 
 
 def test_validates(valid):
@@ -43,7 +43,7 @@ def test_invalid(invalid):  # noqa: WPS218 allow asserts
     assert errors[0]['loc'] == (
         'attributes', 0, 'if_statements', 0, 'condition',
     )
-    assert errors[0]['msg'] == 'field required'
+    assert errors[0]['msg'] == 'Field required'
 
     assert errors[1]['loc'] == (
         'objects', 0, 'attributes', 0, 'deult',
@@ -53,6 +53,6 @@ def test_invalid(invalid):  # noqa: WPS218 allow asserts
     assert errors[2]['loc'] == (
         'branching_objects', 0, 'branching_attributes', 0, 0, 'name',
     )
-    assert errors[2]['msg'] == 'field required'
+    assert errors[2]['msg'] == 'Field required'
 
     # Should also complain about date original format not being correct
