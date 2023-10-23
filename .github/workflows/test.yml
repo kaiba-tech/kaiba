@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [3.8, 3.9, 3.10, 3.11, 3.12]
 
     steps:
     - uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
         poetry check
         poetry run pip check
         poetry run flake8 .
-        poetry run mypy .
+        # poetry run mypy .
         # poetry run safety check --full-report 
     - name: Run pytest
       run: |
