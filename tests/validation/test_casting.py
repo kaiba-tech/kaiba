@@ -20,4 +20,5 @@ def test_invalid():
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('to',)
-    assert 'not a valid enumeration member' in errors['msg']
+    msg = errors['msg']
+    assert all(opt.value in msg for opt in CastToOptions)

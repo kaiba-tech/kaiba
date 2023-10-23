@@ -48,7 +48,7 @@ def test_invalid(invalid):  # noqa: WPS218 allow asserts
     assert errors[1]['loc'] == (
         'objects', 0, 'attributes', 0, 'deult',
     )
-    assert errors[1]['msg'] == 'extra fields not permitted'
+    assert errors[1]['msg'] == 'Extra inputs are not permitted'
 
     assert errors[2]['loc'] == (
         'branching_objects', 0, 'branching_attributes', 0, 0, 'name',
