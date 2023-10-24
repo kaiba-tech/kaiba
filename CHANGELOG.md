@@ -9,6 +9,17 @@
 
 ## Latest Changes
 
+## Version 3.0.0 @dataclass from attr bug and no more callable objects.
+
+We were using `@dataclass` decorator from attr, which caused kaiba not to run when used in an environment that did not have attr installed. Thanks to @ChameleonTartu for finding and reporting the bug.
+
+Non-private code has been changed which is why this is a major version. In the future we will make sure to have clearer line between what is private internal kaiba code and what is the interface that users will use. 
+
+### Internal
+
+* We are now callable object free. From now on, we will only use functions. 
+
+
 ## Version 2.0.0 Upgrade dependencies, support python 3.10, 3.11
 
 This major version bump was needed because we upgrade `pydantic` to version 2 from version 1. This changed a lot of error messages in schema validation. If anyone was depending on those, it would break their code. In the same update we are updating a lot of other dependencies too. Most importantly going from `returns` 0.14 to 0.22. This might mean we can make the functional code look better in the future. We are also now support python 3.10 and 3.11 and test them like we do 3.8 and 3.9.

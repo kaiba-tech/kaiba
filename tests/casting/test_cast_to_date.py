@@ -1,7 +1,7 @@
 from returns.pipeline import is_successful
 from typing_extensions import Final
 
-from kaiba.casting import CastToDate
+from kaiba.casting._cast_to_date import cast_to_date
 
 target_after_2000: Final['str'] = '2019-09-07'
 target_before_2000: Final['str'] = '1994-06-08'
@@ -9,7 +9,7 @@ target_before_2000: Final['str'] = '1994-06-08'
 
 def test_string_yyyymmdd_no_delimiter():
     """Test that yyyymmdd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '20190907',
         'yyyymmdd',
     ).unwrap() == target_after_2000
@@ -17,7 +17,7 @@ def test_string_yyyymmdd_no_delimiter():
 
 def test_string_ddmmyyyy_no_delimiter():
     """Test that ddmmyyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '07092019',
         'ddmmyyyy',
     ).unwrap() == target_after_2000
@@ -25,7 +25,7 @@ def test_string_ddmmyyyy_no_delimiter():
 
 def test_string_mmddyyyy_no_delimiter():
     """Test that mmddyyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '09072019',
         'mmddyyyy',
     ).unwrap() == target_after_2000
@@ -33,7 +33,7 @@ def test_string_mmddyyyy_no_delimiter():
 
 def test_string_yyyymmdd_with_hyphen():
     """Test that yyyy-mm-dd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '2019-09-07',
         'yyyy-mm-dd',
     ).unwrap() == target_after_2000
@@ -41,7 +41,7 @@ def test_string_yyyymmdd_with_hyphen():
 
 def test_string_yyyymmdd_with_back_slash():
     """Test that yyyy/mm/dd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '2019/09/07',
         'yyyy/mm/dd',
     ).unwrap() == target_after_2000
@@ -49,7 +49,7 @@ def test_string_yyyymmdd_with_back_slash():
 
 def test_string_yyyymmdd_with_dots():
     """Test that yyyy.mm.dd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '2019.09.07',
         'yyyy.mm.dd',
     ).unwrap() == target_after_2000
@@ -57,7 +57,7 @@ def test_string_yyyymmdd_with_dots():
 
 def test_string_ddmmyyyy_with_hyphen():
     """Test that dd-mm-yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '07-09-2019',
         'dd-mm-yyyy',
     ).unwrap() == target_after_2000
@@ -65,7 +65,7 @@ def test_string_ddmmyyyy_with_hyphen():
 
 def test_string_ddmmmyyyy_with_back_slash():
     """Test that dd/mm/yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '07/09/2019',
         'dd/mm/yyyy',
     ).unwrap() == target_after_2000
@@ -73,7 +73,7 @@ def test_string_ddmmmyyyy_with_back_slash():
 
 def test_string_ddmmmyyyy_with_dots():
     """Test that dd.mm.yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '07.09.2019',
         'dd.mm.yyyy',
     ).unwrap() == target_after_2000
@@ -81,7 +81,7 @@ def test_string_ddmmmyyyy_with_dots():
 
 def test_string_mmddyyyy_hyphen():
     """Test that mm-dd-yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '09-07-2019',
         'mm-dd-yyyy',
     ).unwrap() == target_after_2000
@@ -89,7 +89,7 @@ def test_string_mmddyyyy_hyphen():
 
 def test_string_mmddyyyy_back_slash():
     """Test that mm/dd/yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '09/07/2019',
         'mm/dd/yyyy',
     ).unwrap() == target_after_2000
@@ -97,7 +97,7 @@ def test_string_mmddyyyy_back_slash():
 
 def test_string_mmddyyyy_dots():
     """Test that mm.dd.yyyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '09.07.2019',
         'mm.dd.yyyy',
     ).unwrap() == target_after_2000
@@ -105,7 +105,7 @@ def test_string_mmddyyyy_dots():
 
 def test_string_mmddyy_no_delimiter_after_2000():
     """Test that mmddyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '090719',
         'mmddyy',
     ).unwrap() == target_after_2000
@@ -113,7 +113,7 @@ def test_string_mmddyy_no_delimiter_after_2000():
 
 def test_string_mmddyy_no_delimiter_before_2000():
     """Test that mm.dd.yy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '060894',
         'mmddyy',
     ).unwrap() == target_before_2000
@@ -121,7 +121,7 @@ def test_string_mmddyy_no_delimiter_before_2000():
 
 def test_string_yymmdd_no_delimiter_after_2000():
     """Test that yymmdd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '190907',
         'yymmdd',
     ).unwrap() == target_after_2000
@@ -129,7 +129,7 @@ def test_string_yymmdd_no_delimiter_after_2000():
 
 def test_string_yymmdd_no_delimiter_before_2000():
     """Test that yymmdd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '940608',
         'yymmdd',
     ).unwrap() == target_before_2000
@@ -137,7 +137,7 @@ def test_string_yymmdd_no_delimiter_before_2000():
 
 def test_string_ddmmyy_no_delimiter_after_2000():
     """Test that ddmmyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '070919',
         'ddmmyy',
     ).unwrap() == target_after_2000
@@ -145,7 +145,7 @@ def test_string_ddmmyy_no_delimiter_after_2000():
 
 def test_string_ddmmyy_no_delimiter_before_2000():
     """Test that ddmmyy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '080694',
         'ddmmyy',
     ).unwrap() == target_before_2000
@@ -153,7 +153,7 @@ def test_string_ddmmyy_no_delimiter_before_2000():
 
 def test_string_mmddyy_with_dots_after_2000():
     """Test that mm.dd.yy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '09.07.19',
         'mm.dd.yy',
     ).unwrap() == target_after_2000
@@ -161,7 +161,7 @@ def test_string_mmddyy_with_dots_after_2000():
 
 def test_string_mmddyy_with_dots_before_2000():
     """Test that mm.dd.yy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '06.08.94',
         'mm.dd.yy',
     ).unwrap() == target_before_2000
@@ -169,7 +169,7 @@ def test_string_mmddyy_with_dots_before_2000():
 
 def test_string_ddmmyy_with_dots_after_2000():
     """Test that dd.mm.yy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '07.09.19',
         'dd.mm.yy',
     ).unwrap() == target_after_2000
@@ -177,7 +177,7 @@ def test_string_ddmmyy_with_dots_after_2000():
 
 def test_string_ddmmyy_with_dots_before_2000():
     """Test that dd.mm.yy pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '08.06.94',
         'dd.mm.yy',
     ).unwrap() == target_before_2000
@@ -185,7 +185,7 @@ def test_string_ddmmyy_with_dots_before_2000():
 
 def test_string_yymmdd_with_dots_after_2000():
     """Test that yy.mm.dd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '19.09.07',
         'yy.mm.dd',
     ).unwrap() == target_after_2000
@@ -193,7 +193,7 @@ def test_string_yymmdd_with_dots_after_2000():
 
 def test_string_yymmdd_with_dots_before_2000():
     """Test that yy.mm.dd pattern is accepted."""
-    assert CastToDate()(
+    assert cast_to_date(
         '94.06.08',
         'yy.mm.dd',
     ).unwrap() == target_before_2000
@@ -201,7 +201,7 @@ def test_string_yymmdd_with_dots_before_2000():
 
 def test_string_fails_as_invalid_date():
     """Test threws ValueError when invalid date passed."""
-    test = CastToDate()(
+    test = cast_to_date(
         '994.06.08',
         'yyy.mm.dd',
     )
@@ -214,7 +214,7 @@ def test_string_fails_as_invalid_date():
 
 def test_string_fails_when_month_out_of_range():
     """Test threws ValueError when month out of range."""
-    test = CastToDate()(
+    test = cast_to_date(
         '19.14.12',
         'yy.mm.dd',
     )
@@ -227,7 +227,7 @@ def test_string_fails_when_month_out_of_range():
 
 def test_string_fails_when_month_is_not_integer():
     """Test threws ValueError when month out of range."""
-    test = CastToDate()(
+    test = cast_to_date(
         '19.MM.12',
         'yy.mm.dd',
     )
