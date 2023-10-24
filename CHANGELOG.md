@@ -9,9 +9,11 @@
 
 ## Latest Changes
 
-## Version 2.0.1 @dataclass from attr bug and no more callable objects.
+## Version 3.0.0 @dataclass from attr bug and no more callable objects.
 
 We were using `@dataclass` decorator from attr, which caused kaiba not to run when used in an environment that did not have attr installed. Thanks to @ChameleonTartu for finding and reporting the bug.
+
+Non-private code has been changed which is why this is a major version. In the future we will make sure to have clearer line between what is private internal kaiba code and what is the interface that users will use. 
 
 ### Internal
 
