@@ -33,15 +33,15 @@ pydantic = "^2.4.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.5"
-wemake-python-styleguide = "^0.16.0"
+wemake-python-styleguide = "^0.18.0"
 pre-commit = "^2.16.0"
 simplejson = "^3.17.6"
 
 safety = "^2.3.5"
 
-pytest = "^6.2.5"
+pytest = "^7.4.2"
 pytest-cov = "^3.0.0"
-mkdocs-material = "^7.3.6"
+mkdocs-material = "^9.4.6"
 importlib-metadata = "^4.8.2"
 isort = "^5.10.1"
 
