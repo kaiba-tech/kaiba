@@ -46,7 +46,7 @@ jobs:
         poetry check
         poetry run pip check
         poetry run flake8 .
-        # poetry run mypy .
+        poetry run mypy .
         # poetry run safety check --full-report 
     - name: Run pytest
       run: |
