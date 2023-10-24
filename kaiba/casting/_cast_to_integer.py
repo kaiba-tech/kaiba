@@ -6,7 +6,7 @@ from returns.pipeline import flow
 from returns.pointfree import map_
 from returns.result import ResultE
 
-from kaiba.casting._cast_to_decimal import cast_to_decimal
+from kaiba.casting._cast_to_decimal import cast_to_decimal  # noqa: WPS436
 from kaiba.models.base import AnyType
 
 
@@ -15,7 +15,6 @@ def cast_to_integer(
     original_format: str | None = None,
 ) -> ResultE[int]:
     """Cast input to integer."""
-
     return flow(
         value_to_cast,
         cast_to_decimal,

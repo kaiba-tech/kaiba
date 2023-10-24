@@ -67,11 +67,13 @@ def cast_to_date(
         ),
     )
 
+
 @safe
 def _value_is_iso(value_to_cast: str) -> str:
     if _iso_pattern.match(value_to_cast):
         return value_to_cast
     raise ValueError('Unable to cast to ISO date')
+
 
 def _cast_with_millennia(
     value_to_cast: str,
@@ -109,6 +111,7 @@ def _cast_with_millennia(
         ),
     )
 
+
 def _cast_with_no_millennia(
     value_to_cast: str,
     original_format: str,
@@ -144,6 +147,7 @@ def _cast_with_no_millennia(
         ),
     )
 
+
 @safe
 def _validate_date(date_string: str) -> str:
     return datetime.date(
@@ -153,6 +157,7 @@ def _validate_date(date_string: str) -> str:
         ),
     ).isoformat()
 
+
 @safe
 def _apply_regex_sub(
     pattern: str,
@@ -160,6 +165,7 @@ def _apply_regex_sub(
     input_string: str,
 ) -> str:
     return re.sub(pattern, arrangement, input_string)
+
 
 @safe  # noqa: WPS210, Hard to reduce variables
 def _convert_ddmmyy_to_iso_date(  # noqa: WPS210

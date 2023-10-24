@@ -2,12 +2,10 @@ from typing import Callable
 
 from returns.result import safe
 
-
-from kaiba.models.casting import CastToOptions
-
-from kaiba.casting._cast_to_integer import cast_to_integer
-from kaiba.casting._cast_to_decimal import cast_to_decimal
 from kaiba.casting._cast_to_date import cast_to_date
+from kaiba.casting._cast_to_decimal import cast_to_decimal
+from kaiba.casting._cast_to_integer import cast_to_integer
+from kaiba.models.casting import CastToOptions
 
 
 @safe

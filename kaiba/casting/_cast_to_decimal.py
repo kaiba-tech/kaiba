@@ -17,11 +17,9 @@ _decimal_with_comma_after_periods: Final = re.compile(r'^-?(\d+\.)*\d+\,\d+$')
 @safe
 def cast_to_decimal(
     value_to_cast: AnyType,
-    original_format: str | None = None
+    original_format: str | None = None,
 ) -> Decimal:
     """Cast input to decimal."""
-
-
     the_value = str(value_to_cast).replace(' ', EMPTY)
 
     if not _decimal_pattern.match(the_value):
