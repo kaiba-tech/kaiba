@@ -94,14 +94,14 @@ def handle_attribute(
 
     cast = safe(lambda the_value: the_value)
     if cfg.casting:
-        cast = partial(apply_casting, casting=cfg.casting)
+        cast = partial(apply_casting, casting=cfg.casting)  # type: ignore
 
     return flow(
         apply_separator(fetched_values, separator=cfg.separator),
-        lash(lambda _: Success(None)),
+        lash(lambda _: Success(None)),  # type: ignore
         bind(ifs),
         bind(cast),
-        lash(
+        lash(  # type: ignore
             lambda _: apply_default(default=cfg.default),
         ),
     )
