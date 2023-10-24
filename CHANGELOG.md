@@ -11,8 +11,11 @@
 
 ## Version 2.0.1 @dataclass from attr bug and no more callable objects.
 
-We were using `@dataclass` decorator from attr, which  caused kaiba not to run when used in an environment that did not have attr installed. Thanks to @ChameleonTartu for finding and reporting the bug.
-We are now callable object free. From now we will only use normal functions. 
+We were using `@dataclass` decorator from attr, which caused kaiba not to run when used in an environment that did not have attr installed. Thanks to @ChameleonTartu for finding and reporting the bug.
+
+### Internal
+
+* We are now callable object free. From now on, we will only use functions. 
 
 
 ## Version 2.0.0 Upgrade dependencies, support python 3.10, 3.11
