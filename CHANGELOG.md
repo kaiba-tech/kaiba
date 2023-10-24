@@ -19,6 +19,7 @@
 
 ### Internal
 
+* Update `mypy` version
 * CI - Github workflow tests now targets `main` branch instead of `master`
 
 
