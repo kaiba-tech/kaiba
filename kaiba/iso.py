@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from attr import dataclass
 from pycountry import countries, currencies, languages
 from returns.result import safe
@@ -16,7 +18,7 @@ class GetCountryCode(object):
     _get = safe(countries.get)
 
     @safe
-    def __call__(self, code: str) -> dict:
+    def __call__(self, code: str | int) -> dict:
         """Find country by code or name."""
         code = str(code).strip()
         country = self._countries.get(alpha_2=code.upper())
@@ -56,7 +58,7 @@ class GetCurrencyCode(object):
     _get = currencies.get
 
     @safe
-    def __call__(self, code: str) -> dict:
+    def __call__(self, code: str | int) -> dict:
         """Try to create a Currency object."""
         code = str(code).strip()
 

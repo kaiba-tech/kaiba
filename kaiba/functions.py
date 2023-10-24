@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from decimal import Decimal
 from typing import Any, List, Optional, Union
@@ -145,7 +147,7 @@ def apply_separator(
 
 def apply_slicing(
     value_to_slice: Optional[Any],
-    slicing: Slicing,
+    slicing: Slicing | None,
 ) -> Optional[AnyType]:
     """Slice value from index to index.
 
@@ -180,7 +182,7 @@ def apply_slicing(
 @safe
 def apply_regex(  # noqa: WPS212, WPS234
     value_to_match: Optional[AnyType],
-    regex: Regex,
+    regex: Regex | None,
 ) -> Union[List[AnyType], AnyType, None]:
     r"""Match value by a certain regex pattern.
 
@@ -221,7 +223,10 @@ def apply_regex(  # noqa: WPS212, WPS234
         return value_to_match
 
     pattern = regex.expression
-    groups = re.finditer(pattern, value_to_match)
+    groups = re.finditer(
+        pattern,
+        value_to_match,  # type: ignore
+    )
     matches: list = [gr.group(0) for gr in groups]
     num_group: Union[int, List[int]] = regex.group
     if isinstance(num_group, list):
@@ -258,8 +263,8 @@ def apply_casting(
     return flow(
         casting.to,
         get_casting_function,
-        bind(
-            lambda function: function(
+        bind(  # type: ignore
+            lambda function: function(  # type: ignore
                 value_to_cast, casting.original_format,
             ),
         ),

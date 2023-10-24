@@ -6,7 +6,7 @@ from kaiba.models.if_statement import IfStatement
 
 def test_if_is():
     """Test that 1 if (is) statement works."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -21,7 +21,7 @@ def test_if_is():
 
 def test_if_is_condition_false():
     """Test if condition False."""
-    test = [
+    test: list = [
         'not_target_value',
         [
             IfStatement(**{
@@ -36,7 +36,7 @@ def test_if_is_condition_false():
 
 def test_if_is_condition_array_value():
     """Test that we can do if is statement on arrays."""
-    test = [
+    test: list = [
         ['target_value'],
         [
             IfStatement(**{
@@ -51,7 +51,7 @@ def test_if_is_condition_array_value():
 
 def test_if_is_condition_objects_value():
     """Test that we can do if is statement on objectss."""
-    test = [
+    test: list = [
         {'val': 'target'},
         [
             IfStatement(**{
@@ -66,7 +66,7 @@ def test_if_is_condition_objects_value():
 
 def test_if_in():
     """Test that 1 if (in) statement works."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -81,7 +81,7 @@ def test_if_in():
 
 def test_if_in_condition_false():
     """Test if in condition False."""
-    test = [
+    test: list = [
         'not_target_value',
         [
             IfStatement(**{
@@ -96,7 +96,7 @@ def test_if_in_condition_false():
 
 def test_if_in_condition_array_value():
     """Test that we can do if in statement on arrays."""
-    test = [
+    test: list = [
         ['target_value'],
         [
             IfStatement(**{
@@ -111,7 +111,7 @@ def test_if_in_condition_array_value():
 
 def test_if_in_condition_objects_value():
     """Test that we can do if is statement on objectss."""
-    test = [
+    test: list = [
         {'val': 'target'},
         [
             IfStatement(**{
@@ -126,7 +126,7 @@ def test_if_in_condition_objects_value():
 
 def test_if_not():
     """Test that 1 if (not) statement works."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -141,7 +141,7 @@ def test_if_not():
 
 def test_if_not_condition_false():
     """Test if not condition False."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -156,7 +156,7 @@ def test_if_not_condition_false():
 
 def test_if_not_condition_array_value():
     """Test that we can do if not statement on arrays."""
-    test = [
+    test: list = [
         ['target_value'],
         [
             IfStatement(**{
@@ -171,7 +171,7 @@ def test_if_not_condition_array_value():
 
 def test_if_not_condition_array_value_with_int():
     """Test that we can do if not statement on arrays."""
-    test = [
+    test: list = [
         [123],
         [
             IfStatement(**{
@@ -186,7 +186,7 @@ def test_if_not_condition_array_value_with_int():
 
 def test_if_not_condition_objects_value():
     """Test that we can do if not statement on objectss."""
-    test = [
+    test: list = [
         {'val': 'target'},
         [
             IfStatement(**{
@@ -201,7 +201,7 @@ def test_if_not_condition_objects_value():
 
 def test_if_contains():
     """Test that 1 if (contains) statement works."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -216,7 +216,7 @@ def test_if_contains():
 
 def test_if_contains_condition_false():
     """Test if contains condition False."""
-    test = [
+    test: list = [
         'not_target_value',
         [
             IfStatement(**{
@@ -231,7 +231,7 @@ def test_if_contains_condition_false():
 
 def test_if_contains_condition_array_value():
     """Test that we can do if contains statement on arrays."""
-    test = [
+    test: list = [
         ['value', 'target'],
         [
             IfStatement(**{
@@ -246,7 +246,7 @@ def test_if_contains_condition_array_value():
 
 def test_if_contains_condition_objects_value():
     """Test that we can do if contains statement on objectss."""
-    test = [
+    test: list = [
         {'val': 'target'},
         [
             IfStatement(**{
@@ -261,7 +261,7 @@ def test_if_contains_condition_objects_value():
 
 def test_if_contains_objects_in_array_value():
     """Test that we can do if contains statement on objectss."""
-    test = [
+    test: list = [
         [{'val': 'target'}],
         [
             IfStatement(**{
@@ -284,7 +284,7 @@ def test_if_contains_array_does_not_stringify():
     for arrays the 'in' checks if the element exist inside the aray
     for everything else we will stringify the test value.
     """
-    test = [
+    test: list = [
         [{'val': 'target'}],
         [
             IfStatement(**{
@@ -299,7 +299,7 @@ def test_if_contains_array_does_not_stringify():
 
 def test_if_contains_works_with_non_strings():
     """Test that we can do if contains statement on objectss."""
-    test = [
+    test: list = [
         123,
         [
             IfStatement(**{
@@ -314,7 +314,7 @@ def test_if_contains_works_with_non_strings():
 
 def test_if_chained():
     """Test that two if (is) statement works."""
-    test = [
+    test: list = [
         'target_value',
         [
             IfStatement(**{
@@ -334,7 +334,7 @@ def test_if_chained():
 
 def test_if_failed_condition_goes_to_otherwise():
     """Test that we get the then value when condition fails."""
-    test = [
+    test: list = [
         'not_target_value',
         [
             IfStatement(**{

@@ -14,7 +14,8 @@ def test_validates():  # noqa: WPS218
 def test_invalid():
     """Test that we get validation error with correct message."""
     with pytest.raises(ValidationError) as ve:
-        Slicing(to=0)
+        # Ignore type on purpose since we want to check error
+        Slicing(to=0)  # type: ignore
 
     errors = ve.value.errors()[0]  # noqa: WPS441
     assert errors['loc'] == ('from',)
