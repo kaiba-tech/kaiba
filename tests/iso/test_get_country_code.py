@@ -3,9 +3,6 @@ from returns.primitives.exceptions import UnwrapFailedError
 
 from kaiba.iso import get_country_code
 
-# Norway, NO, NOR, 578
-# Albania, AL, ALB, 008
-
 
 def test():
     """Test that we can fetch key in dict."""
