@@ -952,13 +952,16 @@ files = [
 
 [[package]]
 name = "pycountry"
-version = "20.7.3"
+version = "22.3.5"
 description = "ISO country, subdivision, language, currency and script definitions and their translations"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6, <4"
 files = [
-    {file = "pycountry-20.7.3.tar.gz", hash = "sha256:81084a53d3454344c0292deebc20fcd0a1488c136d4900312cbd465cf552cb42"},
+    {file = "pycountry-22.3.5.tar.gz", hash = "sha256:b2163a246c585894d808f18783e19137cb70a0c18fb36748dc01fc6f109c1646"},
 ]
+
+[package.dependencies]
+setuptools = "*"
 
 [[package]]
 name = "pydantic"
@@ -1753,4 +1756,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "2f9ab1565f9a33e63ad98223859c75b35b304f9cc6012f331a7b3f328c9c2119"
+content-hash = "3db31df1303104acb5e2a62a0424457ec459a31046eedbae9679293e0b1ae9f4"
