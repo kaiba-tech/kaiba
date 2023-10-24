@@ -3,7 +3,6 @@ import decimal
 import re
 from typing import Callable, Optional
 
-from attr import dataclass
 from returns.pipeline import flow
 from returns.pointfree import alt, bind, lash, map_
 from returns.result import Failure, ResultE, safe
@@ -27,7 +26,6 @@ def get_casting_function(cast_to: CastToOptions) -> Callable:
 
 
 @final
-@dataclass(frozen=True, slots=True)
 class CastToDecimal(object):
     """Cast input to decimal."""
 
@@ -70,7 +68,6 @@ class CastToDecimal(object):
 
 
 @final
-@dataclass(frozen=True, slots=True)
 class CastToInteger(object):
     """Cast input to integer."""
 
@@ -96,7 +93,6 @@ def quantize_decimal(number: decimal.Decimal) -> decimal.Decimal:
 
 
 @final
-@dataclass(frozen=True, slots=True)
 class CastToDate(object):
     """Cast input to date."""
 
