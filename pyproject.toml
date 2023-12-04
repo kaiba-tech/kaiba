@@ -42,7 +42,7 @@ safety = "^2.3.5"
 pytest = "^7.4.2"
 pytest-cov = ">=3,<5"
 mkdocs-material = "^9.4.6"
-importlib-metadata = ">=4.8.2,<7.0.0"
+importlib-metadata = ">=4.8.2,<8.0.0"
 isort = "^5.10.1"
 
 [build-system]
