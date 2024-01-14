@@ -6,7 +6,7 @@ from typing import Any, List, Optional, Union
 
 from returns.pipeline import flow
 from returns.pointfree import bind
-from returns.result import Failure, ResultE, safe
+from returns.result import Failure, Result, ResultE, safe, Success
 
 from kaiba.casting import get_casting_function
 from kaiba.models.base import AnyType
@@ -18,7 +18,6 @@ from kaiba.models.slicing import Slicing
 ValueTypes = (str, int, float, bool, Decimal)
 
 
-@safe
 def apply_if_statements(
     if_value: Optional[AnyType],
     statements: List[IfStatement],
@@ -70,16 +69,21 @@ def apply_if_statements(
         True
 
     """
+    result = Success(if_value)
     for statement in statements:
 
-        if_value = _apply_statement(
-            if_value, statement,
+        result = Result.do(
+            _apply_statement(val, statement)
+            for val in result
+            # if_value, statement,
         )
+        print(result)
 
-    if if_value is None:
+    if result is None:
         raise ValueError('If statement failed or produced `None`')
 
-    return if_value
+    print(result)
+    return result
 
 
 def _apply_statement(
