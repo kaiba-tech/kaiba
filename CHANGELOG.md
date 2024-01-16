@@ -9,6 +9,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* Adds a py.typed marker so that when using this package, mypy recognizes it as a typed package.
+
 ## Version 3.0.0 @dataclass from attr bug and no more callable objects.
 
 We were using `@dataclass` decorator from attr, which caused kaiba not to run when used in an environment that did not have attr installed. Thanks to @ChameleonTartu for finding and reporting the bug.
