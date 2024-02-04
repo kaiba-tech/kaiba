@@ -9,6 +9,8 @@
 
 ## Latest Changes
 
+## Version 3.0.1 downstream mypy type support.
+
 ### Upgrades
 
 * Adds a py.typed marker so that when using this package, mypy recognizes it as a typed package.
